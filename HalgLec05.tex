@@ -1,0 +1,91 @@
+\sektion{5}{???}
+
+Now we're in 3 LeConte.
+
+Today we'll prove the following theorem.
+\begin{theorem}\label{05T:X/G}
+ $H_n(X/G)\cong H_n(G)$ if $X$ is a contractible space with a CW structure which $G$ permutes freely.
+\end{theorem}
+Recall that $H_n(G):=H_n(C_*^B(G))$.
+
+We've shown that $C_*^B(G)\cong S_*(G)\otimes_{\ZZ G}\ZZ$, where $S_*(G)$ is the ``simplex with vertices $G$,'' so $S_n(G)=\ZZ\<G^{n+1}\>$ with the usual boundary maps $d=\sum (-1)^i d_i$.\footnote{This $S_*(G)$ is actually obtained from a simplicial set by taking free abelian groups on the simplices.} We showed that $S_*(G)$ is $\ZZ$-contractible (but the contraction is \emph{not} $\ZZ G$-equivariant). In particular, the homology is trivial: $H_n(S_*(G))=0$ for all $n$. We also saw that $S_*(G)$ is a free $\ZZ G$ resolution of the trivial module $\ZZ$.
+
+\begin{theorem}\label{05T:projres}
+ Given free resolutions (over a ring $R$) $F_*\to M$ and $F_*'\to M'$ and an $R$-module homomorphism $f_{-1}\colon M\to M'$, there exists a chain map $f\colon F_*\to F_*'$ extending $f$. Moreover, $f$ is unique up to chian homotopy.
+\end{theorem}
+We'll actually prove this for projective modules (not just free modules).
+\begin{lemma}
+ If $M$ is a right $\ZZ G$-module, then $M^G=\{m\in M|m\cdot g=m\}=\hom_{\ZZ G}(\ZZ, M)$ and $M_G=M/\<m\cdot g-m\> = M\otimes_{\ZZ G} \ZZ$.
+\end{lemma}
+\begin{proof}
+ Obvious.
+\end{proof}
+\begin{proof}[Proof of Theorem \ref{05T:X/G}]
+ We have a $G$-covering $X\to X/G$. Then $C_n^{\mathit{cell}}(X)$ is a free $\ZZ G$-module with one generator for each $n$-cell in $X/G$ and $C_n^{\mathit{cell}}(X/G)=C_n^{\mathit{cell}}(X)_G$. By the lemma, this is $C_n^{\mathit{cell}}(X)\otimes_{\ZZ G}\ZZ$. Moreover, $X$ is contractible, so $C_*^{\mathit{cell}}(X)$ is a free $\ZZ G$ resolution of $\ZZ=H_0(X)$ (since $X$ is connected, the action of $G$ on $H_0$ is trivial). So $H_n(X/G)=H_n(C_n^{\mathit{cell}}(X)\otimes_{\ZZ G}\ZZ)$.
+ 
+ But $H_n(G)=H_n(C_*^B(G))=H_n(S_*(G)\otimes_{\ZZ G}\ZZ)$. By Theorem \ref{05T:projres}, the identity map $\ZZ\to \ZZ$ extends to a chain map $S_*(G)\to C_*^{\mathit{cell}}(X)$. Similarly, we get a chain map the other way. The uniqueness part of the theorem tells us that these two maps are homotopy inverses, so $S_*(G)\simeq C_*^{\mathit{cell}}(X)$ (over $\ZZ G$). But homotopy equivalences are preserved by additive functors, so
+ \begin{align*}
+  H_n(G)&=H_n(C_*^B(G))=H_n(S_*(G)\otimes_{\ZZ G}\ZZ)\\
+  &\cong H_n(C_*^{\mathit{cell}}(X)\otimes_{\ZZ G}\ZZ)=H_n(C_*^{\mathit{cell}}(X/G))=H_n(X). \qedhere
+ \end{align*}
+\end{proof}
+\begin{definition}
+ If $R$ is any ring, with modules $M_R$ and ${}_R N$. We define $\tor_n^R(M,N):=H_n(F_*\otimes_R N)$ where $F_*\to M$ is a free resolution of $M$.
+\end{definition}
+Think of $M$ as a chain complex concentrated in degree zero, and think of $F_*\to M$ as a chain map. Since $F_*$ is a resolution, this map is a quasi-isomorphism. If you like topology, you can think of $M$ as an arbitrary topological space, $F_*$ as a CW-complex, and the map $F_*\to M$ is like a weak homotopy equivalence.
+
+By Theorem \ref{05T:projres}, this definition makes sense. If $F_*'$ is another resolution of $M$, then it must be homotopy equivalent to $F_*$, so the resulting homology groups are the same (canonically isomorphic).
+
+Tony: last time you used a resolution of the other guy. PT: yes. Once you prove the lemma in the homework, we'll be able to show that the two definitions are equivalent.
+
+[[break]]
+
+There was a good question during the break. Recall the homotopy $h_n\colon S_n(G)\to S_{n+1}(G)$, given by $(g_1,\dots,g_n)\mapsto (m,g_1,\dots, g_n)$. This does not imply that $S_*(G)\otimes_{\ZZ G}\ZZ\simeq 0$ because the homotopy is not $\ZZ G$-linear, it is only $\ZZ$-linear, so it doesn't induce a contraction on $S_*(G)\otimes_{\ZZ G}\ZZ$.
+
+Now I want to prove Theorem \ref{05T:projres}, replacing free by projective.
+\begin{definition}
+ A module $P$ is \emph{projective} if $\hom_R(P,-)$ is exact.
+\end{definition}
+That is, if $N\to M$ is a surjection and $P\to M$ is a morphism, then there exists a factorization $P\to N$.
+\[\xymatrix{
+ & P\ar[d] \ar@{-->}[dl]_\exists \\
+ N\ar[r] & M\ar[r] & 0
+}\qquad
+\xymatrix{
+ & P\ar[d] \ar@{-->}[dl]_\exists \ar[dr]^0 \\
+ N\ar[r] & M\ar[r] & M'
+}\]
+Equivalently, if the row on the right is exact, there is a dashed arrow. This is exactly the condition that $\hom_R(P,-)\colon R\mod\to \ab$ is exact.
+
+The reason this is called projective is because any such $P$ is the image of a projection from a free module to itself. That is, it is a direct summand of a free module. Let's prove that this is equivalent to projectiveness. Clearly, if $P\oplus Q$ is free, then any map $P\to M$ can be extended to $P\oplus Q$. Since this is free, we can solve the mapping problem in the diagram and restrict to $P$. On the other hand, if $P$ is projective, we can choose a surjection from a free module (take $M=P$ and $N$ free). By the mapping property, this surjection splits.
+
+It is possible to have projective modules which are not free. Take $R=M_n(k)$, and let $M=k^n$. This cannot be free because its dimension is too small, but $R\cong M^{\oplus n}$, so $M$ is projective but not free. If $R=R_1\times R_2$, then $R_1$ is projective but not free. If $G$ is a finite group, then any $\QQ[G]$-module is projective!
+
+\begin{definition}
+ $J$ is \emph{injective} if $\hom_R(-,J)\colon R\mod^\circ \to \ab$ is exact.
+\end{definition}
+\begin{definition}
+ ${}_R N$ is \emph{flat} if $-\otimes_R N\colon \rmod R\to \ab$ is exact.
+\end{definition}
+There is an analouge to Theorem \ref{05T:projres} for injective modules.
+\begin{theorem}
+ If $0\to M\to J_0\to J_{-1}\to \cdots$ is an injective coresolution of $M$, $M'\to J_*'$ is an injective coresolution of $M'$, and $f_1\colon M\to M'$, then there is a chain map $f\colon J_*\to J_*'$ extending $f_1$. Moreover, $f$ is unique up to homotopy.
+\end{theorem}
+\begin{proof}[Proof of Theorem \ref{05T:projres}]
+ First we construct $f_n$ by induction.
+ \[\xymatrix{
+  P_{n+1} \ar[r] & P_n\ar[d]_{f_n}\ar[r] & P_{n-1} \ar[d]^{f_{n-1}} & \cdots\\
+  P'_{n+1} \ar[r] & P'_n\ar[r] & P'_{n-1}& \cdots  
+ }\]
+ Since the composition $P_{n+1}\to P_{n-1}$ is zero, there is an extention $P_{n+1}\to P'_{n+1}$ (using projectivity of $P_{n+1}$.
+ 
+ Now let's assume we have two such chain maps $f$ and $g$. We construct the homotopy by induction.
+ \[\xymatrix{
+  P_{n+1} \ar[r] \ar[d]_{f_{n+1}-g_{n+1}} & P_n\ar[d]|{f_n-g_n}\ar[r] & P_{n-1} \ar[d]^{f_{n-1}-g_{n-1}} \ar[dl]^{h_{n-1}} & \cdots\\
+  P'_{n+1} \ar[r] & P'_n\ar[r] & P'_{n-1}& \cdots  
+ }\]
+ Assume $d'h+hd=f-g$ so far. Consider the map $f-g-hd\colon P_*\to P'_*$. We see that $d'(f-g-hd)=(f-g)d-d'hd = (hd+d'h)d - d'hd=0$, so we can use the mapping property to get $h_n$.
+\end{proof}
+
+
+

@@ -1,0 +1,87 @@
+\sektion{24}{Constructing spectral seqeunces}
+
+\def\pd{\pb}
+
+This week, you can submit the homework a little later than usual
+
+For HW11, problem 2, you have to use the Leray-Serre \emph{cohomology} spectral sequence. In that case, you have one extra thing going for you, which is that the differentials are derivations (for some product structure). This is enough to do the problem (at least rationally; if you try to do it integrally, you get lots of torsion having to do with stable homotopy groups of spheres).
+
+For problem 1, I also didn't give you enough information; I haven't told you the spectral sequence associated to a double complex so that you'd try to figure it out yourself. In principal, you could have worked this out with everything you know.
+
+Today, we'll construct the spectral sequence associated to a filtered chain complex. The input is a chain complex $C$, which you'd like to know the homology of. In the Leray-Serre case, where you have $F\xrightarrow i E\xrightarrow\pi B$, and $C=C_*(E)$. We also have a filtration of chain complexes
+\[
+ 0\subseteq \cdots \subseteq F_pC\subseteq F_{p+1}C\subseteq \cdots C.
+\]
+In the Leray-Serre case, we may assume $B$ is a CW complex because we can pull the fibration back along the weak equivalence $|\Delta_\udot B|\to B$. Then the fiber doesn't change, and the resulting map from the new total space to $E$ is a weak equivalence:
+\[\xymatrix{
+ F\ar[r]^i \ar@{=}[d] \ar[r] & E \ar[r]^{\pi} & B\\
+ F \ar[r] & E'\ar@{}[ur]|(.25)\pd \ar[r]\ar[u]^\wr & |\Delta_\udot B|\ar[u]^\wr
+}\qquad
+\xymatrix{
+ F\ar[r]^i \ar@{=}[d] \ar[r] & E \ar[r]^{\pi} & B\\
+ F \ar[r] & \pi^{-1}(B^{(p)})\ar@{}[ur]|(.25)\pd \ar[r]\ar[u] & B^{(p)}\ar[u]
+}\]
+Then we have a filtration of $B$ (it is a CW complex). We can pull back the fibration along the inclusions $B^{(p)}\to B$. Define $F^pC_*E=\im \bigl(C_*(\pi^{-1}(B^{(p)}))\bigr)$
+\begin{theorem}
+ Let $C$ be a bounded below ($F_{p_0}C=0$ for some $p_0$)\footnote{It is not enough to assume $\bigcap F_p C=0$, because then you don't get $\bigcap F_pH(C)=0$.} exhaustive ($\bigcup F_p C=C$) filtered chain complex \anton{such that $C$ is also bounded below as a chain complex}. Then there exists a spectral sequence with $E^0_{p,q}=F_pC_{p+q}/F_{p-1}C_{p+q}$ and $d_0=[d]$ converging to $H_{p+q}(C)$ (which has the filtration induced by the original filtration).
+\end{theorem}
+If you have a chain complex, you can only take the homology. If you have a filtered object in an abelian category, you can only take its associated graded. If you have a filtered chain complex, then you can do both, and they don't quite commute. We have that $E^1_{p,q}=H_{p+q}(F_pC/F_{p-1}C, [d])$, which is one direction, and $E^{\infty}_{p,q}=F_p(H_{p+q}(C))$, which is the other direction.
+\[\xymatrix@!0 @C+2pc @R+.5pc{
+ & \text{filtered }C\ar[dr]^{\text{homology}}\ar[dl]_{\text{Gr}}\\
+ **[l]\text{chain cx }F_pC/F_{p-1}C \ar[d]_{\text{homology}} & & **[r] \text{filtered }H(C)\ar[d]^{\text{Gr}}\\
+ E^1\ar@{~>}[rr]^{\text{use }d_r\ r\ge 1} & & E^\infty
+}\]
+
+One example is going to be the Leray-Serre spectral sequence. Another one is the total complex of a double complex $D_{p,q}$. $\tot(D_{*,*})$ is filtered by columns (or rows). The nice thing about this case is that you can explicitly write $d_r$ in terms of the horizontal and vertical differentials (tic-tac-toe).
+
+\begin{proof}[Proof of Theorem]
+ I'll ignore the $q$ index; it just goes along for the ride (in fact, the proof works for a filtered differential object, which need not be a chain complex).
+%  \[\xymatrix{
+%   A_{p-1}^{r-1} \ar@{}[d]|\cap & A_p^r \ar@{}[d]|\cap \\
+%  F_{p-1}C \ar@{}[r]|\subseteq & F_pC \ar@{}[r]|\subseteq \ar[d]^d & \cdots & C\\
+%  F_{p-1}C \ar@{}[r]|\subseteq & F_pC \ar@{}[r]|\subseteq & \cdots & C\\
+%  A^r_{p-r}\ar@{}[u]|\cup
+%  }\]
+ The key is to define the \emph{$r$-approximate cycles} $A_p^r=\{x\in F_pC|dx\in F_{p-r}C\}$. Note that $A^{r-1}_p\subseteq A^r_p$, and $A^{r-1}_{p-1}\subseteq A^r_p$. We can define $A^\infty_p = \bigcap A^r_p$ (this is actually a finite intersection because of bounded below). Note that the differential maps $A^r_p$ to $A^r_{p-r}$. The miracle formula is
+ \[
+  E^r_p := \frac{A_p^r}{d A^{r-1}_{p+r-1} + A_{p-1}^r}
+ \]
+ The differential induces a map $d^r\colon E^r_p\to E^r_{p-r}$, which is clearly a differential (because $d$ is).
+ 
+ Lemma: $H_p(E_*^r,d^r) = E^{r+1}_p$. To prove this, just write it out. By definition, $E_p^{r+1} = \frac{A^{r+1}_p}{d A^r_{p+r} A^r_{p-1}}$. Let's write a surjection $A^{r+1}_p\twoheadrightarrow \ker d^r$. By definition, $d$ takes $A^{r+1}_p$ to $A^{r-1}_{p-r-1}$, which is in the kernel of $d^r$. Now let's show that, modulo $A^{r-1}_{p-1}$, you get everything in the kernel of $d^r$. If something maps to zero, it is a sum of elements in $d A^{r-1}_{p-1}$ and $A^{r-1}_{p-r-1}$ (some chasing around). Now we have a surjection $A^{r+1}_p\twoheadrightarrow \ker d^r\twoheadrightarrow H_p(E_*^r,d^r)$. Check for yourself that the kernel of this surjection is $d A^r_{p+r}+A^r_{p-1}$.
+ 
+ Now we have to check that the spectral sequence converges under our assumptions. Define $A^\infty_p = \bigcap A^r_p$. This is a finite intersection because of our bounded below assumption. The key observation is that $A^\infty_p = \ker(d\colon F_pC\to F_pC)$. The other fact is that $d\bigl(\bigcup A_p^r\bigr) = \im d \cap F_p C$. The point is that 
+ \[
+  \frac{F_p H(C)}{F_{p-1}H(C)} \cong \frac{A^\infty_p}{A^\infty_{p-1}+d\bigl(\bigcup_r A^r_{p+r}\bigr)} \cong E^\infty_p
+ \]
+ This follows from the observation that for a fixed $p$, $E^r_p$ stablilizes for some finite $r$. Actually, the $dA^{r-1}_{p+r-1}$ doesn't stabilize. You have to put a union. You have to remember what we meant by $E^\infty_p$, it is $\bigcap_r Z^r_p/\bigcup_r B^r_p$. Then you get the right $E^\infty$.
+ 
+ It is clear that $F_{p_0}H(C)=0$. It is also clear that $\bigcup_p F_p H(C)=H(C)$. This is what we needed for convergence.
+\end{proof}
+
+[[break]]
+
+In the Leray-Serre spectral sequence, we defined $F_p C(E)$ to be the image of $C_*\bigl(\pi^{-1}(B^{(p)})\bigr)$. The final thing you need to prove the Leray-Serre spectral sequence is the following lemma, which I'll skip.
+\begin{lemma}
+ $E^1_{p,q}=C^{\text{\rm cell}}_p(B;H_q F)$ and $E^2_{p,q}=H_p(B;H_qF)$.
+\end{lemma}
+
+\subsektion{Cohomology spectral sequence}
+
+Cohomology spectral sequences work like this. For a filtered cochain complex $C$, the terms are $E^{p,q}_r$. The filtration is decreasing, so $F^{p+1}C\subseteq F^p C$. The differentials are $d_r\colon E^{p,q}_r\to E^{p+r,q-r+1}_r$. Convergence means that $E^{p,q}_\infty\cong F^pH_{p+q}(C)/F^{p+1}H_{p+q}(C)$.
+\begin{example}[cohomology Leray-Serre]
+ We have a fibration $F\to E\to B$, then there is a cohomology spectral sequence $E_2^{p,q}=H^p(B;H^qF)\Rightarrow H^{p+q}(E)$. The main point is that this is a spectral sequence of graded rings!
+\end{example}
+Given a filtered differential graded algebra $C^*$, a chain complex with an associative multiplication $C^p\otimes C^q\xrightarrow\mu C^{p+q}$ with the compatibility $d(ab)=da\cdot b + (-1)^{|a|}a\cdot db$, with a filtration respecting all this. In this situation, $H(C)$ is again a differential graded algebra.
+\begin{theorem}
+ $(E_r^*,d_r)$ is again a differential graded algebra and $E_{r+1}^*\cong H^*(E^*_r,d_r)$ is an isomorphism of differential graded algebras.
+\end{theorem}
+In the Leray-Serre case, the differential graded algebra structure on $E_2^{p,q}=H^p(B;H^qF)$ is given by using the cup product for both cohomologies. The convergence is an isomorphism of differential graded algebras, and the differentials in the spectral sequence are derivations.
+
+For problem 2, $A^*=\hom_\ZZ(A,\ZZ)$, and the free algebra on a vector space $V$ of degree $n$ is the symmetric algebra when $n$ is even and the exterior algebra when $n$ is odd.
+
+
+
+
+
+

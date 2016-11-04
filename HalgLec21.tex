@@ -1,0 +1,120 @@
+\sektion{21}{Spectral sequences}
+
+I predict that all of you will need spectral sequences at some point, so you shouldn't be afraid of them. The goal is to be able to do computations. So far, we can't compute group homology except for some special cases. This tool will allow you to compute them for a lot of groups.
+\begin{definition}
+ A \emph{spectral sequence} in an abelian category $\A$ consists of the following data:
+ \begin{enumerate}
+  \item objects $E_{p,q}^r\in \A$ ($p,q\in \ZZ$, $r\in \ZZ{\ge a}$ (usually $a=0,1$, or $2$) with differentials $d_r\colon E_{p,q}^r\to E_{p-r,q+r-1}^r$ (with $d_r^2=0$),
+  \item ``turning the page'' isomorphisms $E_{p,q}^{r+1}\cong H(E_{p,q}^r,d_r)$.
+ \end{enumerate}
+\end{definition}
+Think of $r$ as fixed, then the collection $E_{p,q}^r$ is called the ``$r$-th page'' of the spectral sequence. It is a grid of objects, with diagonal differentials. Suppose $r=1$, then the page looks like the thing on the left
+\[\xymatrix @!0 @+1pc{
+ & E^1_{0,2}\ar[l]_{d_1} & E^1_{1,2}\ar[l]_{d_1} & E^1_{2,2}\ar[l]_{d_1}\\
+ & E^1_{0,1}\ar[l]_{d_1} & E^1_{1,1}\ar[l]_{d_1} & E^1_{2,1}\ar[l]_{d_1}\\
+ & E^1_{0,0}\ar[l]_{d_1} & E^1_{1,0}\ar[l]_{d_1} & E^1_{2,0}\ar[l]_{d_1}\\
+}\qquad\qquad
+\xymatrix @!0 @+1pc{
+ & E^2_{0,2} & E^2_{1,2} & E^2_{2,2}\\
+ & E^2_{0,1} & E^2_{1,1}\ar[ull]|{d_2} & E^2_{2,1} \ar[ull]|{d_2} & \ar[ull]|{d_2}\\
+ & E^2_{0,0} & E^2_{1,0}\ar[ull]|{d_2} & E^2_{2,0} \ar[ull]|{d_2} & \ar[ull]|{d_2}\\
+}\]
+When you turn the page (by taking homology), you get the second page (on the right). Then you keep turning the pages and the differentials go further to the left and up.
+\begin{definition}
+ The \emph{total degree} of $E^r_{p,q}$ is $p+q$. Then each $d_r$ \emph{decreases} the total degree by 1.
+\end{definition}
+The things of a fixed total degree are all the things on a fixed anti-diagonal.
+
+If we ignore the bigrading (so take $E^r=\bigoplus E^r_{p,q}$), we get cycles $\ker d_r=B^r\subseteq E^r$ and boundaries $\im d_r=Z^r\subseteq E^r$. Then $E^1= Z^0/B^0$, and the kernel of $d_1$ is $Z^1/B^0$ and the image is $B^1/B^0$. You can keep going, writing everything as a subquotient of $E^0$. We know that $E^r\cong Z^r/B^r$. We can define $Z^\infty = \bigcap_{r\ge 0} Z^r$ and $B^\infty = \bigcup_{r\ge 0} B^r$ (assume for the moment that these exist in $\A$), and then define the \emph{$\infty$-page} $E^\infty = Z^\infty/B^\infty$.
+\begin{definition}
+ A spectral sequence $\{E^r_{p,q},d_r\}$ \emph{(weakly) converges} to $H_*$ (written $E^a_{p,q}\Rightarrow H_{p+q}$) if we have
+ \begin{enumerate}
+  \item objects $H_n\in A$ ($n\in \ZZ$) that are filtered (increasingly), so $0\subseteq \cdots F_pH_n \subseteq F_{p+1}H_n\cdots \subseteq H_n$,\footnote{Some books require $\bigcup F_p H_n=H_n$ or $\bigcap F_pH_n=0$. We should probably require this.} and
+  \item isomorphisms $E^\infty_{p,q}\cong F_pH_{p+q}/F_{p-1}H_{p+q}$.\qedhere
+ \end{enumerate}
+\end{definition}
+Q: if the spectral sequence converges to zero (and we don't require the extra condition), then it looks like it converges to anything with the trivial filtration.
+\begin{definition}
+ A spectral sequence $\{E^r_{p,q},d_r\}$ is \emph{bounded} if for all $r$ and $n$, all but finitely many of the $E^r_{p,q}$ of total degree $n$ are zero.
+\end{definition}
+\begin{example}[first quadrant spectral sequences]
+ If $E^r_{p,q}=0$ whenever $p<0$ or $q<0$, then the spectral sequence is bounded).
+\end{example}
+Note that (in any spectral sequence) once you know $E^r_{p,q}=0$, then $E^{r+1}_{p,q}=E^\infty_{p,q}=0$. In a bounded spectral sequence, for each $p$ and $q$, there is an $r$ such that $E^r_{p,q}\cong E^{r+1}_{p,q}\cong E^\infty_{p,q}$. This is because the differentials eventually go to and come from zero.
+\begin{definition}
+ A bounded spectral sequence $\{E^r_{p,q},d_r\}$ \emph{converges} to $H_*$ (written $E^a_{p,q}\Rightarrow H_{p+q}$) if we have
+ \begin{enumerate}
+  \item objects $H_n\in A$ ($n\in \ZZ$) that are finitely filtered (increasingly), so $0=F_sH_n\subseteq \cdots F_pH_n \subseteq F_{p+1}H_n\cdots \subseteq F_t H_n= H_n$, and
+  \item isomorphisms $E^\infty_{p,q}\cong F_pH_{p+q}/F_{p-1}H_{p+q}$.\qedhere
+ \end{enumerate}
+\end{definition}
+\begin{example}[Hochschild-Serre spectral sequence]
+ For any group extension
+ \[
+  1\to N\to G\to Q\to 1
+ \]
+ there is a spectral sequence $E^2_{p,q}=H_p(Q;H_q(N))\Rightarrow H_{p+q}(G)$. This is obviously first quadrant, so it is bounded. The main unknown in this game are the differentials. Notice also that there is an extension problem to be solved ($H_{p+q}(G)$ is only given by a series of extensions of $E^{\infty}_{p,q}$).
+ 
+ What is the action of $Q$ on $H_q(N)$? You get a morphism $\rho\colon Q\to Out(N)$. There is a lemma that if you have a group $N$, the inner automorphisms act trivially on $H_q(N)$. It follows that you get an action of $Out(N)$ on $H_q(N)$, which induces an action of $Q$ on $H_q(N)$.
+\end{example}
+
+[[break]]
+Consider
+\[\xymatrix@R-1.5pc{
+ & \<(1\ 2\ 3)\> \ar@{=}[d] \\
+ 1\ar[r]& \ZZ/3\ar[r]& S_3 \ar[r]^-\sigma & \ZZ/2\ar[r]& 1
+}\]
+Then the Hochschild-Serre spectral sequence is $H_p(\ZZ/2,H_q(\ZZ/3))\Rightarrow H_{p+q}(S_3)$. Recall that $H_0(G;M)=M_G$ and $H^0(G;M)=M^G$. So the $E^2$ page is
+\[\xymatrix @R-1.5pc @C-1pc{
+ 7& \ZZ/3\\
+ 6& \\
+ 5& \\
+ 4& 0 & 0 & 0 & 0 & 0 & \cdots\\
+ 3& \ZZ/3\\
+ 2& 0 & 0 & 0 & 0 & 0 & \cdots\\
+ 1& 0=(\ZZ/3)_{\ZZ/2}\\
+ 0 & \ZZ & \ZZ/2 & 0 & \ZZ/2 & 0 & \ZZ/2 & \cdots\\
+  & 0 & 1 & 2 & 3
+}\]
+If $\ZZ/2\to \Aut(\ZZ/3)$ were trivial, the extension would be a direct product. I claim that for any action, $H^2(\ZZ/2;\ZZ/3)=0$ (this means that any extension splits). What is the map $\Aut(\ZZ/3)\to \Aut(H_q(\ZZ/3))$. Since $H_1(\ZZ/3)=\ZZ/3$, the action of $\ZZ/2$ is nontrivial, so we get $E^2_{0,1}=(\ZZ/3)_{\ZZ/2} = (\ZZ/3)/\<a-(-a)\>=0$. $H_{even}(\ZZ/3)=0$, so the coinvariants are also zero (and $H_p(\ZZ/2;H_q(\ZZ/3))=0$ for all $p$). I claim that $H_{1+4n}(\ZZ/3)$ has trivial $\ZZ/2$-action and $H_{3+4n}(\ZZ/3)$ has non-trivial $\ZZ/2$-action (we'll prove this lemma soon), so the first column is 4-periodic
+
+\begin{lemma}
+ $H_p(G;\ZZ/n)=0$ if $|G|<\infty$ and $gcd(n,|G|)=1$.
+\end{lemma}
+\begin{proof}
+ (1) multiplication by $|G|$ annihilates $H_p(G;M)$ for all $p>0$. This uses the \emph{transfer map}. If $\pi\colon (E,e_0)\to (B,b_0)$ is an $k$-sheeted cover ($k<\infty$), then you have an induced map $\pi_*\colon H_n(E,e_0)\to H_n(B,b_0)$, but you also get a map the other way, $tr\colon H_n(B,b_0)\to H_n(E,e_0)$. If you have a map $\sigma\colon \Delta^n\to B$, then there are $k$ lifts of this map to $E$; call them $\sigma_1,\dots, \sigma_k$. The transfer map is induced by the chain map in singular complexes $[\sigma]\mapsto \sum_{i=1}^k [\sigma_i]$. You can check that $\pi_*\circ tr$ is multiplication by $k$.
+ 
+ Now we can apply this transfer map to $EG\to BG$, which is a $|G|$-sheeted covering map. Then multiplication by $|G|$ on $H_n(BG)=H_n(G)$ factors through $H_n(EG)=0$.
+  
+ (2) If $gcd(m,n)=1$, then $m\colon H_p(X,\ZZ/n)\to H_p(X,\ZZ/n)$ is an isomorphism (this is because it is an isomorphism on $\ZZ/n$ and $H_p$ is a functor).
+ 
+ The only way both of these can be true if $H_p(|G|;\ZZ/n)=0$.
+\end{proof}
+The upshot is that everything else in our $E^2$ page is zero. If you look at this $E^2$ page, then you see that none of the differentials (for any $r$) can be nontrivial! This is basically because $E^{even>0}=0$. So $E^\infty=E^2$. So we get
+\[\begin{tabular}{c|c}
+ $i$ & $H_i(S_3)$\\ \hline
+ 0&$\ZZ$\\
+ 1&$\ZZ/2$\\
+ 2&$0$\\
+ 3&$\ZZ/6$\\
+ 4&$0$\\
+ 5& 4-periodic from here on\\
+\end{tabular}\]
+Note that there are no non-trivial abelian extensions of $\ZZ/2$ by $\ZZ/3$.
+
+
+
+
+
+
+
+\vspace{4cm}
+\[\xymatrix @-1pc{
+ E_{0,2} & E_{1,2} & E_{2,2}\\
+ E_{0,1} & E_{1,1} & E_{2,1}\\
+ E_{0,0} & E_{1,0} & E_{2,0}\\
+}\]
+
+
+
+

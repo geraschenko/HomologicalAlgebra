@@ -1,0 +1,67 @@
+\sektion{14}{???}
+
+Homological algebra $\leftrightsquigarrow$ Combinatorics of semisimplicial sets $\leftrightsquigarrow$ homotopy theory.
+
+\begin{example}
+ Consider the circle $S^1$ as a vertex and one edge. This is homeomorphic to the realization $|X_\udot|$ of the semisimplicial set $X_0=\{v\}$ and $X_1=\{e\}$, with the two maps $X_1\rightrightarrows X_0$.
+\end{example}
+\begin{example}
+ Consider $S^2$ as a vertex and a 2-cell. Is this the realization of a semi-simplicial set? No, because any 2-simplex would have to have three faces, which could be 1-simplices.
+ 
+ What if we have $S^2=v\cup e\cup f_1\cup f_2$? There are no choices for the face maps (because there is only one 1-cell and only one 0-cell). The attaching map of the 2-cells is not the identity map, but it has degree 1, so we at least have a homotopy equivalence $|X_\udot|\simeq S^2$.
+ 
+ How would we check that the degree is 1? We can compute homology.
+ \[
+  H_n(X_\udot):=H_n(Free_*(X_\udot))\cong H_n^{\text{cell}}(|X_\udot|)
+ \]
+ To see the isomorphism, you have to check the boundary maps. In our case, we have $Free_*(X_\udot)= (\ZZ\times \ZZ \xrightarrow{??} \ZZ \xrightarrow 0 \ZZ)$. Clearly $H_0=\ZZ$ and $H_2=\ZZ$ (because $??$ is either $(1,1)$ or $(3,3)$). Depending on what $??$ is, $H^1$ is either $0$ or $\ZZ/3$. Anyway, the right answer is $(1,1)$.
+ 
+ If you play a little more, you can get something homeomorphic to $S^2$.
+\end{example}
+The representable elements of $ss\set=\fun(\C_\Delta^\circ,\set)$ are of the form $\Delta_\udot[n]=\C_\Delta(-,[n])$. There are $\binom{n+1}{k+1}$ $k$-simplices, the same as the $k$-dimensional faces of $\Delta^n$. If you think about it a bit, $|\Delta_\udot[n]|=\Delta^n$ with it's usual cell decomposition. Now we're in good shape to get $S^n$.
+
+\begin{corollary}
+ $S^{n-1}\cong \partial \Delta^n\cong |X_\udot|$, where $X_\udot$ is the same as $\Delta_\udot[n]$, except with the one point set $\Delta_n[n]$ replaced by the empty set (i.e.~with the top-dimensional simplex removed).
+\end{corollary}
+
+Let $K\subseteq \RR^N$ be a finite (or at least discrete) ordered simplicial complex (meaning that $K$ is actually the union of simplicies meeting nicely along faces). Define a semi-simplicial set $X_\udot$ by defining $X_n$ to be the set of all $n$-simplicies in $K$, with $d_i\colon X_n\to X_{n-1}$ being the $i$-th face map (this is where we needed the ordering).
+\begin{lemma}[Definition, actually]
+ $K\cong |X_\udot|$. Moreover, this is a cellular isomorphism.
+\end{lemma}
+Now I should say something about the ``semi''. When people realized that there is this complex underlying everything, they eventually called them semi-simplicial sets. Then something happened (we'll get to it soon) that said that these things are not quite good enough. They are missing some information (degeneracy maps). The ``semi'' was originally because the $X_\udot$ was just the combinatorial data, not the whole chain complex, but we use ``semi'' for a second reason, which is that we're missing the degeneracy maps. We have $H_n^{\text{simp}}(K):= H_n(X_\udot)$.
+
+\[\xymatrix@R-1.5pc{
+ \chain & ss\ab \ar[l]_-{Alt} \ar@<-.5ex>[r]_-{Forget} & ss\set \ar@<-.5ex>[l]_-{Free} \ar@<.5ex>[r]^-{|\cdot|} & \top \ar@<.5ex>[l]^-{\Delta_\udot}\\
+  S_*(X) & S_\udot(X)\ar@{|->}[l] & \Delta_\udot(X) \ar@{|->}[l] & X\ar@{|->}[l]\\
+  C_*^{\text{simp}}(K) & & X_\udot^K \ar@{|->}[ll]\ar@{|->}[r] & K
+}\]
+Left adjoints are on top. $S_*(X)$ is the usual singular chain complex of $X$. So we've broken up the usual story into many steps. Next we'll play with some of the other arrows in the diagram. What we've done so far is the bottom row.
+
+[[break]]
+
+Another thing we can go is go back and forth in the diagrams. If $X\in \top$, then we get a natural map $|\Delta_\udot(X)|\to X$. The following theorem follows from some very general theory.
+\begin{theorem}
+ This is a map from a CW complex, and it turns out it is a weak homotopy equivalence (it induces isomorphisms an all $\pi_n$ for all base points). So this is a canonical CW approximation to $X$. 
+\end{theorem}
+\begin{remark}
+ $X$ is homotopy equivalent to a CW complex if and only if this map is an actual homotopy equivalence (the converse is Whitehead's theorem).
+\end{remark}
+
+If $R$ is a ring, then we had the semi-simplicial $(R,R)$-bimodule $T_\udot(R)$. Say $R=\ZZ G$. We have
+\[\xymatrix@R-1.5pc{
+ \chain & ss\ab \ar[l]_-{Alt} \ar@<-.5ex>[r]_-{Forget} & ss\set \ar@<-.5ex>[l]_-{Free} \ar@<.5ex>[r]^-{|\cdot|} & \top \ar@<.5ex>[l]^-{\Delta_\udot}\\
+  T_*(\ZZ G) & T_\udot(\ZZ G) \ar@{|->}[l] & T_\udot(G) \ar@{|->}[l] \\
+  T_*(\ZZ G)\otimes_{\ZZ G} \ZZ & T_\udot(\ZZ G)_G \ar@{|->}[l] & T_\udot(G)/G \ar@{|->}[l] \ar@{|->}[r] & EG\\
+  \ZZ \otimes_{\ZZ G} T_*(\ZZ G)\otimes_{\ZZ G} \ZZ & {}_G T_\udot(\ZZ G)_G \ar@{|->}[l] & G\backslash T_\udot(G)/G \ar@{|->}[l] \ar@{|->}[r] & BG
+}\]
+Note that $T_\udot(\ZZ G)_n\cong \ZZ[G^{n+2}]$, and the maps actually come from maps in a semi-simplicial $(G,G)$-set $T_\udot(G)$. We can take the quotient by the right action to get a semi-simplicial $G$-set $T_\udot(G)/G$. Then we get $T_*(\ZZ G)\otimes_{\ZZ G} \ZZ$, which was a free $\ZZ G$-resolution of $\ZZ$. Then group homology is just given by tensoring this with some module and then taking homology. We can define $EG$ as the geometric realization of $T_\udot(G)/G$. Since $T_*(\ZZ G)\otimes_{\ZZ G} \ZZ$ is acyclic, $EG$ has no homology (because simplicial homology agrees with usual homology), and it still has a free $G$-action. What is the quotient $G\backslash EG=:BG$? It is the geometric realization of $G\backslash T_\udot(G)/G$.
+
+Now we know that the complex $\ZZ \otimes_{\ZZ G} T_*(\ZZ G)\otimes_{\ZZ G} \ZZ$ computes $H_n(G)$ (by definition). We've just shown that $BG$ is a canonically associated topological space so that $H_n(BG)\cong H_n(G)$. The punchline is that you should recognize that the homology of $G$ can be computed by $BG$.
+
+An obvious quesion: is $EG$ contractible? That is, is $BG$ a $K(G,1)$? How did we prove that $T_*(\ZZ G)\otimes_{\ZZ G}\ZZ$ is acyclic? We showed that $T_*(\ZZ G)$ is contractible as a complex of left (or right) $\ZZ G$-modules. Wouldn't it be nice if all our maps were compatible with contractions? To do this, we need to introduce the notion of homotpy in $s\set$ and $s\ab$ (it doesn't work well in $ss\set$ and $ss\ab$) and there are actually functors
+\[\xymatrix@R-1pc{
+ \chain \ar@{=}[d] \ar@<-1ex>[r] \ar@{}[r]|-\simeq & s\ab \ar@<-.5ex>[d]\ar@{<-}@<.5ex>[d] \ar@<-1ex>[l]_{N_*} \ar@<-.5ex>[r]_-{Forget} & s\set \ar@<-.5ex>[d]\ar@{<-}@<.5ex>[d] \ar@<-.5ex>[l]_-{Free} \ar@<.5ex>[r]^-{|\cdot|} & \top \ar@{=}[d] \ar@<.5ex>[l]^-{\Delta_\udot}\\
+ \chain & ss\ab \ar[l]_-{Alt} \ar@<-.5ex>[r]_-{Forget} & ss\set \ar@<-.5ex>[l]_-{Free} \ar@<.5ex>[r]^-{|\cdot|} & \top \ar@<.5ex>[l]^-{\Delta_\udot}\\
+}\]
+$\C_\Delta\subseteq \Delta$, where $\Delta$ is the category of objects $[n]$, with increasing (but not necessarily strictly increasing) maps. Then $s\C=\fun(\Delta^\circ, \C)$.
+

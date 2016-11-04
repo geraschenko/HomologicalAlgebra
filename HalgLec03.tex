@@ -1,0 +1,80 @@
+\sektion{3}{???}
+
+Starting Thursday, we'll be in 71 Evans. Chris will have office hours (1060 Evans) and discussion meeting starting this week. The office hours will be Wednesday 9-10am and the meeting will be Friday 12-1 (in a room to be announced). You only need to write up problem 1. The other problems will be discussed.
+
+Remember the following theorem.
+\begin{theorem}
+ If a group $G$ acts on a contractible space $X$ so that the cells (of some CW decomposition) are permuted freely, then $H_*(X/G)\cong H_*(G)$.
+\end{theorem}
+We took the example $X=\RR$ and $G=\ZZ$ with the action given by translation. So we get that $H_*(S^1)\cong H_*(\ZZ)$, and we know $H_*(S^1)$ really well. For now, we haven't defined group homology, so the theorem is not so impressive, but this allows you to compute group homology using topological homology. One thing that is perhaps surprising is that this homology does not depend on $X$. For example we could take $X=\RR^2$ with traslation action of $\ZZ$, and the homology of the quotient is the same.
+
+For this discussion, you just have to know that $H_*(G)$ is defined purely algebraically. I'll define it very soon. 
+
+Why not just use free $G$-actions on a contractible space $X$ instead of worrying about cell decompositions? Because of the following example. $\ZZ^2\subseteq \RR$ (pick two relatively irrational numbers, like 1 and $\pi$), so you can think of $\ZZ^2$ acting on $\RR$ by translation. This is a free action, but the orbits are dense, so it doesn't act freely on any CW decomposition. The quotient $\RR/\ZZ^2$ has $H_2=0$ (the top non-zero homology is roughly the dimension of the space, and $\RR/\ZZ^2$ is roughly 1-dimensional). However, $H_2(\ZZ^2)=H_2(S^1\times S^1)$ (since $\ZZ^2$ acts on the plane freely), which is non-zero.
+\begin{remark}
+ T$G$ permutes the cells freely if and only if (i) $X/G$ is a CW complex, and (ii) $X\to X/G$ is a regular $G$-covering.
+\end{remark}
+\begin{remark}
+ $X$ is contractible, so $\pi_n(X)=0$ for all $n$. This implies that $\pi_1(X/G)\cong G$ and $\pi_n(X.G)\cong 0$ for $n\neq 1$ (I assume $G$ is a discrete group). So $X/G$ is a CW complex of type $K(G,1)$. The cool thing is that the homotopy type of $X/G$ is totally determined by $G$ (you have to know a little obstruction theory in topology). The theorem is slightly weaker than this (it says that homology type is determined by $G$).
+\end{remark}
+It's really important that we have CW structure.
+\begin{theorem}[Whitehead]
+ If $X\to Y$ induces isomorphisms on all homotopy groups (for all choices of base point in $X$), then $f$ is a homotopy equivalence \emph{provided} that $X$ and $Y$ are CW complexes.
+\end{theorem}
+You need a map to induce the isomorphisms. Having isomorphisms between the homotopy groups is not enough. You prove the theorem by explicitly constructing the homotopy inverse explicitly ($\pi_n$ roughly controls the $n$-cells).
+\begin{corollary}
+ If $K$ is another $K(G,1)$ (in particular, is a CW complex), then $K\simeq X/G$.
+\end{corollary}
+This is a corollary as soon as we get a map $X/G\to K$ or the other way, inducing an isomorphism. Since there is only one non-trivial homotopy group, it turns out that you can construct the map cell by cell. If there are multiple non-zero homotopy groups, you get things called $K$ invariants which obstruct such a construction. There is a whole story about Postnikov (?) towers. We won't use this obstruction theory stuff for the proof of the theorem; we'll prove the theorem algebraically.
+
+The first thing we need to do is define group homology. We'll do one more application of the theorem in a bit. I'm starting on $H_*(X/G)$ not because I'm a topologist, but because it is the easier one to compute.
+\begin{definition}
+ Given a group $G$, the \emph{Bar complex} for $G$ is given by taking $C_n^{\mathit{Bar}}(G)$ to be the free abelian group on $G^n$. $d\colon C^B_n(G)\to C^B_{n-1}(G)$ is given by $\sum_{i=0}^n (-1)^i d_i$, where 
+ \[
+  d_i(g_1|\cdots |g_n)=\begin{cases}
+   g_2|\cdots |g_n & i=0\\
+   g_1|\cdots | g_ig_{i+1}|\cdots| g_n & 0<i<n\\
+   g_1|\cdots | g_{n-1} & i=n
+  \end{cases}
+ \]
+ Now we define $H_n(G):=H_n(C_*^B(G))$.
+\end{definition}
+This is called the Bar complex either because Cartan and Eilenberg came up with it in a bar, or because of all the bars in the notation. You need to prove $d^2=0$. It should be fairly obvious that $C_n^B(G)\cong \ZZ G^n\cong \ZZ G^{\otimes n}$. You could define the map in these terms, in which case you'd see that this $d$ makes sense if you change $\ZZ G$ to any algebra; this is called the \emph{Hodgechild homology} (sp?) of the algebra.
+\begin{example}[$G=\ZZ/2$]
+ This complex is really hard to compute with. I never tried it; maybe you could do it. However, we can compute the homology using the theorem. The Brower fixed point theorem says that any map on a disk has a fixed point, so there is no fixed-point-free action on the disk. We start with a point, and add cells to make the space contractible and avoid fixed points. Take $X=\bigcup_{n\ge 0} S^n$, with $\ZZ/2$ acting by the antipodal map and CW structure given by two cells in each dimension (so $X^{(n)}=S^n$). This $X$ is contractible; use Whitehead's theorem with $X\to *$. We have to show that any map $S^k\to X$ is contractible (i.e.~that $\pi_k(X)=0$). Up to homotopy, the image lands in $X^{(k+1)}\cong S^{k-1}$ (by the CW approximation theorem), so you can contract it (homotopy equivalent to a differentiable map, then by Sard's theorem there is a dense set of regular values, but since the dimension is too small, the only regular values are missed points and once you miss a point, you can contract).
+ 
+ Now we need to compute $H_*(X/G)$. $X/G$ has a single $n$-cell for each $n$; it is sometimes called $\RR P^\infty$. So we get a chain complex $\cdots \ZZ\to \ZZ\to \ZZ$. The maps are given by multiplication by some number. It turns out that they alternate between multiplication by 2 and multiplication by 0 (the zeros come out of the odd-dimensional $\ZZ$'s). This has to do with the degree of the antipodal map (which is $\pm 1$ depending on dimension). Compare the nice complex $\cdots \ZZ\xrightarrow 2 \ZZ\xrightarrow 0 \ZZ\xrightarrow 2 \ZZ \xrightarrow 0 \ZZ$ to the terrible complex $C^B_*(G)$. We get 
+ \[
+  H_n(\ZZ/2)=\begin{cases}
+   \ZZ & n=0\\
+   \ZZ/2 & n \text{ odd}\\
+   0 & n\neq 0 \text{ even}
+  \end{cases}
+ \]
+\end{example}
+We already get a nice result from the theorem and this example. The group homology keeps going (there is no top homology), so we get the following result.
+\begin{corollary}
+ $\ZZ/2$ does not act freely on $\RR^n$ or any finite-dimensional contractible CW complex.
+\end{corollary}
+\begin{proof}[Sketch Proof.]
+ If $X$ is CW and a finite group acts freely on it, then there is a CW decomposition on which the group acts freely.
+\end{proof}
+\begin{remark}
+ We'll show that this is actually true for any group with torsion.
+\end{remark}
+I invite you to do the same argument for $\ZZ/n$. Maybe we'll make this a homework. Since I don't have time to start the proof of the theorem, I'll just give you a hint about how to do these calculations.
+\begin{lemma}
+ If a finite group $G$ acts freely $S^d$, then the (reduced)\footnote{This just removes the $\ZZ$ in degree zero. We just define $\tilde H_0(G)=0$ and the other groups are the same as the usual homology.} homology of $G$ is $(d+1)$-periodic. That is, $H_n(G)\cong H_{n+d+1}(G)$.
+\end{lemma}
+\begin{example}
+ $\ZZ/k$ acts freely on $S^1$ by rotation, so it's homology must be $2$-periodic. We already know that $\tilde H_0(\ZZ/k)=0$, so we just need to compute $H_1(\ZZ/k)$ to know everything (it turns out to be $\ZZ/k$). We'll do the proof on Thursday.
+\end{example}
+
+
+
+
+
+
+
+
+

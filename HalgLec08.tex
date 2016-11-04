@@ -1,0 +1,77 @@
+\sektion{8}{???}
+
+Recall the $\hom$ complex. If $C_*$ and $C'_*$ are chain complexes, there is an inner $\hom$ (which is a chain complex) $\uhom_*(C_*,C'_*)$, defined as $\tot^\Pi(D_{*,*})$, where $D_{m,n}=\hom(C_{-m},C'_n)$ with the differentials \anton{$d^v$ and $d^h$}. So $\uhom_k(C_*,C'_*)=\prod_{m+n=k} \hom(C_{-m},C'_n) = \prod_n \hom(C'_{n-k},C'_n)$. That is, an element of $\uhom_k$ is a collection of maps $(f_n)$ which raise the degree by $k$ (and need not behave well with the differential). The differential is $d^{\uhom}(f):= d'\circ f - (-1)^{|f|}f\circ d$.
+
+If $(f_n)$ is a $0$-cycle, then $f_n\colon C_n\to C'_n$ and $d^{\uhom}(f) = d'\circ f -f\circ d=0$. That is, the $f_n$ form a chain map. So $0$-cycles are exactly the chain maps from $C_*$ to $C'_*$. A chian homotopy is just a $1$-chain $(h_n)$ in $\uhom_1(C_*,C'_*)$. We see that $d^{\uhom}(h) = d'\circ h + h\circ d$ which is by definition homotopic to zero.
+
+This $\uhom_*$ models the singular chain complex $S_*(C^0(X,Y))$ (where $C^0(X,Y)$ has the compactly generated compact open topology). A 0-cycle in $S_*(C^0(X,Y))$ is a continuous map $X\to Y$. A 1-chain is map from the 1-simplex to $C^0(X,Y)$, which is a homotopy between maps; $h\colon I\to C^0(X,Y)$ is equivalent to $h\colon X\times I\to Y$. The connection here is the adjunction formula
+\[
+ \hom_\chain (A_*\otimes B_*,C_*)\cong \hom_\chain(A_*,\uhom_*(B_*,C_*))
+\]
+This should be familiar for abelian groups. On the level of elements, in degree $k$ we have $\hom\bigl(\bigoplus_{m+n=k} A_m\otimes B_n, C_k\bigr)$. Using the usual adjunction, we see that this is the same as $\prod_{m+n=k} \hom\bigl( A_m, \hom(B_n,C_k) \bigr)$, which is the degree $m$ part of $\hom(A_*,\uhom(B_*,C_*))$ (or part of it at least; you have to product over all $k$). \anton{clean this up later}
+
+The analogue in $\top$, the category of compactly generated topological spaces (a set is open if and only if it intersects each compact subset in an open subset). $\top$ is a closed symmetric monoidal category. We have (I don't like to write $\hom$ in non-linear categories) 
+\[
+ \mor_\top(X\times_{cg} Y,Z)\cong \mor_\top(X,C^0(Y,Z)).
+\]
+``Monoidal'' means that we have the product $\times_{cg}$, ``symmetric'' means that this product is symmetric, and ``closed'' means that we have an \emph{inner Mor} $C^0(-,-)$.
+
+More generally, if $\C$ is a category, a monoidal structure is a functor $\otimes \colon \C\times \C\to \C$ with an associator natural transformation satisfying the pentagon axiom.\footnote{You can think of this as just saying ``$\otimes$ is associative''; there is a theorem of Mac Lane which says there is always an equivalent strictly associative monoidal category.} $\C$ is \emph{symmetric} if in addition there is a natural isomorphism
+\[\xymatrix{
+ \C \times \C \ar[rr]^\otimes_(.3){}="a" \ar[d]_{\text{flip}} & & \C\\
+ \C\times \C \ar[urr]^(.3){}="b"_\otimes
+ \ar@{=>}^c "a";"b"
+}\]
+such that (1) $c^2=\id$ and (2) $S_n$ acts on $X_1\otimes\cdots\otimes X_n$.
+
+\begin{example}
+ If $\C$ has a product, the product gives an example of a monoidal structure.
+\end{example}
+
+A monoidal category $(\C,\otimes)$ is \emph{closed} if there exist inner $\mor$ objects $\umor(Y,Z)$ such that there is a natural isomorphism
+\[
+ \mor_\C(X\otimes Y,Z)\cong \mor_\C(X,\umor(Y,Z)).
+\]
+That is, $\C$ is closed if $-\otimes Y$ has a right adjoint $\umor(Y,-)$ for all objects $Y\in \C$.
+
+[[break]]
+
+I haven't been careful about the ring we're working over. The important adjunction is, for a fixed $N\in R\mod$
+\[\qquad\xymatrix @C+1pc{
+ \llap{$\rmod R$} \ar@/^/[r]^-{-\otimes_R N} & \rlap{$\ab$} \ar@/^/[l]^{\hom_{\ab} (N,-)_R}
+}\qquad
+\hom_{\ab}(M\otimes_R N,A)\cong \hom_R(M,\hom_{\ab}(N,A)).\]
+That is, there is a natural isomorphism as on the right. More generally, $F\colon \C\to \D$ and $G\colon \D\to \C$ are adjoint if there is a natural isomorphism
+\[
+ \mor_\D(F c,d)\cong \mor_\C(c,G d).
+\]
+Adjoint functors are really nice. For example, right adjoint functors preserve limits and left adjoint functors preserve colimits. This actually implies that if $F$ is left adjoint (as above), it preserves cokernels, so it is right exact. And if $G$ is right adjoint, it is left exact.
+
+In particular, $\tor_0^R(M,N)=M\otimes_R N$. To see this, take a resolution $P_*\to M\to 0$, then tensor with $N$ and take homology. But since $-\otimes N$ is right exact, $P_0\otimes N/\im(P_1\otimes N)\cong M\otimes N$. $\tor_n^R$ are called the \emph{derived functors} of $\otimes$. The higher $\tor$ measure the failure of $\otimes$ to be exact.
+\begin{lemma}
+ If $0\to M\to M'\to M''\to 0$ is exact, then there is a long exact sequence 
+ \begin{align*}
+  \tor_{n+1}(M,N)\to &\tor_n(M,N)\to \tor_n(M',N)\to \tor_n(M'',N)\to \cdots \\
+  \cdots \to& \tor_1^R(M,N)\to M\otimes N\to M'\otimes N\to M''\otimes N\to 0
+ \end{align*}
+\end{lemma}
+\begin{proof}
+ Pick projective resolutions $P_*\to M$ and $P''_*\to M''$. Then check that $P_*\oplus P''_*$ gives a projective resolution of $M'$.
+ \[\xymatrix{
+  0\ar[r] & P_1\ar[r]\ar[d] & P_1\oplus P''_1\ar[r]\ar@{-->}[d] & P_1''\ar[r]\ar[d] & 0 \\
+  0\ar[r] & P_0\ar[r]\ar[d] & P_0\oplus P''_0\ar[r]\ar@{-->}[d] & P_0''\ar[r]\ar[d] & 0 \\
+  0\ar[r] & M\ar[r] & M'\ar[r] & M''\ar[r] & 0 
+ }\]
+ So we get a short exact sequence of chain complexes. When we tensor with $N$, we still have a short exact sequence of complexes because the direct product sequence splits. So we get a long exact sequence in homology.
+\end{proof}
+Similarly, we get a long exact sequence for the other variable. We can also get long exact sequences in $\ext$, but you have to be careful about which way the arrows go.
+
+Next I wanted to show you a nice application of our double complex technique. I want to show that \v Cech cohomology is isomorphic to de Rham cohomology.
+
+Recall de Rham cohomology. Given a smooth manifold $M$, we can define $\Om^k(M)$ as the sections of $\bigwedge^k T^*M$, the global $k$-forms on $M$. The 0-forms are sections of the trivial bundle $\RR\times M$, so they are just smooth functions. In local coordinates $x_1,\dots, x_n\colon M\to \RR$, a basis (over $C^\infty(M)$) of $\Om^1(M)$ is $dx_1$,\dots, $dx_n$. A basis for $\Om^k(M)$ is given by $\{dx_{i_1}\wedge \cdots \wedge dx_{i_k}\}_{i_1<\cdots<i_k}$. So locally, $\Om^k$ is a free module, but not globally. We have the usual differetial $d\colon \Om^k(M)\to \Om^{k+1}(M)$. The cool thing about the de Rham $d$ is that if we define it on functions, it extends uniquely. For $f\in \Om^0(M)$, $df = \sum_{i=1}^n \pder{f}{x_i} dx_i\in \Om^1(M)$. There is a cool formula for extendining this to a derivation (something so that $d(a\wedge b)=d(a)\wedge b + (-1)^{|a|}a\wedge d(b)$), but it escapes me right now.
+
+Recall \v Cech cohomology. If $X$ is a topological space with an open covering $\U=\{U_i\}$ and a presheaf of abelian groups $\F$ on $X$ (i.e.~a functor $Open(X)^\circ\to \ab$, with $\F(\varnothing)=0$ \anton{why do we do this?}). For example, $\F$ could be the constant sheaf; the sections over an open set $U$ are just continuous maps $U\to A$ (we could take $A$ to be a topological abelian group). Or $\F(U)$ could be $\Om^k(U)$. We define the \v Cech cohomlogy $\check H^k(\U,\F)$ as the $k$-th cohomology of the following cochain complex. $\check C^i(\U,\F) = \prod_{(j_1,\dots, j_i)} \F(U_{j_1}\cap \cdots \cap U_{j_i})$, with boundary maps $\sum (-1)^k d_k$, where $d_k$ are the restriction maps.
+
+Now we've defined the two sides. Now the claim is that $\check H(X,\RR_\delta)\cong \Om^k(X)$ (the $\delta$ means discrete topology). Next times, we'll do this proof.
+
+

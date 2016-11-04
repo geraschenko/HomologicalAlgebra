@@ -1,0 +1,119 @@
+\sektion{27}{???}
+
+Organizing principle: let $\E\subseteq \C$ be a subcategory (of ``equivalences'', written $A\xrightarrow\sim B$). Assume that $\C$ has all $\E$-localizations (this is a really strong assumption).
+\begin{itemize}
+ \item[(a)] The derived category exists; it's an initial object $a\colon \C\to \E^{-1}\C$ in the category of $\E$-inverting functors from $\C$.
+ \item[(b)] For any functor (no exactness assumptions) $F\colon \C\to \D$, the (right) derived functor exists; it's an initial object in the category of triangles
+ \[\xymatrix{
+  \C\ar[r]^-F_(.4){}="b"\ar[d]_a & \D\\
+  \E^{-1}\C \ar[ur]_-{RF}^(.4){}="a"
+  \ar@{=>}_\alpha "a";"b"
+ }\]
+\end{itemize}
+Recall that $X\in \C$ is $\E$-local if $f^*\colon\C(B,X)\to \C(A,X)$ is a bijection whenever $f\colon A\xrightarrow\sim B$ is an equivalence. A localization of $A$ is an equivalence $A\xrightarrow\sim I_A$, where $I_A$ is local. Having all localizations means that every object has a localization.
+\begin{example}
+ We has three sorts of examples last time:
+ \begin{enumerate}
+  \item Classical localization of $k$-modules ($k$ any commutative ring). Here, all localizations exist ($M\to S^{-1}M$ always exists).
+  \item $\C=h\chain(\A)$, where $\A$ is abelian and $\E$ the category of quasi-isomorphisms. If $\A$ is the category of sheaves of modules on a ringed space $(X,\O_X)$. This is a theorem of Spaltenstein (the precise reference is on the homework). On the homework, you'll prove the easy case, where $\C=h\chain^-(\A)$ and $\A$ has enough injectives. In this case, complexes of injectives are local and the equivalence is a generalization of injective resolutions.
+  \item $\C=h\top$, with $\E$ the category of weak equivalences.
+ \end{enumerate}
+ It is really important that we took the homotopy categories in 2; otherwise, localization do not exist in general. In example 3, localization don't always exist (consider a continuous bijection $\ZZ\to \QQ$). The way out is to use colocalizations. The following lemma says that you may as well consider the homotopy category if you're only interested in the derived category.
+\end{example}
+\begin{lemma}
+ If $\C=\chain(\A)$ or $\top$, then
+ \[\xymatrix{
+  C\ar@{->>}[d] \ar[r]^-a & \E^{-1}\C \ar@<.5ex>[d]^\cong\\
+  h\C\ar@{-->}[ur]_-{\exists !} \ar[r] & \E^{-1}(h\C)\ar@<.5ex>[u]
+ }\]
+\end{lemma}
+\begin{proof}[Proof of (a)]
+ By the axiom of choice, for each object $A$, we may choose a localization $i_A\colon A\xrightarrow\sim I_A$ (we have assumed that localizations exist for all objects). This automatically (see the diagram on the right) gives us a functor $\C\to Loc_\E \C$, the full subcategory of local objects, and $i$ is a natural transformation
+ \[\xymatrix{
+  \C\ar[r]^I_{}="b" \ar[dr]_\id^{}="a" & Loc_\E\C \ar@{}[d]|{\mbox{$\cap$}}\\
+  & \C
+  \ar@{=>}_i "a";"b"
+ }\qquad\qquad
+ \xymatrix{
+  A\ar[r]^{i_A}_\sim\ar[d]_f & I_A\ar[d]^{\exists ! I_f}\\
+  B\ar[r]^{i_B}_\sim & I_B
+ }\]
+ Note that if $f$ is an equivalence, then $I_f$ is an isomorphism; you construct the inverse by observing that $\C(A,I_A)\cong \C(B,I_A)\cong \C(I_B,I_A)$, so $i_A$ corresponds to some $I_B\to I_A$ \anton{show this inverts $I_f$.}. Thus, $I$ is $\E$-inverting.
+ 
+ Define $a\colon \C\to \E^{-1}\C$ by taking objects to be objects in $\C$, and by taking $\E^{-1}\C(X,Y)=\C(I_X,I_Y)$, with the functor $a$ taking $X$ to $X$ and $f$ to $I_f$. By the previous paragraph, $a$ is $\E$-inverting. Now assume $F\colon \C\to \D$ is $\E$-inverting. We want to find a unique $\tilde F\colon \E^{-1}\C\to \D$ such that $\tilde F \circ a=F$. On objects, we must have $\tilde F(X)=F(X)$, and given $\phi\in \C(I_X,I_Y)$, we have $F\phi\colon F(I_X)\to F(I_Y)$. But we have a beautiful natural transformation
+ \[\xymatrix{
+  F(X)\ar[r]\ar[d]_{Fi_X}^\cong & F(Y)\ar[d]_\cong^{Fi_Y}\\
+  F(I_X)\ar[r]^{F\phi} & F(I_Y)
+ }\]
+ Note that $Fi_X$ and $Fi_Y$ must be isomorphisms since $F$ is $\E$-inverting, and since $\tilde F$ must be a functor, $\tilde F\phi$ must be equal to $(Fi_Y)^{-1} \circ F\phi\circ Fi_X$.
+\end{proof}
+\begin{remark}[Notation]
+ If $\A$ is an abelian category, then the \emph{derived category} is defined as $\Der \A:= \E^{-1} h\chain(A)$. Similarly, $\Der^{\pm}\A=\E^{-1} h\chain^{\pm}(A)$ and $\Der^b\A=\E^{-1} h\chain^{b}(A)$.
+\end{remark}
+\begin{lemma}
+ $Loc_\E \C\subseteq \C\xrightarrow a \E^{-1}\C$ is an equivalence of categories.
+\end{lemma}
+\begin{proof}
+ We have
+ \[\xymatrix{
+  \C\ar[d]_I \ar[r]^a & \E^{-1}\C\ar@{-->}[dl]^{\exists ! \tilde I}\\
+  Loc_\E \C
+ }\]
+ It is easy to check that $\tilde I$ is an inverse.
+\end{proof}
+Now suppose you have \emph{any} functor $F\colon \C\to \D$. Then the claim is there there exists a universal pair $(RF,\alpha)$
+\[\xymatrix{
+ \C\ar[r]^a \ar[d]_F^{}="b" & \E^{-1}\C\ar@{-->}[dl]^{RF}_{}="a"\\
+ \D
+ \ar@{=>}^\alpha "b";"a"
+}\]
+That is, for any other functor $G\colon \E^{-1}\C\to \D$ and any natural transformation $\beta\colon F\Rightarrow G\circ a$, then there exists a unique natural transformation $\eta\colon RF\Rightarrow G$ such that $\beta = \eta a \circ \alpha$.
+\begin{example}
+ Consider $M\otimes_R -\colon \chain(R\mod)\to \chain(\ab)$. This is not $\E$-inverting (i.e.~not exact).
+ \[\xymatrix{
+  \chain(R\mod)\ar[d]^{M\otimes -} \ar[r] & \Der(R\mod)\ar@{-->}[d]^{?}\\
+  \chain(\ab)\ar[r]^\alpha & \Der(\ab)
+ }\]
+\end{example}
+
+[[break]]
+
+\begin{proof}[Proof of (b)]
+ We just define $RF=F\circ \tilde I$ and $\alpha = Fi$
+ \[\xymatrix{
+  \C \ar@/_5ex/[ddr]^{}="c"_\id \ar[dr]_I_(.7){}="d"^{}="a" \ar[rr]^-a & & \E^{-1}\C\ar[dl]^{\tilde I}_{}="b" \ar[dd]^{RF}\\
+  & Loc_\E \C \ar@{}[d]|{\mbox{$\cap$}} \ar@{}[dr]^\circlearrowleft\\
+  & \C\ar[r]^F & \D
+  \ar@{=>}^\id "a";"b"
+  \ar@{=>}_i "c";"d"
+ }\]
+ Now suppose we have $G\colon \E^{-1}\C\to \D$ and a natural transformation $\beta\colon F\to Ga$. Then we want to show there is a unique $\eta\colon RF\to G$ such that $\beta=\eta a \circ \alpha$. We have that $RF(X)=F(I_X)$, and for $\phi\in \E^{-1}\C(X,Y):=\C(I_X,I_Y)$, $RF\phi=F\phi$.
+ \[\xymatrix @C+3pc{
+  FX \ar[r]^-{Fi_X=\alpha_X}\ar[d]_{\beta_X} & **[l] RF a(X)=F(I_X)\!\!\!\! \ar[d]^{\beta_{I_X}} \ar@{-->}[dl]^{\eta a?}\\
+  Ga X \ar[r]_{Ga i_X} & Ga I_X
+ }\qquad\qquad
+ \xymatrix@C-1pc{
+  \C \ar@(d,d)[rrr]_a^{}="a" \ar[r]^-I & Loc_\E \C \ar@{}[r]|-{\mbox{$\subseteq$}}_{}="b" & \C\ar[r]^a & \E^{-1}\C
+  \ar@{=>}^{ia} "a";"b"
+ }\]
+ We have that $i_X\colon X\to I_X$ is an equivalence, so $ai_X$ is an isomoprhism, so $Gai_X$ is an isomorphism, so we must define $\eta_X\colon RF X\to GX$ to be $(Gai_X)^{-1}\circ \beta_{I_X}$ \anton{wait, that doesn't go between the right things}.
+\end{proof}
+\begin{corollary}
+ If $\A$ is an abelian category with enough injectives, then $\Der^-(\A)=\E^{-1}\chain^-(\A)$ and for $A,B\in \A$, $\Der^-(\A)(A[n],B) = \ext^n_\A(A,B)$. \anton{well, it should be $A[-n]$, but since in our complexes differential goes down, maybe $A[1]$ should be defined as $A$ in degree $-1$.}
+\end{corollary}
+\begin{proof}
+ \begin{align*}
+  \Der^-(\A)(A[n],B) &= h\chain^-(\A)(A[n],I_B) & \text{(HW13)}\\
+  &= H_n(\A(A,I_B)) & \text{(next time)}\\
+  &=: \ext^n_\A(A,B)
+ \end{align*}
+\end{proof}
+\begin{remark}
+ The $R$ means ``right derived'', coming from the fact that we require $\alpha\colon F\to RF a$. If we require $\alpha$ to go the other way and you want the derived functor to be terminal, you get $LF$, but then you have to uses colocalizations.
+\end{remark}
+
+
+
+
+
+

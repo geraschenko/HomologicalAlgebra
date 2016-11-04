@@ -1,0 +1,113 @@
+\sektion{20}{???}
+
+One more class on simplicial stuff, then we'll move on to spectral sequences.
+
+We had the following diagram for any abelian category $\A$.
+\[\xymatrix{
+ \chain^{\ge 0}(\A) \ar[dr]_{F_\udot} & & s\A\ar[ll]_{N_*}\\
+ & ss\A\ar[ur]_L
+}\]
+There is a point in the argument where you have to use the last axiom of an abelian category. The argument went like this. We checked that $N_*LF\cong \id_\chain$. For the other direction, we need to show that $LF_\udot N_*(A_\udot)\cong A_\udot$. We want to get a morphism in $s\A(LF_\udot N_*(A_\udot),A_\udot)\cong ss\A(F_\udot N_*(A_\udot),UA_\udot)$ (where $UA_\udot$ is just $A_\udot$ thought of as a semi-simplicial set).
+\begin{lemma}
+ $ss\A(F_\udot C_*,B_\udot)\cong \chain(C_*,N_*B_\udot)$.
+\end{lemma}
+Once we have that lemma, the identity map on $N_* A_\udot$ induces a map in $\chain(N_*A_\udot,N_*A_\udot)\cong s\A(LF_\udot N_* A_\udot,A_\udot)$.
+\begin{proof}
+ Suppose we have a map $\phi\colon F_\udot C_*\to B_\udot$, so maps $\phi_n\colon F_nC_*=C_n\to B_n$ such that $\phi_n d_i=d_i \phi_{n+1}$. Since all the differentials (except the 0-th one) are zero, so such a $\phi$ consists of maps so that $d_i\phi_{n+1}=0$ for $i>0$ (image of $\phi$ lies in the kernels of all the $d_i$, $i>0$) and so that $d_0\phi_{n+1}=\phi_n d$, which just says that the differentials agree, so this is just a chain map from $C_*$ to $N_*B_\udot$.
+\end{proof}
+So we have this map $\alpha$. It has the property that $N_*\alpha$ is an isomorphism (it's the identity map). The final step is to prove that this $\alpha$ is an isomorphism. We did this with the following lemma.
+\begin{lemma}\label{20L:isos_and_N}
+ If $f\colon A_\udot\to B_\udot$ is a morphism so that $N_* f$ is an isomorphism, then $f$ is an isomorphism.
+\end{lemma}
+The proof uses the path construction. Given a simplicial object $X_\udot\colon \DDelta^\circ \to \A$. Let $P\colon \DDelta\to \DDelta$ be the functor given by $[n]\mapsto [n+1]=[n]\cup \{\infty\}$. Then we call the composition $\DDelta^\circ\xrightarrow P \DDelta^\circ \xrightarrow{X_\uudot} \A$ the \emph{path object} $PX_\udot$ of $X_\udot$. We have map $PX_\udot\to X_\udot$, induced by the natural transformation of endofunctors $\id_{\DDelta}\to P$ (given by $d_{n+1}\colon [n]\to [n+1]$).
+
+If $\A$ is abelian, we can define the \emph{loop object} $\Lambda X_\udot:=\ker (PX_\udot \to X_\udot)$. Note that this only makes sense for an abelian category $\A$. For what follows, we write chain complexes as $C_*=(0\leftarrow C_0 \leftarrow C_1 \leftarrow\cdots)$. We define $C_*[1]$ to be $(0\leftarrow C_1 \leftarrow C_2 \leftarrow\cdots)$. This is not invertible because you lose $C_0$.
+\begin{lemma}
+ $N_*(\Lambda A_\udot)\cong N_*(A_\udot)[1]$
+\end{lemma}
+\begin{proof}\ \vspace{-\baselineskip}
+ \begin{align*}
+ N_n(\Lambda A_\udot) &= N_n\bigl(\ker(A_{n+1}\xrightarrow{d_{n+1}}A_n)\bigr) 
+ = \bigcap_{i=1}^{n+1} \ker d_i \\
+ &= N_{n+1}(A_\udot)=(N_*(A_\udot)[1])_n
+ \end{align*}
+ and the differentials agreeing (both are $d_0$)
+\end{proof}
+\begin{proof}[Proof of Lemma \ref{20L:isos_and_N}]
+ We do it by induction on $n$. For $n=0$, it is clear, now assume the result up to $n$. Then we get
+ \[\xymatrix{
+  & & A_{n+1}\ar@{=}[d]\\
+  0\ar[r] & \Lambda A_n\ar[d]^{(\Lambda f)_n} \ar[r] & PA_n\ar[r]^\pi \ar[d]|{(Pf)_n=f_{n+1}} & A_n\ar[r]\ar[d]^{f_n}_\wr & 0\\
+  0\ar[r] & \Lambda B_n \ar[r] & PB_n \ar[r] & B_n\ar[r] & 0\\
+  & & B_{n+1}\ar@{=}[u]
+ }\]
+ By induction, $(\Lambda f)_n$ is an isomorphism, so by the 5-Lemma, we're done.
+\end{proof}
+\begin{remark}
+ The 5-Lemma requires the third axiom of an abelian category, so we really need to have an abelian category. In a category without the third axiom, the diagram chase gives us that $\ker f_{n+1}=0$ and $\coker f_{n+1}=0$.
+\end{remark}
+\begin{lemma}
+ If you're in an additive category with all finite limits and colimits and $f\colon A\to B$, with $\ker f=\coker f=0$ and $\im f=\mathrm{coim} f$, then $f$ is an isomorphism.
+\end{lemma}
+Every map $f$ factors as
+\[\xymatrix{
+ A\ar[r]^f\ar[d] & B\\\
+ \llap{$\coker(\ker f\to A)=:\;$}\mathrm{coim} f\ar[r] & \im f\rlap{$\;:=\ker(B\to \coker f)$}\ar[u]
+}\]
+We have that the two vertical maps are isomorphisms because $\ker f=\coker f=0$, and the bottom arrow is an isomorphism by assumption.
+
+[[break]]
+
+\[\xymatrix@R-1pc{
+ \chain \ar@<.5ex>[r]^-{LF_\uudot}\ar@{<-}@<-.5ex>[r]_-{N_*} & s\ab \ar@<.5ex>[dr]_-U\ar@{<-}[r]^{Free} & s\set \ar[r]^-{|\cdot|} & \top\\
+ & & \kan \ar@{}[u]|\cup \ar@{<-}@<-.5ex>[ur]_-{\Delta_\uudot} \\
+ H_n \ar@{<->}[r] & \pi_n \ar[r]^U & \pi_n & \pi_n \ar[l]\\
+  & & H_n \ar[ul]^{Free} & H_n\ar[l]
+}\]
+
+$\pi_n(X_\udot,*)$ is defined for any Kan simplicial set. For example, $\Delta_\udot(X)$ is Kan for any topological space $X$ (you use a retraction of $\Delta^n$ onto any horn $\wedge^k$). In HW8, we showed that $\pi_n(\Delta_\udot X)\cong \pi_n(X)$.
+
+Another example of a Kan semi-simplicial set is a simplicial group. In HW8, we showed that $H_n(N_* A_\udot)\cong \pi_n(A_\udot,0)$.
+\begin{definition}
+ If $X_\udot\in s\set$, then $H_n(X):= \pi_n(Free(X_\udot))$.
+\end{definition}
+\begin{corollary}
+ Let $(A,n)$ be the chain complex $A$ concentrated in degree $n$. Then $X(A,n):=|ULF_\udot(A,n)|$ is a $K(A,n)$. That is, $\pi_i(X(A,n))=0$ for $i\neq n$ and $\pi_n(X(A,n))=A$.
+\end{corollary}
+An isomorphism that we left out of HW8 is that if $X_\udot$ is Kan, then $\pi_n(X_\udot)\cong \pi_n(|X_\udot|)$. There is a canonical map $\pi_n(X_\udot)\to \pi_n(|X_\udot|)$ basically given by $|\cdot|$. You prove that it is injective and surjective using simplicial approximation theorems.
+
+Let $\top_n$ be the full subcategory of $\top$ consisting of spaces with $\pi_i=0$ for $i\neq n$. We have a functor $F_n=ULF_\udot[n]\colon \ab\to \top_n$ and a functor $\pi_n\colon \top_n\to \ab$ (assuming $n\ge 2$). Is this an equivalence of categories? Certainly not, because there are lots of maps between topological spaces, not just coming from group homomorphisms.
+
+If $\C$ is a category (like $\top$ or $\chain$) and $W$ (weak equivalences) is a collection of morphisms, then the localization $\C[W^{-1}]$ is a category with the following universal property
+\[\xymatrix{
+ \C\ar[rr]^i \ar[dr]_{\forall j} & & \C[W^{-1}]\\
+ & \D\ar@{-->}_{\exists !}[ur]
+}\]
+(the uniqueness is up to natural isomorphism)
+\begin{remark}
+ $\C[W^{-1}]$ doesn't always exists, but when it exists, it is unique.
+\end{remark}
+\begin{definition}
+ Define the derived categories $d\top = \top[W^{-1}]$ ($W$ usual weak equivalences) and $d\chain=\chain[W^{-1}]$ ($W$ quasi-isomorphisms).
+\end{definition}
+More generally, for a functor $F$, you can try to formally invert all the morphisms that become isomorphisms under $F$. You can't always do it, but you can try.
+
+\begin{theorem}
+ For $n\ge 2$, the functor $F_n\colon \ab\to d\top_n=h\cw_n$ is an equivalence of categories.
+\end{theorem}
+The proof is by obstruction theory.
+\begin{theorem}
+ $\set\xrightarrow\sim d\top_0$ and $\gp\xrightarrow\sim d\top_1^{pt}$ (given by $G\mapsto BG=|N_\udot(\C_G)|$). Moreover $h\gpoid\xrightarrow\sim d\top_{\le 1}$ (given by $G\mapsto |N_\udot(G)|$, where a weak equivalence of groupoids is an equivalence).
+\end{theorem}
+Chris took small Picard groupoids, and showed that the homotopy category is equivalent to $d\top_{\le 2}^{pt,conn}$, with $\pi_0G\leftrightarrow \pi_1 X$ and $\pi_1 G\leftrightarrow \pi_2 X$. $X$ connected, with $\pi_i(X,x_0)=0$ for $i>2$. Then I get a fibration $K(\pi_2X,2)\to X\xrightarrow{\pi} K(\pi_1 X,1)$ (more generally, you get a Postnikov tower). The $k$-invariant is the obstruction to finding a section of $\pi$, and it lives in $H^3(\pi_1 X;\pi_2 X)$.
+\begin{theorem}
+ $h(2-\gpoid)\xrightarrow\sim d\top_{\le 2}$ (weak equivalences on 2-groupoids are functors inducing isos on $\pi_0$, $\pi_1$, $\pi_2$.
+\end{theorem}
+A Picard groupoid is a 2-groupoid with only one object.
+
+
+
+
+
+
+

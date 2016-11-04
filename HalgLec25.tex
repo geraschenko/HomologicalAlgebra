@@ -1,0 +1,114 @@
+\sektion{25}{Universal coefficients} 
+
+Today: some more spectral sequences and applications. Thursday: Derived categories and derived functors.
+
+So far, I've only shown you the Leray-Serre spectral sequence, but in the homework, you've seen the spectral sequence associated to a double complex. Recall that if $(D_{p,q},d^v,d^h)_{p,q\ge 0}$ is a double complex, then you get two spectral sequences converging to the homology of the total complex $\tot_{p+q}(D_{*,*})$ (but with different filtrations!):
+\begin{align*}
+ E^0_{p,q}&=(D_{p,q},d^v)\tag{I}\\ 
+ E^0_{p,q}&=(D_{q,p},d^h)\tag{II}
+\end{align*}
+The second spectral sequence is not a cohomological spectral sequence, it is a homological spectral sequence transposed.
+\begin{example}
+ Say $P_*\twoheadrightarrow M$ is a projective resolution of some (right) $R$-module $M$, and $Q_*$ is some other chain complex of projective (left) $R$-modules. Let $D_{*,*}=(P_*\otimes_R Q_*, d_P,d_Q)$. The first spectral sequence gives us (using that $Q_*$ has projective terms to get the $E^2$ term)
+ \[
+  E^1_{p,q}= P_p\otimes H_q Q_*\qquad E^2_{p,q}= \tor_p^R(M,H_q Q_*) 
+ \tag{I}\]
+ \[
+  E^1_{p,q}= H_q(P_*) \otimes Q_p =
+  \begin{cases}
+   M\otimes Q_p & p=0\\
+   0 & p>0
+  \end{cases} \qquad E^2_{p,q} = E^\infty_{p,q}= H_p(M\otimes Q_*)
+ \tag{II}\]
+ So we know that $\tor^R_p(M,H_q Q_*)\Rightarrow H_{p+q}(\tot) = H_{p+q}(M\otimes Q_*)$.
+\end{example}
+In the case $R=\ZZ$, $Q=C_*(X)$ for a topological space $X$, and $M$ some abelian group, then we get (we can flip our tensor products) the \emph{homological universal coefficients spectral sequence}
+\[
+ E^2_{p,q}=\tor_p^\ZZ(H_q X,M)\Rightarrow H_{p+q}(C_* X\otimes M).
+\]
+The spectral sequence is concentrated at $p=0,1$ because $\ZZ$ is a PID, so we are in the first two columns. \anton{But the differentials change $p$ by 2, so we have that $E^2=E^\infty$. The conclusion is that there is a short exact sequence
+\[
+ 0\to \tor_1^\ZZ(H_{q-1}X,M)\to H_q(X;M)\to H_q X\otimes_\ZZ M\to 0
+\]}
+The edge homomorphism at $p=0$ is $E^2_{0,q}=M\otimes_R H_qQ_*\to H_q(M\otimes_R Q_*)$
+
+When will I use the more general spectral sequence? Suppose $G=\pi_1 X$ and $M$ is a $G$-modules. Then you may want to compute $H_*(X;M):=H_*(C_*\tilde X\otimes_{\ZZ G}M)$. Now we have the spectral sequence $\tor_p^{\ZZ G}(H_q \tilde X,M)\Rightarrow H_{p+q}(C_*\tilde X\otimes_{\ZZ G}M)$. You might call this the universal coefficients spectral sequence for twisted coefficients.
+
+You know another universal coefficient theorem, for cohomology. It can be expressed as a spectral sequence
+\[
+ \ext^p_\ZZ(H^qX,M)\Rightarrow H^{p+q}(X;M)
+\]
+Again, the spectral sequence is concentrated in the columns $p=0,1$. The more general \emph{cohomological universal coefficients spectral sequence} is
+\[
+ E_2^{p,q}=\ext^p_R(H_q Q_*,M)\Rightarrow H^{p+q}(Q_*;M):=H_{p+q}(\hom_R(Q_*,M))
+\]
+The proof is done by considering $D_{p,q}=\hom_R(Q_q,P_p)$, where $M\to P_*$ is an injective resolution and $Q_*$ is a complex of projectives. The edge homomorphism at $p=0$ is
+\[
+ H^q(Q_*,M)=H_q(\hom_R(Q_*,M))\to E^2_{0,q}=\hom_R(H_q Q_*,M)
+\]
+If $Q_*=C^*X$ for some topological space $X$ and $M$ is an interesting $\pi_1X$-module, then you really need the big spectral sequence.
+
+In HW12, you'll do the K\"unneth spectral sequence, which generalizes the K\"unneth theorem in the same way that the universal coefficients spectral sequences generalize the universal coefficients theorems.
+
+After the break, we'll calculate $\pi_{n+1}S^n$. In the next homework, you'll compute all homotopy groups of spheres rationally ($\pi_k S^n\otimes_\ZZ \QQ$). This stuff is due to Serre.
+
+[[break]]
+
+\subsektion{\texorpdfstring{$\pi_{n+1}(S^n)$}{pi{n+1}(S^n)}}
+
+\begin{theorem}[Serre]
+ $\pi_{n+1}(S^n)\cong H_{n+2}(K(\ZZ,n))\cong
+ \begin{cases}
+  0 & n=0,1\\
+  \ZZ & n=2\\
+  \ZZ/2 & n\ge 3
+ \end{cases}$
+\end{theorem}
+It's true in general that $\pi_{n+k}(S^n)$ stabilizes (more generally, $\pi_{n+k}(\Sigma^n X)$ stabilizes) for large $n$ (Fruedenthal's suspension theorem, in fact, it is stable by $n=2\dim X -1$). This can also be proven easily by induction with spectral sequences using the path-loop fibration.
+\begin{proof}
+ Assume $n>1$ (we know the result for $n=0,1$). We know that $\pi_i(S^n)=0$ for $i<n$ and that $\pi_n(S^n)\cong \ZZ$. By adding cells of dimenions at least $n+2$ we construct an inclusion map $S^n\to K(\ZZ,n)$ inducing an isomorphism on $\pi_n$. We can turn this into a fibration (changing $S^n$ to something homotopy equivalent; we won't change the notation). Let $F$ be the fiber. Using the long exact sequence of homotopy groups, we get $\pi_{n+1}(S^n)\cong \pi_{n+1}(F)$. Note that $F$ is $n$-connected because of the long exact sequence in homotopy groups. So by the Hurewicz theorem, $\pi_{n+1}(F)\cong H_{n+1}(F)$. The Leray-Serre spectral sequence tells us that $H_{n+1}(F)\cong H_{n+2}(K(\ZZ,n))$.
+ \[\xymatrix@!0 @R+0pc @C+0pc{
+ n+1\qquad & H_{n+1}F\\
+ n  & 0\\
+ & \vdots \\
+ & 0 & & \smash{\mbox{\Huge 0}}\\ 
+ 0 & \ZZ & 0 & \cdots & 0 & \ZZ & 0 & \rlap{$H_{n+2}(K(\ZZ,n))$}\ar[lllllluuuu]\\
+ & 0 & & & & n & & n+2
+ }\]
+ Note that $H_{n+1}(K(\ZZ,n))=0$ because there are no $(n+1)$-cells. All the differentials are zero except for the one shown, which must be an isomorphism because we know the homology of $S^n$.
+
+ Now we have to compute $H_{n+2}(K(\ZZ,n))$. The special case is $n=2$. This ``easy way'' is to observe that $\CC P^\infty$ has the right homtopy groups (you have to know this). The other way is to take the path space fibration $\Om_k K\to P_k K\to K$ for some base point $k\in K$. Applying the Leray-Serre spectral sequence to the case $K=K(\ZZ,n)$, where $\Om_k K=K(\ZZ,n-1)$, we can do an induction.
+ 
+ The first fibration is $S^1\cong K(\ZZ,1)\to P\simeq 1\to K(\ZZ,2)$. The spectral sequence is
+ \[\xymatrix @!0{
+  \vdots\\
+  2& 0 & 0 & 0 & \cdots\\
+  1& \ZZ & 0 & \ZZ & 0 & H_4K & \cdots\\
+  0& \ZZ & 0 & \ZZ\ar[ull] & 0 & H_4K\ar[ull]\\
+  & 0 & 1 & 2 
+ }\]
+ We know that the two rows have to be equal (they are both $H_n(K;\ZZ)$), and the $E^\infty$ page has to be full of zeros, so all the $E^2$ differentials have to be isomorphisms, so $H_{2n}(K(\ZZ,2))\cong \ZZ$.
+
+ Now consider the fibration $K(\ZZ,2)\to *\to K(\ZZ,3)$. Then we get the spectral sequence
+ \[\xymatrix@!0 @-.3pc{
+  4&\ZZ & 0 & 0 & \ZZ & 0 & H_5K\\
+  3&0 & 0& 0& 0& 0& 0\\
+  2&\ZZ & 0 & 0 & \ZZ \ar[uulll]|{d_3} & 0 & H_5K\\
+  1&0 & 0& 0& 0& 0& 0\\
+  0&\ZZ & 0 & 0 & \ZZ \ar[uulll] & 0 & H_5K\\
+   & 0 & 1 & 2 & 3 & 4 & 5
+ }\qquad
+ \xymatrix@!0 @-.3pc{
+  4&? & 0 & 0 & \ZZ & 0 & H_5K\\
+  3&0 & 0& 0& 0& 0& 0\\
+  2&0 & 0 & 0 & E^4 & 0 & H_5K\\
+  1&0 & 0& 0& 0& 0& 0\\
+  0&\ZZ & 0 & 0 & 0  & 0 & H_5K \ar[uuuulllll]\\
+   & 0 & 1 & 2 & 3 & 4 & 5
+ }\]
+ The non-zero rows have to be equal ($\pi_1(K(\ZZ,3))=0$, so there cannot be a non-trivial action, so they are all just homology with coefficients in $\ZZ$). The goal is to compute that $d_3$ is multiplication by 2. The key fact will be the Pontrjagin product on $H_*(K(\ZZ,n))$. Serre did it with cohomology an used cup products, but this is a good approach to keep in mind.
+\end{proof}
+
+
+
+

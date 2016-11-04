@@ -1,0 +1,82 @@
+\sektion{18}{???}
+\footnote{This lecture was given by Chris Schommer-Pries.}
+
+Today will be really cool, but there is an unfortunate piece of nomenclature. Also, we will ignore all set-theoretic issues (or assume all categories are small).
+
+A group is a set with an associative binary operation with unit and inverses. A monoid is a generalization of a group where we don't require inverses. But there is another description of what a group is. A group is a category with one object, where all morphisms are invertible. This leads to another generalization, where we don't require there to be only one object. So these are two different generalizations, where the ``oid'' means completely different things. Normally, you don't talk about both of these things at the same time, but today we will. If you generalize in both directions, you get a category (possibly with many objects) where morphisms may not be invertible. This is just a category.
+
+A \emph{strict monoidal category} is a category $\C$ with a functor $\otimes\colon \C\times \C\to \C$ and an object $1$ such that $\otimes$ is associative and $1$ is a unit (i.e.~$1\otimes X=X=X\otimes 1$). This is a bad definition for a subtle reason. Often two constructions are isomorphic (even canonically so), but not equal.
+\begin{example}
+ Consider the set $\{(a,x)|a\in A,x\in B\times C\}$ and the set $\{(y,c)|y\in A\times B,c\in C\}$. These are not the same set, but there is an obvious isomorphism between them. 
+\end{example}
+\begin{example}
+ Consider the category whose objects are vector spaces with ordered bases, and the morphisms are linear maps respecting the ordered bases. Then $V\otimes W$ has a natural ordering on it's basis (lexicographic ordering). In this case, $V\otimes(W\otimes U)$ is quite different from $(V\otimes W)\otimes U$.
+\end{example}
+\begin{definition}
+ A \emph{monoidal category} is a category $\C$, a functor $\otimes\colon \C\times \C\to \C$, a unit $1$, and natural isomorphisms $a\colon (-\otimes-)\otimes-\cong -\otimes(-\otimes -)$, $l\colon 1\otimes-\cong \id_\C$, and $r\colon -\otimes 1\cong \id_\C$. So that all diagrams you want to commute, commute. A monoidal functor is more or less what you think it is.
+\end{definition}
+This second to last sentence is equivalent to just two diagrams commuting (Mac Lane's coherence theorem)
+\[\xymatrix@R-1.5pc @C-2pc{
+ & [-\otimes(-\otimes-)]\otimes-\ar[dr]\\
+ [(-\otimes-)\otimes-] \otimes- \ar[ur]\ar[d] & & -\otimes[(-\otimes-)\otimes-]\ar[d]\\
+ (-\otimes-)\otimes(-\otimes-) \ar[rr] & & -\otimes[-\otimes(-\otimes-)]
+}\]
+\[\xymatrix@C-2pc @R-1pc{
+(-\otimes 1)\otimes- \ar[rr]\ar[dr] & & -\otimes(1\otimes-)\ar[dl]\\
+ & -\otimes - 
+}\]
+
+For any category $\C$, we can define $\pi_0(\C)$ to be the set (class) of isomorphism classes of $\C$. This may be a set even if $\C$ is not small. We can also define $\pi_1(\C,x)$ to be the monoid $\C(x,x)$.
+
+What happens if $\C$ is a monoidal category? Note that $\otimes$ induces a monoid structure on $\pi_0(\C)$.
+\begin{definition}
+ A category $\S$ is \emph{skeletal} if there is only one object in each isomorphism class. That is, $Ob(\S)=\pi_0(\S)$.
+\end{definition}
+Given a category $\C$, we may choose representatives for $\pi_0(\C)$ (by the axiom of choice). Define $\S$ to be the full subcategory of $\C$ with these objects. There is a natural inclusion functor $i\colon \S\to \C$, and the claim is that $i$ is an equivalence of categories. To see this, note that $i$ is essentially surjective by construction, and because it is defined as a full subcategory, it is fully faithful. It's good to see at least once why an essentially surjective fully faithful functor is an equivalence. Define a functor $T\colon \C\to \S$ by taking $T(c)$ to be the representative $x$ of $\pi_0(\C)$ in the same isoclass as $c$, and how do we define $T$ on morphisms? For all objects $c\in \C$, choose an isomorphism $\theta_c\colon c\xrightarrow\sim Tc$ (again using choice). We want this $\theta$ to be a natural isomorphism from $\id_\C$ to $T\circ i$, so for $f\colon c\to c'$ just define $Tf=\theta_{c'}\circ f\circ \theta_c^{-1}$.
+
+If $\C$ is a monoidal category, then we get an induced monoidal structure on a skeleton $\S$ (so that the inclusion $i\colon \S\to \C$ is a morphism of monoidal cateogies). However, you'll end up with crazy associators. That is, even if $\C$ starts off being strict, the monoidal structure on $\S$ may not be strict!
+
+[[break]]
+
+Ok, what is the relationship with homological algebra? Let's assume (for lack of time) that $\C$ is a groupoid with a monoidal structure, and assume that $\pi_0$ is a group.
+\begin{definition}
+ A \emph{Picard groupoid} is a monoidal groupoid $\C$ so that for all $x\in \C$, there exists $\bbar x\in \C$ such that $x\otimes \bbar x\cong 1\cong \bbar x\otimes x$.
+\end{definition}
+\begin{example}
+ If $\A$ is a monoidal category, it contains a maximal groupoid (the subcategory of all isomorphisms), which contains some maximal Picard groupoid (the full subgroupoid of ``invertible objects'').
+\end{example}
+\begin{example}
+ If $R$ is a ring, consider $(R,R)$-bimodules with monoidal structure $\otimes_R$. Inside of this category, we have $Pic(R)$, whose objects are ``invertible'' bimodules ${}_RM_R$ and whose morphisms are isomorphisms of bimodules. In this case, $\pi_0(Pic(R))=Pic$ is a group, and you can check, for example, that $\pi_1(Pic(R),1)\cong Z(R)^\times$.
+\end{example}
+\begin{example}
+ Taking $R=\CC$, the previous example gives $Pic(\CC)$, the category of ``lines''.
+\end{example}
+\begin{example}
+ Let $Y\subseteq X$ be a CW pair, with $*\in Y$. Define the relative Picard groupoid to have objects homotopy classes of maps $(D^1,\partial D^1)\to (Y,*)$, and whose morphisms are homotopy classes of maps $(D^1\times D^1,\partial( D^1\times D^1),\partial D^1 \times D^1)\to (X,Y,*)$, with the usual composition. Moreover, there is a monoidal structure (given by gluing the objects like in $\pi_1$ and gluing squares appropriately). This is a Picard groupoid. It turns out it tells you something about the relative homotopy groups $\pi_n(X,Y)$.
+\end{example}
+\begin{theorem}
+ Any skeletal Picard groupoid $\C$ are of the following form:
+ \begin{itemize}
+  \item $\pi_0(\C)=Q$ is a group, $\pi_1(\C,1)=A$ is an abelian group, $\pi_1(\C,x)\cong A$ for any $x\in \C$, $Q$ acts on $A$,
+  \item all the morphisms together form a group under $\otimes$, and this group is $Q\ltimes A$, but the associator is not trivial.
+ \end{itemize}
+\end{theorem}
+The objects are $Q$ and the morphisms are $Q\times A$ (there are no morphisms between objects which are not equal, because skeletal)
+\begin{proof}
+ HW 9.
+\end{proof}
+What is the associator $a$? At the object level, if we plug in $x,y,z\in Q$, then $a$ gives us an automorphism of $xyz\in Q$, so it is some $a(x,y,z)\in A$. If we have morphisms $f,g,h$, then we get that $fgh\circ a(x,y,z)=a(x,y,z)\circ fgh$, which is always going to be satisfied because $A$ is abelian. So the associator is of the form $a\colon Q\times Q\times Q\to A$. But it cannot be any map because it has to satisfy the pentagon axiom. That is, for $w,x,y,z\in Q$, we must have that
+\[
+ a(x,y,z)-a(wx,y,z)+a(w,xy,z)-a(w,x,yz)+a(w,x,y)=0
+\]
+That is, $a$ must be a cocycle in $Z^3(Q,A)$. Actually, I've cheated when talking about what a natural transformation is (I assumed the action of $Q$ on $A$ is trivial), but you can fix it. You can check that if you change $a$ by a coboundary, you get an isomorphic monoidal category.
+
+So we started with Picard groupoids with $\pi_0=Q$ and $\pi_1=A$ (with a given action), gone to skeletal Picard groupoids, and then gone to $H^3(Q;A)$. Last time we saw that $H^3(Q;A)$ parameterizes crossed modules. Recall that a crossed module is a morphism $\partial\colon K\to E$ and a morphism $\rho\colon E\to \Aut(K)$ with some conditions such that $E/K\cong Q$ and $\ker \partial =A$.
+
+There is another way to see this relationship. Suppose we were only interested in strict Picard groupoids. Then the objects form a group $G_0$ (you need strictness for this), and the morphisms (taken all together) form a group $G_1$. You have the source and target morphisms $G_1\rightrightarrows G_0$ (which must be group homomorphisms). Additionally, you have identity maps, so you have a group homomorphism $G_0\to G_1$, which splits the source map $s$, so we can take $E=G_0$, then $G_1=K\rtimes E$. Then the target map induces $t\colon K\to E$, which has to satisfy some conditions (exactly the conditions of a crossed module). It turns out that an equivalence of crossed modules induces a map on groupoids. If you only allow strict monoidal functors, this need not be an equivalence, but if you allow all monoidal functors, this is an equivalence.
+
+
+
+
+
+

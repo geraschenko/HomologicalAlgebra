@@ -1,0 +1,61 @@
+\sektion{19}{Dold-Kan Correspondence}
+
+\begin{definition}
+ $\A$ is an \emph{abelian} category if
+ \begin{enumerate}
+  \item $\A$ is enriched\footnote{Given a monoidal category $(\C,\otimes,\dots)$, an \emph{enriched category over $(\C,\otimes)$}, $\A$, has objects $Ob(\A)$ and \emph{morphism objects} (need not be sets!) $\A(X,Y)$ for every pair of objects $X,Y\in Ob(\A)$, with composition morphisms $c_{X,Y,Z}\colon \A(Y,Z)\otimes \A(X,Y)\to \A(X,Z)$, with an ``identity'' $1\to \A(X,X)$ for each $X\in Ob(\A)$, such that composition is associative (figure out what this means), and the identity is an identity. If $\C=\set$ with $\otimes=\times$, this is the notion of a category. If $\C$ has a forgetful functor to $\set$, it is easier to think about enriched categories, but you have to be careful about what the monoidal structure is. For example, $\ab$ has two nice monoidal structures, given by $\otimes$ and $\oplus$.} over $(\ab,\otimes)$ (in general, such a category is called additive).
+  \item $\A$ has all finite limits and colimits. In particular, kernels and cokernels (equalizers and coequalizers with the zero map) exist. You can check that, in fact, if you have kernels, cokernels, and finite products and coproducts, then you get all finite limits and colimits.
+  \item For all $f\colon X\to Y$, the natural map from $\mathrm{coim}(f):=\coker(\ker(f)\to X)$ to $\im(f):=\ker(Y\to \coker(f))$ is an isomorphism. \anton{in particular, this tells you that the natural map from the initial object to the terminal object is an isomorphism.}\qedhere
+ \end{enumerate}
+\end{definition}
+\begin{example}
+ $\ab$, $R\mod$ ($R$ a ring), $\ab(X)$ (sheaves of abelian groups on a topological space $X$), and $\mathcal R\mod$ (for a sheaf of rings $\mathcal R$) are abelian categories.
+\end{example}
+\begin{example}[non-examples]
+ Filtered abelian groups and topological abelian groups are not abelian categories (they don't satisfy the last conditions).
+\end{example}
+In an abelian category $\A$, you can talk about two maps composing to zero, so you can talk about $\chain(\A)$. Because of the third condition on abelian categories, the homology of a chain complex is well-defined.
+
+Recall that for $A_\udot\in s\ab$, $N_n(A_\udot)=\bigcap_{i>0}\ker d_i$, with $d\colon N_n(A_\udot)\to N_{n-1}(A_\udot)$ given by $d_0$. If $A_\udot\in s\A$ for some abelian category $\A$, we can define $N_n(A_\udot)= \ker(\prod_{i>0}d_i)$, and $d_0$ induces a differential. Remember that we also had a functor $Alt_*\colon ss\ab\to \chain$; you can also do this for an arbitrary abelian category, but we don't want to use it. By the way, there is a functor \anton{maybe an adjoint to $Alt_*$, but it doesn't look like it.} $F_\udot$, given by $F_n(C_*)=C_n$, with $d_i\colon F_n(C_*)\to F_{n-1}(C_*)$ given by $d_i=0$ for $i>0$ and $d_0=d$. You can easily check the simplicial identities (all the compositions are zero).
+\begin{theorem}
+ For an abelian category $\A$, the Moore complex functor $N_*\colon s\A\to\chain(\A)$ is an equivalence of categories.
+\end{theorem}
+This is the linear analogue of the statement that simplicial sets and topological spaces have the same homotopy category.
+\begin{proof}
+ We'll do the case $\A=\ab$, but you usually care about the theorem in the case of modules on a ringed space. The proof works for any abelian category.
+ 
+ We claim that the inverse to $N_*$ is given by $K_\udot:= L\circ F_\udot\colon \chain \to ss\ab\to s\ab$. We'll verify this after the break.
+ 
+ [[break]]
+ 
+ Some observations:
+ \begin{itemize}
+  \item[(a)] $Alt_*\circ F_\udot=\id_\chain$. This is pretty clear.
+  \item[(b)] $N_*\circ L\cong Alt_*$ (by HW7, problem 3).
+  \item[(c)] $N_*(A_\udot) \cong Alt_*(A_\udot)/D_*(A_\udot)$ (by HW7, problem 3), where $D_*$ is the subcomplex of $Alt_*$ consisting of degenerate simplicies.
+ \end{itemize}
+ It follows (from b and a) that $N_*\circ L\circ F_\udot\cong Alt_*\circ F\cong \id_\chain$. Now we claim that there are natural isomorphisms $K_\udot N_*(A_\udot)\xrightarrow\alpha A_\udot$. Well, 
+ \[
+  K_mN_*(A_\udot) = \bigoplus_{\sigma\colon [m]\twoheadrightarrow [n]} N_n^{(\sigma)}(A_\udot)
+ \]
+The map $\alpha_m$ is given by sending $x\in N^{(\sigma)}_n(A_\udot)$ to $A(\sigma)(x)\in A_m$. We have to check that $\alpha$ is a morphism in $s\ab$ and that it is an isomorphism. We have to check that $A(f)\alpha_m=\alpha_{m'} K_\udot N_*(f)$ for any $f\colon [m']\to [m]$ in $\DDelta$. Well, any such $f$ can be factored canonically as a surjection $\sigma'\colon [m']\twoheadrightarrow [n']$ followed by an injection $f'\colon [n']\hookrightarrow [n]$. But you may recall that $K_\udot N_*(f)(x)=A(f')(x)\in N^{(\sigma')}_{n'}(A_\udot)$, which is sent by $\alpha$ to $A(\sigma')(A(f')(x))=A(f)(A(\sigma)(x))$ (by $f'\sigma'=\sigma f$), which is exactly what $A(\sigma)(x)$ is sent to. So we get the commutativity we wanted, so $\alpha$ is a morphism in $s\ab$.
+
+Now we want to show that $\alpha$ is an isomorphism. Note that $N_*(\alpha)\colon N(L F_\udot N_*(A_\udot))\to N_*(A_\udot)$ is the identity (rather, the isomorphism we had before).
+
+Finally, we need a lemma: if $f\colon A_\udot\to B_\udot$ is a morphism in $s\ab$ such that $N_*(f)$ is an isomorphism, then $f$ is an isomorphism. Once we have this, we're clearly done.
+
+The proof the lemma (that $f_n\colon A_n\to B_n$ is an isomorphism) is done by induction on $n$. If $n=0$, then $N_0(A_\udot)=A_0$, so it is easy. Now assume we've proven it up to $n$ (for all $A_\udot$, $B_\udot$, and $f$). Define the \emph{Path-Loop-Space} $PA_\udot$ of a simplicial abelian group $A_\udot\colon \DDelta^\circ\to \ab$ to be the composition of $A_\udot$ with $P\colon \DDelta\to \DDelta$, given by $[n]\mapsto [n+1]=[n]\cup \{\infty\}$ (all maps send $\infty$, the largest element, to $\infty$). I claim that there is a morphism $\pi\colon PA_\udot\to A_\udot$ given by $PA_n=A_{n+1}\xrightarrow{d_{n+1}}A_n$. Define the \emph{loop space} $\Lambda A_\udot$ to be the kernel of $PA_\udot\to A_\udot$ (which happens to be onto).
+\[\xymatrix{
+ & & A_{n+1}\ar@{=}[d]\\
+ 0\ar[r] & \Lambda A_n\ar[d]^{(\Lambda f)_n} \ar[r] & PA_n\ar[r]^\pi \ar[d]^{(Pf)_n=f_{n+1}} & A_n\ar[r]\ar[d]^{f_n}_\wr & 0\\
+ 0\ar[r] & \Lambda B_n \ar[r] & PB_n \ar[r] & B_n\ar[r] & 0\\
+ & & B_{n+1}\ar@{=}[u]
+}\]
+By induction, the last downward map is an isomorphism. We'll show that $(\Lambda f)_n$ is an isomorphism, so by the 5-Lemma, $f_{n+1}$ is an isomorphism.
+\end{proof}
+
+
+
+
+
+

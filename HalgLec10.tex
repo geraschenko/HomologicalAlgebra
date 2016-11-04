@@ -1,0 +1,60 @@
+\sektion{10}{Lecture 10}
+
+We were in the middle of doing limits and colimits. We have an index category $I$ (which is usually small) and a category $\C$. We have a diagram in $\C$, given by a functor $D\colon I\to \C$. So for each object $i\in I$, we have an object $D(i)\in \C$ and for each morphism in $I$, you get a morphism in $\C$ so that some things commute (not everything needs to commute).
+
+$\lim_I D$ (if it exists) has maps to each $D(i)$ making all the triangles involving two of these maps commute, and it is final with respect to this property.
+
+A sneaky way to define $\colim_I D$ is $\lim_{I^\circ} D^\circ$. More concretely, $\colim_I D$ (if it exists) has maps from each $D(i)$ making all the triangles involving two of these maps commute, and it is initial with respect to this property.
+\begin{example}[products and coproducts]
+ If $\mor I$ consists of identities (i.e.~$I$ is just a set), then $\lim_I D=\prod_{i\in I} D(i)$ and $\colim_I D=\coprod_{i\in I} D(i)$.
+\end{example}
+\begin{example}[inverse and direct limits]
+ Let $I$ be a partially ordered set (with objects in the partially ordered set and $|\mor(i,j)|=1$ if $i\le j$ and 0 otherwise). For example, $I=\ZZ$. Say $D\colon \ZZ\to \set$ with $D(i)\hookrightarrow D(j)$ (in general, these need not be injections), then $\lim_I D=\bigcap D(i)$ and $\colim_I D=\bigcup D(i)$.
+\end{example}
+\begin{example}[equalizers and coequalizers]
+ If $I$ is the category with two objects $1$ and $2$, with $\mor(1,2)=\{f,g\}$ and no other non-identity morphisms. A diagram $D\colon I\to \C$ is just a pair of objects $D(1)$ and $D(2)$ with two morphisms $D(1)\rightrightarrows D(2)$ between them (with no restrictions). The limit of this diagram is exactly the equalizer of the two maps and the colimit is exactly the coequalizer.
+\end{example}
+\begin{example}[final and initial objects]
+ If $I$ is the empty category, with $D\colon \varnothing \to \C$, then $\lim_I D$ is the final object in $\C$ and $\colim_I D$ is the initial object.
+\end{example}
+Our original diagram is $D\in \fun(I,\C)$ and we have the restriction functor $\fun(I^\triangleright, \C)\to \fun(I,\C)$, where $I^\triangleright$ is the right cone of $I$. The colimit $\colim_I D$ is given by some object $D^\triangleright$ lying over $D$ under the forgetful functor. The colimit is given by $D^\triangleright(\infty)$. $D^\triangleright$ is the initial object in the preimage of $D$ (and its identity morphism) in $\fun(I^\triangleright,\C)$ (this is the subcategory of $\fun(I^\triangleright,\C)$ whose objects map to $D$ and whose morphisms map to $\id_D$ under the fogetful functor). You can make a similar analysis for limits.
+
+\begin{example}[pullbacks and pushouts]
+ If $I=(\cdot\to \cdot\leftarrow \cdot)$, then the limit of the diagram $X\xrightarrow f Z\xleftarrow g Y$ is the pullback $X\times_Z Y$ and the colimit is just $Z$. If $I=(\cdot\leftarrow \cdot \to \cdot)$, then the limit of the diagram $X\xleftarrow f Z\xrightarrow g Y$ is $Z$ and the colimit is the pushout. The usual notation is
+ \[\xymatrix{
+  P\ar[r]\ar[d]\ar@{}[dr]|(.25)\pb & X\ar[d]^f\\
+  Y\ar[r]^g &Z
+ }\qquad
+ \xymatrix{
+ Z\ar[r]^g \ar[d]_f \ar@{}[dr]|(.75)\po & Y\ar[d]\\
+ X\ar[r] & P
+ }\qedhere\]
+\end{example}
+\begin{lemma}
+ All limits and colimits exist in $\C=\set$. More generally, if products and equalizers exist in $\C$, then all limits exist. Similarly, if all coproducts and coequalizers exist, then so do all colimits.
+\end{lemma}
+\begin{proof}
+$\lim_I D = Eq\bigl(\xymatrix{ \prod_{i\in Ob(I)} D(i)\ar@<.5ex>[r]\ar@<-.5ex>[r] & \prod_{\phi\in \mor I} D(t(\phi)) }\bigr)$, where the two maps are given by the identity ($D(t(\phi))\xrightarrow\id D(t(\phi))$) and the other arrow is given by composing with $D(\phi)$.
+\end{proof}
+
+[[break]]
+ 
+\begin{definition}
+ Given a functor $F\colon \A\to \B$ and an object $B_0\in B$. The fiber category $F^{-1}(B_0)$ or $(F\downarrow B_0)$ has objects pairs $(A\in \A, \phi\colon F(A)\to B_0)$ and the morphisms $(A,\phi)\to (A',\phi')$ are maps $\alpha\colon A\to A'$ such that $\phi = \phi'\circ F(\alpha)$.
+\end{definition}
+This is like constructing a homotopy fiber of a map, where the morphisms are paths.
+
+If we use the constant functor $\Delta\colon \C\to \fun(I,\C)$ ($\Delta_X$ sends all objects to $X$ and all morphisms to $\id_X$), then the fiber of the forgetful functor we talked about before is just $(\Delta\downarrow D)$. The limit of $D$ is the terminal object in $(\Delta\downarrow D)$. Similarly, the colimit of $D$ is the initial object in $(D\downarrow \Delta)$.
+
+There is an adjunction formula which is good to know:
+\[
+ \mor_\C(\colim_I D,C) = \mor_{\fun(I,\C)}(D,\Delta_C).
+\]
+
+We saw that limits and colimits exist in $\set$. They also all exist in $\ab$ by the same argument. What is the product in $\gp$? It is the usual product. What is the coproduct? It is the free product. How about $\top$? Products are usual products (with the product topology), and coproducts are disjoint unions. Equalizers and coequalizers are the same as in $\set$, with the topologies you'd expect.
+
+Given a category $\C$, define the category of \emph{presheaves on $\C$}, $\presh(\C)=\fun(\C^\circ, \set)$. There is something called the \emph{Yoneda embeding} $r\colon \C\to \presh(\C)$ given by $r_Y(X)=\C(X,Y)=\mor_\C(X,Y)$. Functors isomorphic to some $r_Y$. It turns out that $r$ is fully faithful. That is, $\C(X,Y)\cong \mor_{\presh(C)}(r_X,r_Y)$.
+\begin{theorem}
+ $\presh(\C)$ is \emph{cocomplete} (has all colimits) and any presheaf can be canonically written as a colimit of representable functors $F\cong \colim_{(r\downarrow F)} D$ where $D$ is the diagram $(r\downarrow F)\to \C$.
+\end{theorem}
+

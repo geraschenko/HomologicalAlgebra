@@ -1,0 +1,134 @@
+\sektion{26}{Derived categories}
+
+We were in the middle of proving the following theorem.
+\begin{theorem}[Serre]
+ $\pi_{n+1}(S^n)\cong H_{n+2}(K(\ZZ,n))\cong
+ \begin{cases}
+  0 & n=0,1\\
+  \ZZ & n=2\\
+  \ZZ/2 & n\ge 3
+ \end{cases}$
+\end{theorem}
+\begin{remark}
+ $\pi_k^{\text{stable}}:=\pi_{k+r}{S^r}$ for sufficiently large $r$, is known only for small $k$ (up to about $k=200$). Serre computed the first few of these using spectral sequences. For example,
+ \[\begin{tabular}{c|c|c|c|c|c}
+  k & 0&1&2&3&4\\ \hline
+  \rule{0pt}{12pt} $\pi_k^{st}$& $\ZZ$&$\ZZ/2$ & $\ZZ/2$ & $\ZZ/24$ & 0
+ \end{tabular}\]
+ HW3 implies that $|\pi_k^{st}|<\infty$ for all $k>0$.
+ 
+ It is known that $\pi_*^{st}$ is a graded commutative ring under smash product, and all the non-zero graded elements are nilpotent. It is known that the prime $p$ cannot appear as an exponent until $k=p-1$ or something like that.
+\end{remark}
+\begin{definition}
+ If a topological space $K$ has a homotopy associative multiplication $\mu\colon K\times K\to K$, then $H_*(K)$ is a graded ring via the \emph{Pontrjagen product}: we always have the edge homomorphism $\times\colon H_*(K)\times H_*(K)\to H_*(K\times K)$, which we compose with $\mu_*$ to get a map $H_pK\times H_qK\to H_{p+q}K$.
+\end{definition}
+\begin{example}
+ If $K$ is a topological group, then it has an actually associative multiplication, so we get this ring structure. For example, we know that $K(\ZZ,n)$ is a topological group. We had
+ \[\xymatrix@!0 @R=2pc @C=5pc{
+  H_k\ar@{|->}[r] & \pi_k \ar@{|->}[rr] & & \pi_k\\
+  \chain \ar[r] & s\ab \ar[r] & s\set \ar[r]^{|\cdot|} & \top\\
+  (\cdots\to \overset{n}{\ZZ}\to \cdots) \ar@{|->}[rrr] & & & K(\ZZ,n)
+ }\]
+ But a simplicial abelian group is the same thing as an abelian group object in $s\set$, so the image of the composition $s\ab\to s\set\to \top$ lands in group objects of $\top$; the important thing is that the geometric realization respects products.
+ 
+ I claim that the fibration $K(\ZZ,n-1)\to *\to K(\ZZ,n)$ is a fibration of topological groups. This means that we'll get a spectral sequence of rings. To see that this is a fibration of topological groups, it is enough to get the fibration from $\chain$:
+ \[\xymatrix@R-1pc{
+  & n & n-1 \\
+  0\ar[r] & \ZZ \ar[r] & 0\ar[r] & 0 & & K(\ZZ,n)\\
+  0\ar[r]\ar[u] & \ZZ\ar[u]\ar[r]^\id & \ZZ\ar[u] \ar[r] & 0\ar[u] & & P\simeq *\ar[u]\\
+  0\ar[r]\ar[u] & 0\ar[u]\ar[r] & \ZZ \ar[r]\ar[u] & 0\ar[u] & & K(\ZZ,n-1)\ar[u]
+ }\]
+ The image of the middle guy in $\top$ is contractible because it's homotopy groups are the homology groups of the chain complex (which are zero) and it is a CW complex, so all homotopy groups being zero implies contractible by Whitehead's theorem. Because of something \anton{}, the image in $\top$ is a fibration.
+\end{example}
+\begin{lemma}
+ If $Z\in H_2(K(\ZZ,2))\cong \ZZ$ is a generator, then $z^2$ is twice a generator in $H_4(K(\ZZ,2))\cong \ZZ$.
+\end{lemma}
+\begin{proof}
+ Remember that the even homologies of $K(\ZZ,2)$ are $\ZZ$ and the odd homologies are zero (you did something similar on the homework, computing the rational homology or cohomology of $K(A,n)$'s).
+ \[\xymatrix@-1pc{
+  0&0&0&0&0\\
+  \ZZ&0&\ZZ&0&\ZZ&0\\
+  \ZZ&0&\ZZ\ar[ull]|{\sim}&0&\ZZ&0 \\
+  & & z & & z^2
+ }\]
+ We have that $d_2(z^2)=2zd(z)$. We know that the product structure on $E^2_{2,1}=H_2(K(\ZZ,2))\otimes H_1S^1$. Something about the product structure, so $z^2$ is twice the generator. I'll post an exercise which is a better proof, which shows that something is a divided polynomial ring.
+\end{proof}
+\begin{corollary}
+ $H_5(K(\ZZ,3))\cong \ZZ/2$
+\end{corollary}
+\begin{proof}
+ \[\xymatrix@!0{
+  &\ZZ\\
+  &0&0&0&0&0&0\\
+  z&\ZZ & 0&0& \ZZ\ar[uulll]_(.7){d_3= 2} & 0 \\
+  &0&0&0&0&0&0\\
+  &\ZZ & 0&0& \ZZ \ar[uulll]|{\,\cong\,} & 0 & H_5\\
+  & & & & x
+ }\]
+ $x$ is a generator. We have that $d_3 x= z\in H_2(K(\ZZ,2))$, so $d_3(zx)=d_3(z) x + z d_3x = 0 + z^2$, which is twice the generator. The $H_5$ has to kill off what is left, which is a $\ZZ/2$.
+\end{proof}
+Now we're poised to finish the theorem. If we're doing the Leray-Serre spectral sequence for $K(\ZZ,3)\to *\to K(\ZZ,4)$, then we get
+ \[\xymatrix@!0{
+  &\ZZ/2&0&0&0&0&0&0\\
+  &0&0&0&0&0&0&0\\
+  3&\ZZ&0&0&0&\ZZ&0&0\\
+  &0&0&0&0&0&0&0\\
+  &0&0&0&0&0&0&0\\
+  &\ZZ&0&0&0&\ZZ \ar@(l,r)[uuullll]|{\cong}&0 & H_6 \ar@(l,r)[uuuuullllll]|{\cong}\\
+  & & & & & 4
+ }\]
+Note that the $\ZZ$ in the $(4,3)$ spot doesn't hit the $\ZZ/2$, so it doesn't cause a problem; we get that $H_6(K(\ZZ,4)\cong H_5(K(\ZZ,3))\cong \ZZ/2$. In general, the higher stable homotopy group you're trying to understand, the more differentials you have to understand.
+
+[[break]]
+
+\subsektion{Derived categories and derived functors}
+
+Rather than just explain the derived category of an abelian category, I'll explain some more general stuff, so put of your abstract hat. First, let's talk about the localization of categories. I hope you already know about localization of commutative rings and modules.
+
+Let $\C$ be a category, and let $\E$ be a subcategory of ``equivalences''. If $X\to Y$ is a morphism in $\E$, we write is as $X\xrightarrow\sim Y$.
+\begin{definition}
+ A functor $\e\colon\C\to \E^{-1}\C$ is an \emph{$\E$-localization of $\C$} if $\e(\E)$ has only isomorphisms and is initial among functors from $\C$ satisfying this property. That is, for any $F\colon \C\to \D$ such that $F(\E)$ has only isomorphisms, there is a unique (really unique!) functor $\tilde F\colon \E^{-1}\C\to \D$ such that $F=\tilde F\circ \e$.
+\end{definition}
+Note that $\E^{-1}\C$ need not exist. The idea in general is to construct $\E^{-1}\C$ by taking all the objects of $\C$, and make the morphisms zig-zags $(X\xleftarrow\sim X_0\to X_1\xleftarrow\sim \cdots \xleftarrow\sim X_n \to Y)$ modulo some kind of equivalence.
+
+There are examples in algebra and topology that are not that different.
+\begin{example} \label{26Eg:1}
+ If $R$ is a commutative ring and $S$ is a multiplicative subset, then there exists a localized ring $S^{-1}R$. This ring is called the classical localization. You can think of $R$ as an additive category with one object whose morephisms are elements of $R$ and whose composition is multiplication in $R$.
+\end{example}
+\begin{example}\label{26Eg:2}
+ Let $\C=R\mod$, let $S$ be a multiplicative subset, and let $\E_S(M,N)=\{f\colon M\to N|\ker f$ and $\coker f$ are $S$-torsion\footnote{$M\in R\mod$ is $S$-torsion if for all $m\in M$, there is some $s\in S$ such that $sm=0$.}$\}$. I claim that $\E_S^{-1}\C\simeq S^{-1}R\mod$. We'll see this later. It is very handy that you can construct the category of representations of something without constructing the something first.
+\end{example}
+\begin{example}\label{26Eg:3}
+ Let $\C=\chain(\A)$ for $\A$ an abelian category, and let $\E$ consist of quasi-isomorphisms. Then we define the \emph{derived category of $\A$} to be $\D(\A):=\E^{-1}\C$. Later, we'll see how to think about morphisms in this category.
+\end{example}
+\begin{example}\label{26Eg:4}
+ Let $\C=\top$ and let $\E$ consist of all weak equivalences. Then we'll see that $\E^{-1}\C\simeq h\cw$.
+\end{example}
+\begin{example}\label{26Eg:5}
+ Let $\C=\top$ and let $\E$ consist of maps that induce isomorphisms on some generalized homology theory $h_*$ (if you don't know about generalized homology theories, imagine $h$ as your favorite homotopy functor). Amazingly, you get some really interesting things. For example, if you're interested in the homotopy type of a simply connected space, then it is enough to understand it's image under the localization of $\ZZ/p$ homology and rational homology.
+\end{example}
+
+How to construct $\E^{-1}\C$?
+\begin{definition}
+ $X\in \C$ is \emph{$\E$-local} if $f^*\colon\C(B,X)\to \C(A,X)$ is a bijection for all $f\colon A\xrightarrow\sim B$ (i.e.~for all $f\in \E$).
+\end{definition}
+In Example \ref{26Eg:1}, the single object is local if and only if $\cdot s\colon R\to R$ is a bijection for all $s\in S$. That is, the object is local if and only if $S$ consists of units.
+
+In Example \ref{26Eg:2}, a module $M$ is local if and only if $M$ is uniquely $S$-divisible (i.e.~for all $m\in M$ and $s\in S$, there exists a unique $n\in M$ such that $sn=m$).
+
+In Example \ref{26Eg:3}, it is really hard to tell if an object is local, but there is a trick to avoid the problem.
+\begin{lemma}
+ $\E^{-1}\chain(\A)\simeq \E^{-1}_h(h\chain(\A))$.
+\end{lemma}
+We'll skip the proof of this lemma, but it's easy. On HW13: If $\C=h\chain^-(\A)$ (bounded above complexes), then chain complexes of injectives are local. This is a generalization of the acyclic to injective lemma.
+
+In Example \ref{26Eg:4}, it turns out that only the point is local, and in Example \ref{26Eg:5}, it turns out there are more local objects.
+\begin{definition}
+ An $\E$-localization of $A\in \C$ is an equivalence $A\xrightarrow\sim L_A$, where $L_A$ is local.
+\end{definition}
+In Example \ref{26Eg:2}, a the map $M\to S^{-1}M$ is a localization. In Example \ref{26Eg:3}, a localization is an injective resolution.
+
+There is a little lemma that $L_A$ is unique up to unique isomorphism. If $B\xrightarrow \sim L_B$ is a localization, then there is a unique $L_f\colon L_A\to L_B$. Because of the definition of local, a map from $L_A$ to $L_B$ is the same thing as a map from $A$ to $L_B$, which we already have.
+\begin{theorem}
+ If $\C$ has all localizations (every object has a localization), then the functor from the full subcategory of local objects $Loc_\E(\C)\hookrightarrow \C\xrightarrow\e \E^{-1}\C$, is an equivalence of (large) categories.
+\end{theorem}

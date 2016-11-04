@@ -1,0 +1,104 @@
+\sektion{30}{Triangulated categories}
+
+Today is the last day. We'll finish what we were doing last time and give an overview of triangulated categories.
+
+We had a functor between abelian categories $F\colon \A\to \B$ that we wanted to derive. We got an induced functor $F\colon h\chain(\A)\to h\chain(\B)\to \Der(\B)$. So our setup is that $\C=h\chain(\A)$, and $\E$ consists of quasi-isomorphisms. In general, if there are enough $\E$-local objects, we can construct a functor $I\colon \C\to Loc_\E\C$
+\[\xymatrix{
+ \C\ar@/_5ex/[ddr]_\id^(.6){}="a" \ar[rr]^a \ar[dr]_I & & \E^{-1}\C\ar[dl]^{\tilde I} \ar[dd]^{:=RF}\\
+ & Loc_\E\C \ar@{^(->}[d]_(.3){}="b"\\
+ & \C\ar[r]^F & \D
+ \ar@{=>}^i "a";"b"
+}\]
+This worked as long as we had enough local objects, and the dual picture worked so long as we had enough colocal objects.
+
+Suppose we have a full subcategory $\B\subseteq \C$. Define $\E_\B=\E\cap \B$. The idea is that if we choose a nice enough $\B$, we might still be able to define $RF$ even if we don't have enough local objects. If $\B$ has enough $\E_\B$-local objects, $\E^{-1}\C$ is equivalent to $\E_\B^{-1}\B$, and we get a factorization
+\[\xymatrix{
+ \C\ar@/_5ex/[ddr]_\id \ar[rr]^a & & \E^{-1}\C\\
+ & \B \ar@{_(->}[ul] \ar@{^(->}[d] \ar[r]^-a & \E_\B^{-1}\B \ar[u]^\cong \ar@{-->}[d] \\
+ & \C\ar[r]^F & \D
+}\]
+We saw that if $F$ is exact, then it is equal to $RF$ (at least in setup with chains). Thus, ``failure of $F=RF$ is equivalent to the failure of $F$ to be exact.'' That is, you somehow want to say that $RF$ is the best exact approximation of $F$. The problem is that $h\chain(\A)$ and $\Der(\A)$ are \emph{not} abelian categories, so it doesn't make sense to say that $RF$ is exact. So we'd like to understand in what sense $RF$ is exact. The punchline is that both of these categories are actually triangulated categories. This extra structure will allow us to figure out what nice properties $\B$ should have.
+
+Recall that in HW13, for a map $f\colon X\to Y$, we defined the cone and we showed that you get $X\xrightarrow f Y\to Cf\to \Sigma X$. This had some nice properties (you got some long exact sequences). This is really the structure that we're going to try to abstract.
+\begin{definition}[Verdier]
+ A \emph{triangulated structure} on an additive category $\C$ is an automorphism\footnote{An actual invertible functor, not just an autoequivalence. In a category of chain complexes, this will be shifting the chain complexes up or down.} $\Sigma\colon \C\to \C$ and a family of distinguished triangles (or exact triangles) $\{A\xrightarrow u B\xrightarrow v C \xrightarrow w \Sigma A\}$ (this triangle is sometimes abreviated $(u,v,w)$) satisfying
+ \begin{enumerate}
+  \item[(T0)] any triangle isomorphic to an exact triangle is an exact triangle,\footnote{A morphism/isomorphism of triangles is what you think it is: three morphisms making three squares commute.} and the triangle $(\id_A,0,0)=(A\xrightarrow \id A\to 0\to \Sigma A)$ is exact.
+  \item[(T1)] for all $u\colon A\to B$, there exist $v$ and $w$ such that $(u,v,w)$ is an exact triangle.
+  \item[(T2)] (Rotation) If $(u,v,w)$ is an exact triangle, then so are $(v,w,-\Sigma u)$ and $(-\Sigma^{-1}w,u,v)$. \anton{I'd rather build the minus signs into the $\Sigma$}
+  \item[(T3)] If you have two of the three morphisms of a morpism of exact triangles, the third one exists:
+  \[\xymatrix{
+   A\ar[r]^u \ar[d]^{f} & B\ar[r]\ar[d]^g & C\ar[r]\ar@{-->}[d]^{\exists h} & \Sigma A \ar[d]^{\Sigma f}\\
+   A'\ar[r]^{u'} & B'\ar[r] & C'\ar[r] & \Sigma A'
+  }\]
+  \item[(T4)] (Octahedron axiom) If we have a commutative triangle $A\xrightarrow f B\xrightarrow g C$ and exact triangles on $g$ and $g\circ f$, then there exists an exact triangle on $f$ and there exists morphisms making ($\Delta$ means exact and $\circlearrowleft$ means commutative)
+ \[\xymatrix@!0{
+  & B\ar[dr]\\
+  A\ar[ur]\ar[rr]^\circlearrowleft & & C
+ }\qquad\qquad\xymatrix@!0{
+  \exists C' \ar@{-->}@/_4ex/[ddrr]_\exists^\circlearrowleft \ar[dr] & & B\ar[dr] \ar[ll]^\Delta & & A' \ar[ll]^\Delta \ar@/_3.5ex/[llll]^\circlearrowleft\\
+  & A\ar[ur]\ar[rr]^\circlearrowleft_\Delta & & C\ar[ur]\ar[dl]\\
+  & & B' \ar[ul] \ar@{-->}@/_4ex/[rruu]^\circlearrowleft_\exists
+ }\]
+ You can think of this as the statement that $(C/A)/(B/A)\cong C/B$. \anton{stick in the 5-lemma result to get rid of the exists on the $C'$}
+ \end{enumerate}
+\end{definition}
+In the case of chain complexes, the exact triangles are the ones isomorphic to one of the form $X\xrightarrow f Y\to Cf\to \Sigma X$. It is an exercise to check that $h\chain(\A)$ satisfies the axioms.
+
+There is a feeling that the definition of a triangulated category isn't quite right. Probably in 20 years or so (maybe less), this will be an obsolete definition. Nevertheless, it is a useful definition in the absence of something better. The trouble is that the morphism produced in (T3) is not a unique morphism. In the example of chian complexes, you can construct a canonical morphism from the homotopy $u'f\simeq gu$. But just from knowing that there exists a homotopy, you don't get a canonical choice of filler. The catch phrase is ``cones aren't functorial.''
+
+[[break]]
+
+If you have a map $u\colon A\to B$ in $h\chain(\A)$, and suppose you complete this to an exact triangle with $Cu$. Suppose that you can find an automorphism of $B$ not homotopic to the identity making the leftmost square commute
+\[\xymatrix{
+ A\ar[r]^u \ar@{=}[d] & B \ar[d]^a\ar[r]^v & Cu \ar@{-->}[d]\\
+ A\ar[r]^u & B \ar[r]^{hva^{-1}} & Cu
+}\]
+The upshot is that given the data $(A\xrightarrow u B)$, the map $B\to Cu$ is not canonically determined.
+\begin{definition}
+ If $\C$ is triangulated, and $F\colon \C\to \B$ is a functor to an abelian category, then $F$ is \emph{homological} if for every exact triangle $(u,v,w)$, the sequence
+ \[
+  FA\xrightarrow{Fu} FB\xrightarrow{Fv} FC\xrightarrow{Fw} F\Sigma A
+ \]
+ is exact. We also define $F_i(X)=F(\Sigma^{-i}X)$.
+\end{definition}
+In HW13, we saw that homology (i.e.~$H_0$) and $[X,-]$ are homological functors. There is an analogous notion of a cohomological functor, of which $[-,X]$ was an example.
+
+If we had a functor of abelian categories $F\colon \A\to \B$, then we get an induced functor $h\chain(\A)\to h\chain(\B)\xrightarrow{H_0} \ab$ which is homological.
+
+Let $\C$ be a triangulated category, and let $\E$ be the equivalences given by a homological functor $F$ (i.e.~a morphism $g$ is an equivalence if $F_ig$ is an isomorphism for all $i$). Then
+\begin{enumerate}
+ \item The Ore condition is satisfied.
+ \item For $\E^{-1}\C$, it is enough to use ``roofs.''
+ \item $\E^{-1}\C$ is triangulated.
+\end{enumerate}
+1. We want to show that if $X'\to Y\xleftarrow\sim Y'$, then there exists some $W$ and morphisms such that such that
+\[\xymatrix@!0{
+ & W\ar[dl]_@{~} \ar[dr]\\
+ X'\ar[dr] & & Y'\ar[dl]_@{~}^s\\
+ & Y
+}\qquad
+\xymatrix@!0{
+ & & & W\ar[dl] \ar@{-->}[dr] \\
+ & & X'\ar[dr] \ar[dl] & & Y'\ar[dl]_@{~}^s\\
+ &  C\ar@{=}[dr] \ar[dl]& & Y \ar[dl]\\
+ \Sigma W & & C
+}\]
+Since $s$ is an equivalence, $F_i(C)=0$ for all $i$. It follows that the map $W\to X$ is an equivalence. The arrow from $W$ to $Y$ is given by the axiom (T3).
+
+2. It is enough to show that if you compose two roofs, you get another roof, but this follows from the Ore condition immediately by ``popping'' the middle valley in $X\xleftarrow\sim X'\to Y\xleftarrow\sim Y' \to Z$.
+
+3. We need to say when $X\xleftarrow\sim X'\to Y\xleftarrow\sim Y' \to Z \xleftarrow\sim Z'\to \Sigma X$ is an exact triangle. Popping everything up, we have
+\[\xymatrix@!0{
+ & & & X''\ar[ddll]_@{~}\ar[dr]\\
+ & & & & Y'' \ar[dl]|@{~}\ar[dr]\\
+ & X'\ar[dl]|@{~}\ar[dr] && Y'\ar[dl]|@{~}\ar[dr] && Z'\ar[dl]|@{~}\ar[dr]\\
+ X&&Y&&Z&& \Sigma X
+}\]
+We declare the triangle to be exact if $X''\to Y'\to Z'\to \Sigma X$ is exact.
+
+\begin{proposition}
+ Suppose $\B$ is a full subcategory of $\C=h\chain(\A)$, with $\E$ weak equivalences, and $F\colon \A\to \D$ such that $F\colon \C\to \Der(\D)\xrightarrow{H_0}\D$ is homological. Suppose further that any acyclics in $B$ are $F$-acyclic (they remain acyclic upon applying $F$) and for all $X\in \C$, there is some $Y\in \B$ and an equivalence $Y\xrightarrow\sim X$. Then $\E_B^{-1}\B\to \E^{-1}\C$ is an equivalence. Thus, we may use $\E_B$-local objects to define/compute $RF$.
+\end{proposition}
+Given any $A\to Z\xleftarrow\sim B$ with $A,B\in \B$, we'd like to find a roof in $\B$ giving it. Well, we can pop it to get $A\xleftarrow\sim Z'\to B$. Then we can find some $Y\in \B$ equivalent to $Z$. Then we get a roof $A\xleftarrow\sim Y\to B$ giving the same morphism.
+

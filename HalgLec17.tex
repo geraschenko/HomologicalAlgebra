@@ -1,0 +1,148 @@
+\sektion{17}{Group extensions}
+\footnote{This lecture was given by Chris Schommer-Pries.}
+
+Today we get to talk about one of the highlights of the course; we'll prove and understand something we couldn't understand before. We have a classification of finite simple groups, but then what do we know about finite groups? We need to understand how group extentions work.
+
+Given groups $Q$ and $N$, when can we have an exact sequence of groups
+\[
+ 1\to N\to E\to Q\to 1
+\]
+We can make a few observations right away. If $N$ is abelian, we kind of understand this problem. It turns out to be $H^2(Q;N)$. In general, we know that $N\triangleleft E$ and $Q=E/N$. So conjugation by elements of $E$ gives automorphisms of $N$, so we have a map $E\to \Aut N$. Before, if we had an element $q\in Q$, we took a preimage $e\in E$ and conjugate with it. But now that $N$ is non-abelian, the action of $q$ depends on the choice of preimage $e$ (a different choice will act by something differing by an inner automorphism of $N$). So we get
+\[\xymatrix @R-1pc{
+ 1\ar[r] & N\ar[r] \ar@{=}[d] & E\ar[d]\ar[r] & Q\ar[r] \ar[d]^\rho & 1\\
+ & N\ar[r]^-\alpha & \Aut(N)\ar[r] & Out(N) \ar[d]\\
+ & & & \Aut(Z(N))
+}\]
+The goal for the day is to prove the following theorem.
+\begin{theorem}
+ Given $N$, $Q$, and $\rho\colon Q\to Out(N)$,
+ \begin{itemize}
+  \item[(a)] there is a functorial \emph{obstruction class} $\nu_\rho\in H^3(Q;Z(N))$ such that there exists an extension $E$ inducing $\rho$ if and only if $\nu_\rho=0$, and
+  \item[(b)] if $\nu_\rho=0$, and $E_0$ is an extension inducing $\rho$, then $\{$extensions$\}/\cong$ is in bijection with $H^2(Q;Z(N))$.
+ \end{itemize}
+\end{theorem}
+Consider the case of extensions by abelian groups $N=A$. In this case, $\alpha\colon A\to \Aut(A)$ is the trivial map. PT had an elaborite way of relating extensions to some other stuff, but there is a more direct way to do it, and that is what we'll do today.
+
+If we have an extension
+\[\xymatrix{
+ 1\ar[r] & A\ar[r] & E\ar[r] & Q\ar[r] \ar@/_/[l]_s & 1
+}\]
+we can choose a set-theoretic section $s$, which will not be a group homomorphism in general. We will have
+\[
+ s(q)s(q') = f(q,q')s(qq')
+\]
+for some function $f\colon Q\times Q\to A$. Computing $s(q)s(q')s(q'')$ in two different ways, we see that $f\in Z^2(Q;A)$. That is, \anton{explicitly write the cocycle condition}. If we'd chosen a different section, the two sections differ by a map $Q\to A$. Such a map is a $1$-cochain. The boundary of this $1$-cochain is exactly the difference between the resulting $2$-cocycles. So an extension gives us an element of cohomology. We can show that an element of cohomology gives an extension.
+
+What changes in the non-abelian case? Suppose we have
+\[\xymatrix@R-1pc{
+ & 1\ar[r] & N\ar[r]\ar@{=}[d] & E\ar[r]_\pi\ar[d] & Q\ar[r]\ar[d]^\rho \ar@/_/[l]_s \ar[dl]|\xi & 1\\
+ 0\ar[r]& Z(N)\ar[r]& N\ar[r] & \Aut(N)\ar[r] & Out(N)
+}\]
+Composing the section with $E\to \Aut(N)$, we get a map $\xi$ (which won't be a homomorphism). In the abelian case, $\Aut(N)\cong Out(N)$, so we had to have $\xi=\rho$. As before, we get a function $f\colon Q\times Q\to N$, so that
+\[
+ \xi(q)\xi(q')=\alpha\bigl(f(q,q')\bigr)\xi(qq').
+\]
+Then we can verify that $f$ is a \emph{non-abelian cocycle}. That is,
+\[
+ f(q,q')f(qq',q'') = {}^{\xi(q)}[f(q',q'')]f(q,q'q'').
+\]
+If you happen to find an $f$ and a $\xi$ that satisfy this condition, then you can build an extension. You just take $E=N\times Q$ (as a set), and define the multiplication using your $f$ and $\xi$. However, it is not clear that you can find a $\xi$ and an $f$ satisfying these conditions (the cocycle condition and $\xi$ extends $\rho$ and $s$).
+\begin{remark}[You can use your favorite $\xi$]
+ If you had two different lifts $\xi$ and $\xi'$ of $\rho$, they will differ by some inner automorphism, which is induced by some element of $N$. Then we can change $s$ by that element of $n$, then we've changed $\xi'$ into $\xi$. So we can fix $\xi$ and ask, ``does such an $f$ exist?''
+\end{remark}
+Suppose for the time being that we've found such an $f$ somehow. How unique is this $f$? That is, how do we tell when two different $f$'s give the same extension. Before, we could change our section around and see how $f$ changes. But now we've already chosen our favorite $\xi$, so we can only try to change $s$ without changing $\xi$. Changing $s$ is the same as giving a map from $Q$ to $N$ (then $s$ changes by the image of this map under $\alpha$). Thus, we can change $s$ by any element in the kernel of $\alpha$ without messing with $\xi$. That is, we can change $s$ by any map from $Q$ to $Z(N)$ (i.e. a $1$-cochain). So this gives us one way to get two equivalent $f$'s. 
+
+What if somebody gives us $(f,\xi)$ and $(\tilde f,\xi)$, and we want to know if they give the same extension. How do we tell? Consider the difference $f(q,q')^{-1}\tilde f(q,q')$. Because of the conditions $f$ and $\tilde f$ must satisfy, we must have that $f(q,q')^{-1}\tilde f(q,q')$ is in the kernel of $\alpha$, which is $Z(N)$. The upshot is that any two $f$'s are related by a function $\beta\colon Q\times Q\to Z(N)$. Furthermore, because of associativity in $Z(N)$, $\beta$ must satisfy a cocyle condition, so $\beta\in Z^2(Q;Z(N))$. By the previous paragraph, we know that $2$-coboundaries give the same extension. Since we know how to go from cocycles to extensions in a way that inverts this, we've basically proven part (b) of the theorem.
+
+[[break]]
+
+As you can see, these cocycles can very quickly connect extensions with $H^2$, but they are ``dirty.'' We'll use the cocycle stuff a little more, but then we'll have a more elegant way to think about it.
+
+\begin{definition}
+ A \emph{crossed module} is a pair of group homomorphisms $\partial\colon K\to E$ and $\rho\colon \to \Aut(K)$ such that
+ \begin{itemize}
+  \item[(1)] The diagram $\xymatrix @R-2pc @C-1pc{
+   & E\ar[dr]^-\rho \\
+   K\ar[ur]^\partial \ar[rr]_\alpha & & \Aut(K)
+  }$ commutes, and
+  \item[(2)] $\xymatrix@R-1pc{E \ar[r]^\rho \ar[d]_\alpha & \Aut(K) \ar[d]^{\partial_*}\\ \Aut(E) \ar[r]^{\partial^*} & \hom(K,E)}$ commutes (i.e.~$\partial({}^{\rho(e)}k)=e\partial(k) e^{-1}$)
+ \end{itemize}
+\end{definition}
+Some facts. (1) If $A=\ker(\partial)$, then $A$ is abelian and contained in the center of $K$ (by condition (1)). (2) the image of $\partial$ is normal \anton{by condition (2)?}; call the quotient $Q$. (3) $E$ preserves $A$ via the action $\rho$ (by condition (2)). Moreover, we see that the action of $E$ on $A$ factors as $E\to Q\to \Aut(A)$.
+\begin{example}
+ If $N\triangleleft E$, then $E$ acts on $N$. In this case, $A$ is trivial.
+\end{example}
+\begin{example}
+ We have $N\xrightarrow{\alpha} \Aut(N)$, which acts on $N$. In this case, $Q=Out(N)$ and $A=Z(N)$.
+\end{example}
+\begin{example}
+ If $K\twoheadrightarrow E$ has abelian kernel, it is another example.
+\end{example}
+\begin{example}
+ If $F\to E\to B$ is a fibration, you get a long exact sequence in homotopy groups, and the map $\pi_1(F)\to \pi_1(E)$ is an example of a crossed module.
+\end{example}
+\begin{example}
+ If $Y\subseteq X$ is a CW pair, there is a long exact sequence in relative homotopy groups, and $\pi_2(X,Y)\to \pi_1(Y)$ is a crossed module.
+\end{example}
+Given a crossed module $K\xrightarrow\partial E$, we have
+\[\xymatrix@R-1pc{
+ 0\ar[r] & A\ar[r]\ar[d] & K\ar@{=}[d]\ar[r]^\partial & E\ar[r]_\pi\ar[d] & Q \ar[d]\ar[r] \ar@/_/[l]_s & 1\\
+ 0\ar[r] & Z(K)\ar[r] & K\ar[r] & \Aut(K)\ar[r] & Out(K) \ar[r] & 1
+}\]
+You can choose a section $s$ as before. The resulting $f\colon Q\times Q\to \ker \pi$ gives us an extension
+\[
+ 1\to \ker \pi \to E\xrightarrow \pi Q\to 1
+\]
+but that's not what we want ($\ker \pi$ is properly contained in $K$ if $A\neq 0$). We can try to find a lift $F\colon Q\times Q\to K$ so that $\partial F=f$. In general, $F$ \emph{will not} satisfy the cocycle condition, but it fails in a controlled way. We get
+\[
+ c(q,q',q'') F(q,q')F(qq',q'')={}^{\xi(q)}[F(q',q'')]F(q,q'q'')
+\]
+for some $c\colon Q\times Q\times Q\to A$. We then can check that $c$ satisfies a cocycle condition (because the action of $E$ on $A$ factors through $Q$?), so $c\in Z^3(Q;A)$. If you chase through it, you see that $c$ is only defined up to a coboundary. So given a crossed module, you can get an element of $H^3(Q;A)$.
+
+Suppose we had two crossed modules with the same $A$ and $Q$, and suppose you have a map between them
+\[\xymatrix@R-1.5pc{
+ & & K\ar[r] \ar[dd]^\phi& E \ar[dr] \ar[dd]_\phi\\
+ 0\ar[r] & A\ar[dr]\ar[ur] & & & Q\ar[r] \ar@/_/[ul] & 1\\
+ & & K'\ar[r] & E'\ar[ur]
+}\]
+Then you chase through it and you see that you get the same cocycle. This generates an equivalence relation on crossed modules. Let $CM(Q;A)$ be such crossed modules up to this equivalence. So we've shown that if we have a map $CM(Q;A)\to H^3(Q;A)$.
+
+The following theorem will imply part (a) if the theorem.
+\begin{theorem}
+ $CM(Q;A)\to H^3(Q;A)$ is a bijection. In fact, it is an isomorphism of groups.
+\end{theorem}
+The idea is to first show that crossed modules are functorial. If you have a crossed module, you can pull them back along a map $Q'\to Q$:
+\[\xymatrix@R-1pc{
+ 0\ar[r] & A\ar[r] \ar@{=}& K\ar[r]\ar@{=}[d] & E' \ar@{}[dr]|(.25)\pb \ar[r] \ar[d] & Q' \ar[r]\ar[d] & 1\\
+ 0\ar[r] & A\ar[r] & K\ar[r] & E\ar[r] & Q \ar[r] & 1
+}\]
+Similarly, you can push forward along maps $A\to A'$. Now you can define an addition on $CM(Q;A)$. Given two crossed modules, you take their direct sum, pull back along the diagonal map $Q\to Q\times Q$ and push forward along the sum map $A\to A\oplus A$ (this is a group homomorphism because $A$ is abelian). This makes $CM(Q;A)$ into an abelian group.
+
+With a little more care, you can see that the map $CM(Q;A)\to H^3(Q;A)$ is compatible with the addition in $H^3$, so this is a morphism of groups.
+
+We want to show that the map is an isomorphism. The interesting part is to show that the kernel is trivial. We want to show that the zero in $H^3$ is only hit by ``the trivial crossed module''. The trivial crossed module is
+\[
+ 0\to A=A\xrightarrow{const} Q=Q\to 1
+\]
+Suppose we have a crossed module that goes to zero in $H^3$.
+\[\xymatrix{
+ 0\ar[r] & A \ar@{=}[r] & A\ar[r] & Q\ar@{=}[r] & Q\ar[r] & 1\\
+ 0\ar[r] & A\times 1\ar@{=}[u]\ar[r]\ar@{=}[d] & A\times K\ar[u]\ar[d]\ar[r] & \tilde E\ar[d]\ar[u]\ar[r] & Q\ar@{=}[d]\ar@{=}[u] \ar[r] & 1\\
+ 0\ar[r] & A\ar[r] & K\ar[r]^\partial & E\ar[r] & Q\ar[r] & 1
+}\]
+The $c\in Z^3$ we get from $F\colon Q\times Q\to K$ is trivial (this is the assumption), so we get the middle row (we've thrown in a little extra $A$ in the first two terms)
+
+We've actually done
+\[\xymatrix @R-.5pc{
+ 0\ar[r]& 1\ar[r]\ar[d]& N\ar@{=}[d] \ar[r] & E\ar[r] \ar@{.>}[d] & Q\ar@/^3ex/[dd]^\rho\\
+ 0\ar[r]&Z(N)\ar[r]\ar@{=}[d] & N\ar@{=}[d]\ar[r] & \tilde E\ar@{}[dr]|(.25)\pb \ar[r]\ar[d] & Q\ar[d]_\rho \ar@{=}[u] \\
+ 0\ar[r]&Z(N)\ar[r] & N\ar[r]^-\alpha & \Aut(N)\ar[r] & Out(N)
+}\]
+If we had an extension $E$, then we get a map of crossed modules to the canonical pullback $\tilde E$.
+
+Inside $H^3(Out(N);Z(N))$, there is a canonical class $\alpha$ corresponding to the crossed module $\Aut(N)$ (bottom row). We've shown that there exists an extension only if the pullback class in $H^3(Q;Z(N))$ is zero. On the other hand, \anton{the other way somehow}
+
+
+
+
+

@@ -1,0 +1,67 @@
+\sektion{29}{More about derived functors}
+\footnote{Brought to you by Chris Schommer-Pries.}
+
+This is our last week. There is no homework/office hours/discussion this week. Today, we'll do more on derived functors, and on Thursday, we'll talk about triangulated categories and functors.
+
+Last time, we started with a category $\C$ and a subcategory of ``equivalences'' $\E$. We proved that if there are enough $\E$-localizations, the map $Loc_\E\C\hookrightarrow \C\to \E^{-1}\C$ is an equivalence of categories. If we had enough localizations, we could choose a localizing functor $I\colon \C\to Loc_\E \C$. For an arbitrary functor $F\colon \C\to \D$, we got an induced derived functor $RF\colon \E^{-1}\C\to \D$.
+\[\xymatrix{
+ \C \ar@/_5ex/[ddr]_\id^{}="a" \ar[rr]^a \ar@/_/[dr]_I_-(.9){}="b" & & \E^{-1}\C \ar[dd]^{:=RF} \ar@/^/[dl]^{\tilde I}\\
+  & Loc_\E \C\ar@{_(->}[ul] \ar[ur]^\cong \ar@{^(->}[d]\\
+  & \C\ar[r]^F & \D
+  \ar@{=>}_i "a";"b"
+}\]
+We take $\C=h\chain(\A)$ and $\E$ to be quasi-isomorphisms. If $\A$ has enough injectives, then for any chain complex $X_*$, we can choose a quasi-isomorphism to a complex of injectives $X_*\xrightarrow\sim I_X$. We saw in HW13 that complexes of injectives are local; we'll see this in a little more generality later.
+
+Now suppose we have some functor $F\colon h\chain(\A)\to \D$. Then $RF$ is applied by replacing the chain complex with a complex of injectives and applying $F$. Given an object $A\in \A$, we can think of it as a complex concentrated in degree zero. Then a localization is exactly the same thing as an injective resolution $A\to I_A$. Then $H_nRF(A)=H_n(F I_A)$ (I guess we're assuming $\D=h\chain(\B)$). One nice thing is that you don't have to take homology. As you saw on HW13, taking homology loses some information about the complex.
+\begin{example}[The case of an exact functor between abelian categories]
+ Let $f\colon R\to S$ be a ring homomorphism. Then we get an induced functor $f_*\colon S\mod\to R\mod$, which is exact. This extends to a functor $f_*\colon h\chain(S\mod)\to h\chain(R\mod)\xrightarrow a \Der(R\mod)$ (this is the functor you usually derive. I claim that in this case, becuase we have an exact functor, $Rf_*=f_*$.
+ 
+ $f_*$ is exact means that when you apply $f_*$ to an acyclic (exact) complex, it remains acyclic. Recall from HW12 that there is a short exact sequence $X\xrightarrow g Y\to Cg$ \anton{up to homotopy?}, and if $g$ is a quasi-isomorphism, then $Cg$ is acyclic. Applying $f_*$, we get a short exact sequence $0\to f_*X\to f_*Y\to f_*Cg\to 0$ because $f_*$ is exact, and $f_*Cg$ is still acyclic, so $f_*X\to f_*Y$ must be a quasi-isomorphism. Thus, $f_*$ respects quasi-isomophisms (which are isomorphisms in $\Der(R\mod)$. This means that we get a factorization (by the universal property of $\E^{-1}\C$)
+ \[\xymatrix{
+  h\chain(S\mod)=\C\ar[dr]_{f_*} \ar[r]^-a & \E^{-1}\C\ar[d]^{Rf_*=f_*}\\
+   & \Der(R\mod)
+ }\]
+ So we have that ``$Rf_*=f_*=Lf_*$'' (the natural transformation is basically the identity, so it can go both ways).
+\end{example}
+In general, all you have is a natural transformation $F\to RF$, but it isn't clear what they have to do with eachother.
+\begin{remark}
+ Usually we derive functors between abelian categories $F\colon \A\to \B$ by replacing $F$ by the induced functor $F\colon h\chain(\A)\to \Der(\B)$ to get $RF\colon \Der(\A)\to \Der(\B)$ (all of these derived categories are bounded above). We can define $R_nF(X):=H_n(RF(X))$, which is what people usually mean when they say ``the derived functors of $F$''.
+\end{remark}
+\begin{remark}
+ If $F\colon \A\to B$ is left exact, then $R_0F(X)\cong FX$. If $X\to I_*$ is an injective resolution, then $0\to FX\to FI_0\to FI_1$ is exact (further down, it is not exact because $F$ is only left exact), so $H_0(FI_*)\cong FX$. You can derived functors that aren't left exact, but you lose this property. We'll see Thursday that under some weaker conditions, you get some long exact sequences.
+\end{remark}
+\begin{example}
+ Given our ring map $f\colon R\to S$, we can also define the functor $f^*\colon R\mod\to S\mod$, given by ${}_R M\mapsto S\otimes_R M$. We have enough projectives, so you can construct the left derived functor $Lf^*\colon \Der^-(R\mod)\to \Der^-(S\mod)$. Since $f^*$ is a right exact functor, we get an isomorphism $L_0f^* X\cong f^*X$.
+\end{example}
+Fix a ring $R$ and $A\in \chain(\rmod R)$. Then we can construct a functor $h\chain(R\mod)\to h\chain(\ab)$, given by ${}_RM\mapsto \tot^\oplus(A\otimes_R M)$. We have enough projectives, so we can left derive to get $A\lotimes -\colon \Der^-(R\mod)\to \Der^-(\ab)$.
+\begin{claim}
+ If $A\to A'$ is a quasi-isomorphism, then $A\lotimes_R- \cong A'\lotimes_R-$.
+\end{claim}
+We have a natural transformation $A\lotimes B\to A'\lotimes B$ coming from the quasi-isomorphism. We want to show that this induces quasi-isomorphisms. It is enough to check this when $B$ is a complex of projectives (because the first thing you do to apply $\lotimes$ is replace $B$ by a complex of projectives). In particular, projective things are flat. Now we want to compute the homology of some total complexes. For this, we use spectral sequences. We actually have a map of double complexes before we take total complexes. This induces a map of spectral sequences (i.e.~we have maps $E^r_{p,q}\to E'^r_{p,q}$ for each $r,p,q$). We have $E^1_{p,q}=H_{-q}(A)\otimes_R B_p$ and $E'^1_{p,q}=H_{-q}(A')\otimes_R B_p$ because $B_p$ is flat. The induced map on $E^1$ pages is an isomorphism (because we assumed the map $A\to A'$ induces isomorphisms on all homologies). This implies that the induced map on $E^\infty$ pages is an isomorphism. In fact, it implies that the homologies of the total complexes are isomorphic \anton{you have to use the fact that you have a map on total complexes respecting the filtration and use the 5-lemma repeatedly}.
+\begin{corollary}
+ $\lotimes_R\colon \Der^-(\rmod R)\times \Der^-(R\mod)\to \Der^-(\ab)$ (we need the bounded below stuff to make sure the spectral sequence converges).
+\end{corollary}
+
+Let $\A$ be an abelian category with enough injectives. Define $\chain(\A)^\circ\times \chain(\A)\to \chain(\ab)$ by $\hom(P,Q) = \tot(\hom(P_p,Q_q))$, where the double $\hom$ complex has differentials $d^h f= f\circ d_P$ and $d^v f=(-1)^{p+q}d_q\circ f$. Fix $P$. then we have $\hom(P,-)\colon h\chain(\A)\to h\chain(\ab)\to \Der(\ab)$. We can right derive to get $R\hom(P,-)\colon \Der^+(\A)\to \Der^+(\ab)$. If $P\to P'$ is a quasi-isomorphism, then we get an induced isomorphism $R\hom(P,-)\cong R\hom(P',-)$. Peter mentioned that $\ext^n(A,B)=H_{-n}R\hom(A,B)$; it requires a bit of argument.
+
+All this works great if you have enough localizations or colocalizations. If you don't have enough, can the derived functor still exist?
+
+[[break]]
+
+\begin{remark}
+ In HW12, you saw the Cartan-Eilenberg resolution, a resolution $P_{*,*}\to X_*$ which was very special. In particular, you had a quasi-isomorphism $\tot(P_{*,*})\to X_*$, so we get colocalizations of all complexes this way. Then $LF(X) = \tot(FP_{*,*})$. You then get a nice spectral sequence converging to the homomlogy of this guy. This can be useful.
+\end{remark}
+
+Now suppose you don't have enough projectives. For example, fix a topological space $X$ and a sheaf of rings $\O_X$. Then the category $\O_X\mod$ (sheaf of $\O_X$-modules) is an abelian category. It (always?) has enough injectives, but usually does not have enough projectives!
+
+There is a fix. You have $\E\subseteq \C$. Suppose there exists a full subcategory $\B\subseteq \C$ such that 
+\[
+ \text{for all $X\in \C$, there is a $Y\in \B$ and an equivalence $Y\xrightarrow\sim X$.} \tag{$*$}
+\]
+then you can define $\E_\B=\E\cap\B$, and you have a functor $\E_\B^{-1}\B\to \E^{-1}\C$ (assuming both exist, which they do if you do some set theory arguments). The condition implies that this functor is essentially surjective.
+\begin{definition}
+ Let $F\colon \A\to \bar\A$ be a functor between abelian categories. A complex $X$ is \emph{$F$-acyclic} if $F(X)$ is acyclic.
+\end{definition}
+Next time, we'll see that if $F$ is a triangulated functor (to be defined next time) from $h\chain(\A)$ to $h\chain(\bar\A)$ and if $\B\subseteq h\chain(\A)$ satisfies $(*)$ and all acyclics in $B$ are $F$-acyclic, then $\E^{-1}_\B\B\to \E^{-1}h\chain(\A)$ is fully faithful. Given this, for all $X,Y\in \B$ such that $X\xrightarrow\sim Y$, then $FX\to FY$ is an equivalence. Then we can define the left derived functor $LF$ as the left derived functor $LF\colon\E^{-1}_\B\B\to \Der(\A)$.
+
+One last thing we don't really have enough time to cover is composition of derived functors. If $\A\xrightarrow G \B\xrightarrow F \C$, then for free, you get a natural transformation $R(FG)\xRightarrow\xi RF\circ RG$. When you apply $G$ to a complex of injectives in $\A$, you usually don't get a complex of injectives, but if you did, you would get that $\xi$ is an isomorphism. It turns out that you only need enough $G$-acyclics which are sent to $F$-acyclics to get that $\xi$ is an isomorphism. You do this by running a spectral sequence in two different ways. One way, it collapses (because you build a nice Cartan-Eilenberg type resolution), and the other way, you get something else. The upshot is that you get $E^2_{p,q}=R_pF(R_qG(A))\Rightarrow R_{p+q}(FG)(A)$.

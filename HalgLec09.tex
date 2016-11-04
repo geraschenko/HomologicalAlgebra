@@ -1,0 +1,82 @@
+\sektion{9}{Lecture 9}
+
+Today I'll give a quick review of sheaves and a quick review of limits and colimits, but first let me finish something from last time.
+\begin{theorem}
+ If $X$ is a smooth manifold and $\U=\{U_i\}_{i\in I}$ is a good cover (all $U_{i_0\dots i_k}:=U_{i_0}\cap\cdots \cap U_{i_k}$ are contractible), then $H^k_{dR}(X)\cong \check H^k(\U,\RR_\delta)$.
+\end{theorem}
+Recall that for a presheaf $\F\colon Open(X)^\circ \to \ab$, we defined \v Cech cohomology. It is the cohomology of
+\[\xymatrix @R-1pc{
+ \check C^0(\U;\F)\ar[r] & \check C^1(\U;\F)\ar[r]& \check C^0(\U;\F)\cdots\\
+ \prod \F(U_i) \ar[r]^\delta \ar@{}[u]|\parallel & \prod \F(U_{ij}) \ar[r]^\delta \ar@{}[u]|\parallel & \prod \F(U_i) \ar@{}[u]|\parallel
+}\]
+where $\delta$ is the alternating sum of the restriction maps.
+\begin{remark}
+ If $\F$ is a sheaf, then $\check H^0(\U;\F)$ is exactly global sections of $\F$. This is the sheaf axiom:
+ \[
+  \F(X)\to \prod \F(U_i)\rightrightarrows \prod \F(U_{ij})
+ \]
+ In fact, it is clear that $\F$ is a sheaf if and only if $\check H^0(\U;\F)=\F(X)$ for all $\U$. You can use this as the definition of a sheaf. Actually, you need to say that $\check H^0(\U;\F)\cong \F(U)$ for any open subset $U$ and any open cover $\U$ of $U$.
+ 
+ Another way to write the sheaf axiom is that the following is an equalizer
+ \[
+  \F\bigl(\bigcup U_i\bigr)\to \prod_i \F(U_i)\rightrightarrows \prod \F(U_{ij})
+ \]
+\end{remark}
+
+
+There always exists a good cover because you can choose a Riemannian metric and take convex neighborhoods. For general spaces, there need not be a good cover; you have to take a limit over all covers to define \v Cech cohomology.
+\begin{example}
+ You could take $\F(U)=C^0(U;A)$, where $A$ is a topological abelian group. In the theorem, we're taking $A=\RR$ with the discrete topology. More generally, if $\pi\colon P\to X$ has abelian groups as fibers, then you could take $\F(U)=\Ga\bigl(\pi^{-1}(U)\to U\bigr)$. It is clear that this $\F$ is always a sheaf.
+ 
+ If you take $P=\bigwedge^q T^*X$, where $T^*X$ is the cotangent bundle, then $\F(U)=\Om^q(U)$.
+\end{example}
+\begin{proof}
+ We'll draw a big double complex and argue like before.
+ \[\xymatrix{
+  &  & \\
+  \Om^2(X)\ar[u]\ar[r] & \prod_i\Om^2(U_i)\ar[u]\ar[r] & \check C^1(\U;\Om^2) \ar[r]\ar[u] & \cdots \\
+  \Om^1(X)\ar[u]\ar[r] & \prod_i\Om^1(U_i)\ar[u]\ar[r] & \check C^1(\U;\Om^1) \ar[r]\ar[u] & \cdots \\
+  \Om^0(X)\ar[u]\ar[r] & \prod_i\Om^0(U_i)\ar[u]\ar[r]^\delta & \check C^1(\U;\Om^0) \ar[r]\ar[u] & \cdots\\
+  & \prod C^0(U_i;\RR_\delta) \ar[u]\ar[r] & \prod C^0(U_{ij};\RR_\delta) \ar[r]\ar[u] & \cdots\\
+  & \check C^0(\U;\RR_\delta)\ar@{}[u]|\parallel & \check C^1(\U;\RR_\delta)\ar@{}[u]|\parallel
+ }\]
+ Vertically, we compute de Rham cohomology. Horizontally, we compute \v Cech cohomology.
+ 
+ Claim: all the rows except the bottom are exact. That is, $\check H^k(\U;\Om^q)$ is $\Om^q(X)$ for $k=0$ and vanishes for $k>0$. This follows from the lemma below (and that $\U$ is a good cover) once we prove that $\Om^q$ is soft. To see that $\Om^q$ is soft, use partitions of unity! So the rows are exact by the lemma.
+ 
+ I claim that all the columns except the first are exact. Exactness at the bottom is clear because functions whose derivatives are zero are exactly the locally constant functions. The columns are exact because the de Rham cohomology of a contractible set vanishes.
+ 
+ $\check H^k(\U;\RR_\delta)$ is the $k$-th cohomology of the bottom row, and also the $k$-th cohomology of the total complex, which is also the $k$-th cohomology of the first column, which is $H^k_{dR}(X)$.
+\end{proof}
+\begin{definition}
+ A sheaf $\F$ is \emph{soft} if the restriction map $\F(X)\to \F(A)$ is surjective for all closed subsets $A$, where $\F(A)$ is defined as the direct limit (the colimit) of all $\F(U)$ for $U\supseteq A$. If you take $A$ to be a point, $\F(A)$ is called the \emph{stalk} of $\F$ at $A$.
+\end{definition}
+
+\begin{lemma}
+ If $\F$ is a soft sheaf and $X$ has partitions of unity, then $\check H^k(X,\F)=0$ for all $k>0$.
+\end{lemma}
+
+[[break]]
+
+There is a forgetful functor $\sh(X)\to \presh(X)=\fun(Open(X)^\circ, \C)$, where $\C$ is some category with products. This forgetful functor has a left adjoint, called \emph{sheafification}. There are two approaches. One is to do a limit process which forces the sheaf axiom to work. The other way is a little more concrete, which is what we'll do. Let's assume for now that $\C=\set$.
+
+If $\F$ is a presheaf on $X$, we define a topological space $F=\coprod_{x\in X} \F_x$, where $\F_x$ is the stalk at $x$. We have a projection map $\pi\colon F\to X$. For an open set $U\subseteq X$ and $s\in \F(U)$, we get a section $\tilde s\colon U\to \pi^{-1}(U)$, given by taking $\tilde s(x)$ to be the stalk of $s$ at $x$. Define the topology on $F$ to be the finest topology so that all such $\tilde s$ are continuous. Now define $\F^+(U)$ to be sections of $\pi|_U$. We saw in the example that this must be a sheaf, and we see that we have a map $\F\to \F^+$.
+\begin{lemma}
+ $\pi$ is continuous. In fact, it is a local homeomorphism.
+\end{lemma}
+\begin{lemma}
+ $\F$ is a sheaf if and only if the canonical map $\F\to \F^+$ is an isomorphism.
+\end{lemma}
+\begin{lemma}
+ $\F\mapsto \F^+$ is left adjoint to the forgetful functor: $\mor_{\sh(X)}(\F^+,\G)\cong \mor_{\presh(X)}(\F,\G_{\text{forget}})$.
+\end{lemma}
+
+For this construction to work for $\C\neq\set$, you need some more work. You at least need a functor $\C\to \set$ which probably needs to have a left adjoint.
+
+\subsektion{limits}
+Given a small category $I$ (the collection of objects is a set) and a functor $D\colon I\to \C$ for some category $\C$ (called $D$ because this is an ``$I$-diagram in $\C$''), we define the \emph{limit} $L=\lim_I D\in \C$ to be an object in $\C$ with morphisms to all the things in the diagram so that all triangles commute, and $L$ is terminal with respect to this property. This limit may not exist. If $\C$ is something nice like $\set$ or $\ab$, then all limits exist.
+
+A nice way to see this to define a new category, the \emph{left cone of $I$}, $I^\triangleleft$ which has one more object than $I$ (call the extra object $\infty$) and there is exactly one morphism from $\infty$ to each object. A limit is a terminal extention of your orginal functor $D$ to $\tilde D\colon I^\triangleleft\to \C$.
+
+
+

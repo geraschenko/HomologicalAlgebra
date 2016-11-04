@@ -1,0 +1,92 @@
+\sektion{12}{More on extensions}
+
+You could call the following the ``main extension theorem''.
+
+Let $J$ be a left $G$-module. Let $J_\e$ be the corresponding $(\ZZ G,\ZZ G)$-bimodule. Group extensions of $G$ by $J$ correspond do square zero extensions of $\ZZ G$ by $J_\e$ (Theorem 3),\footnote{We defined this as $\ext_\ring(\ZZ G,J_\e)$, which we'll see is isomorphic to $HH^2(\ZZ G,J_\e)$ (this will be true for any ring).} which correspond to left $\ZZ G$-module extensions of $I_G$ by $J$ (Theorem 2) (by Theorem 1, this is $\ext^1_{\ZZ G}(I_G,J)$), which correspond to $\ZZ G$-module extensions of length $2$ of $\ZZ$ by $J$ (splicing with $I_G\to \ZZ G\to \ZZ\to 0$) (by Theorem 1, this is $\ext^2(\ZZ,J)$). Let $\delta\colon \ext^1_{\ZZ G}(I_G,J)\xrightarrow\sim \ext^2(\ZZ,J)$ be the induced map (this comes from the long exact sequence from $I_G\to \ZZ G\to \ZZ$ and uses that $\ZZ G$ is a free $\ZZ G$-module). We talked about Theorems 1 and 2 last time \anton{figure out which ones they are}. We didn't prove theorem 2 yet. Finally, we define $H_2(G;J)$ to be $\ext^2_{\ZZ G}(\ZZ,J)$. Putting it all together, group extensions of $G$ by $J$ are in bijection with $H^2(G;J)$.
+
+$J$ is abelian, so if we have an extension of groups
+\[
+ 1\to J\to Q\to G\to 1
+\]
+$J$ gets a $G$-action (because the conjugation action of $Q$ on $J$ factors through $G$, since $J$ is abelian). When we say ``group extensions of $G$ by $J$,'' we are fixing $J$ as a $G$-module, not just as an abelian group.
+
+If I have a ring extension $0\to J\to P\xrightarrow \alpha R\to 0$ with $J^2=0$, then $J$ is an $(R,R)$-bimodule, as we saw last time. The content of Theorem 3 is that extensions of $G$ by $J$ are in bijection with extensions of $\ZZ G$ by $J_\e$ (the right action is given by the augmentation $\e$).
+
+\begin{remark}
+ If $M$ is a super manifold, we have the ring of functions $C^\infty(M)$, which contains the nilpotent ideal $N$. The quotient is $C^\infty(M_\text{red})$. Replacing $N$ by $J=N/N^2$ and $C^\infty(M)$ by $C^\infty(M)/N^2$, we have a square zero extension. We can get all the way to $C^\infty(M)$ by a series of square zero extensions (if $N$ is nilpotent). I challange those of you who've seen supermanifolds to figure out which element of $HH^2(C^\infty(M_\text{red},J)$ this corresponds to.
+\end{remark}
+\begin{remark}
+ Q: what if you want to do extensions by non-abelian groups? PT: Let's say you have
+ \[
+  1\to N\to Q\to G\to 1
+ \]
+ Then you don't get a $G$-action on $N$ in general. You do get a map $\rho$ from $G$ to $Out(N)=Aut(N)/Inn(N)$, and you get an induced action of $G$ on the center of $N$. Given $(G,N,\rho)$, there is an obstruction in $H^3(G;C(N))$ for existence of an extension $Q$ that induces $\rho$. This obstruction vanishes exactly when there is such an extension. Moreover, choosing some extension $Q$ gives a bijection between all extensions of $G$ by $(N,\rho)$ and $H^2(G;C(N))$. We'll see this next week. As you can imagine, we'll do it by relating everything to length 3 extensions. The center $C(N)$ appears because there is a canonical exact sequence
+ \[
+  1\to C(N)\to Inn(C)\to Aut(N)\to Out(N)\to 0
+ \]
+ Just as three term extensions have to do with $H^2$, four term extensions have to do with $H^3$. This exact sequence will be an element of $H^3(Out(N);C(N))$. The $\rho$ will induce a map $H^3(Out(N);C(N))\to  H^3(G;C(N))$, and the image of this element will be the obstruction.
+\end{remark}
+\begin{theorem}[Theorem 2]
+ Let $I_R\to R\xrightarrow\e k$ be an augmented $k$-algebra ($k$ can be any commutative ring), and let $J$ be some left $R$-module (made into a bimodule using $\e$). Then square zero extensions of $R$ by $J_\e$ are in bijection with left $R$-module extensions of $I_R$ by $J$.
+\end{theorem}
+\begin{proof}
+ We'll construct the two maps, and not completely say why they are inverse. 
+ 
+ ($\leftarrow$) We saw that if $d\colon R\to I$ is a derivation, then if we pull back an $R$-bimodule extention $E$ of $I$ by a bimodule $M$, you get a square zero ring extension of $R$ by $M$. The key formula is that the product is given by $(e,r)(e',r')=(er'+re',rr')$.
+ 
+ Using the derivation $d_\e\colon r\mapsto r-\e(r)$, we get the map from left $R$-module extensions of $I_R$ by $J$ to square zero extensions of $R$ by $J_\e$. (If we have an extension of left modules, we get an extension of bimodules using the right action given by $\e$)
+ 
+ ($\to$) If we have a square zero extension $J_\e\to P\to R$, we have an augmentation $P\to R\to k$, so we get an augmentation ideal $I_P$, which surjects onto $I_R$. By the snake lemma (or something), the kernel of this surjection is $J_\e$. You can check that this $I_P$ is an $R$-module extension of $I_R$ by $J_\e$.
+ 
+ Now you can check that the two maps are inverse.
+\end{proof}
+\begin{proof}[Proof of Theorem 3]
+ Given a square zero extension $J\to P\to R$ where $J$ is an arbitrary $R$-bimodule. Inside of the rings, we have the groups of units $P^\times \to R^\times$. I claim that this map on units is surjective. If I have a unit $r_1\in R$, so $r_1r_2=1$ for some $r_2$. Pick $p_1$ and $p_2$ mapping to $r_1$ and $r_2$. Then $p_1p_2-1=j\in J$. Then $p_1p_2 (1-j)=(1+j)(1-j)=1-j^2=1$ because $J^2=0$. The kernel of $P^\times \to R^\times$ is the set $1+J$ (we've already seen that everything in $1+J$ is invertible). As a group, $1+J\cong J$ (since $(1+j)(1+j')=1+(j+j')$).
+ 
+ Now consider $R=\ZZ G$. We have $G\in \ZZ G^\times$, and we can pull back along the inclusion to get an extension of $G$ by $J$. Thus, we've started with a square zero ring extension and obtained a group extension.
+ 
+ If we have a group extension $1\to J\to Q\xrightarrow \pi G\to 1$, we get
+ \[
+  0\to \ker/\ker^2 \to \ZZ Q\xrightarrow{\ZZ \pi}/\ker \ZZ G\to 0
+ \]
+ I claim that $J_\e \cong \ker/\ker^2$ by $j\mapsto 1-j$. I'll let you check this yourself.\footnote{If $G$ is the trivial group, you have that $\ZZ \pi$ is the augmentation map of $Q$. We saw before that $I_Q/I_Q^2\cong H_1(Q)$.}
+ 
+ Now prove that the two maps are inverse (you'll use the adjunction between units and group-rings).
+\end{proof}
+
+[[break]]
+
+\begin{remark}
+ Notice that everything going from $\ext^2_{\ZZ G}(\ZZ,J)$ to group extensions was constructive. The only tricky part is ``unsplicing''. But if you use the Bar resolution, you can see that there is a canonical unsplicing. I'm cheating a little bit because I'm choosing a cocycle, not just a cohomology class to begin with.
+\end{remark}
+
+\subsektion{Hochschild (co)homology}
+
+If $R$ is a ring, we get a semi-simplicial $(R,R)$-bimodule:
+\[\xymatrix @R-1.5pc{
+ 2 & 1 & 0 & -1\\
+ \cdots\ar@3{->}[r] & R\otimes R\otimes R\ar@{=>}[r]^-{d_0}_-{d_1} & R\otimes R\ar[r]^-\mu & R 
+}\]
+where $d_0(a\otimes a'\otimes a'')=aa'\otimes a''$ and $d_1(a\otimes a'\otimes a'')=a\otimes a'a''$. The dimension $n$ piece has $(n+1)$ tensor product symbols and $(n+1)$ arrows coming out of it.
+
+We can make a complex out of this by taking alternating sums:
+\[
+ T_*(R)=\cdots \xrightarrow{d_0-d_1+d_2} R\otimes R\otimes R\xrightarrow{d_0-d_1} R\otimes R\xrightarrow\mu R
+\]
+From the theory of semi-simplicial sets, $d^2=0$ (this follows from the relation $d_id_j=d_{j-1}d_i$. It turns out that all chain complexes appear in this way (this is the Dold-Kan theorem). Notice two things. First, this is a chain complex of $(R,R)$-bimodules. Secondly, this is much easier than the Bar resolution.
+\begin{lemma}
+ $T_*(R)$ is contractible in $R\mod$ and $\rmod R$ (but not in $(R,R)$-bimodules).
+\end{lemma}
+\begin{proof}
+ $h\colon R^{\otimes n}\to R^{\otimes(n+1)}$ is given by $a\mapsto 1\otimes a$ (or $a\otimes 1$ if you're working in $R\mod$ instead of $\rmod R$).
+\end{proof}
+\begin{definition}
+ Given an $(R,R)$-bimodule $M$, we define
+ \begin{align*}
+  HH_n(R;M)=H_n(T_*R\otimes_{R,R} M)\text{, and}\\ HH^n(R;M)=H^n(\hom_{R,R}(T_*R,M)).
+ \end{align*}
+\end{definition}
+
+
+
+

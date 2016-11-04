@@ -1,0 +1,112 @@
+\sektion{23}{Edge homomorphisms (in Leray-Serre spectral sequence)}
+
+For HW10 problem 1, we had
+\[
+ 1\to \ZZ/n\to D_{2n}\to \ZZ/2\to 1
+\]
+The problem was to calculate $H_2(D_{2n})$. You had to figure out the action of $\ZZ/2$ on $H_q(\ZZ/n)$, among other things. The main problem was that you also had to figure out one $d_2$ differential (in the case $n$ even; in the odd case, there was no problem): $E^2_{p,q}=H_p(\ZZ/2;H_q(\ZZ/n))$
+\[\xymatrix @!0 @+1pc{
+ 2& 0&0&0&0&0&\cdots\\
+ 1& \ZZ/2 & \ZZ/2& \ZZ/2& \ZZ/2& \ZZ/2 & \cdots\\
+ 0& \ZZ & \ZZ/2 & 0 & \ZZ/2\ar[ull] & 0 & \cdots\\
+ & 0 & 1 & 2 & 3 & 4 & 5
+}\]
+We had $(\ZZ/n)_{\ZZ/2}\cong \ZZ/2$. The goal was to figure out that the $d_2$ differential above is zero (from which you can conclude that $H_2(D_{2n})\cong \ZZ/2$).
+
+Remember the Leray-Serre spectral sequence is, for a given fibration $F\xrightarrow i E\xrightarrow \pi B$, there is a spectral sequence $E^2_{p,q}=H_p(B;H_q(F))\Rightarrow H_{p+q}(E)$, where there is an action (up to homotopy) of $\pi_1(B)$ on $F$.
+\[\xymatrix @!0 {
+  && & & &\\ 
+  && & & &\\
+  && & & &\\ 
+ 0& & & & & H_p(B) \ar[ull]^{d_2}\ar[uulll]^(.8){d_3}\ar[uuullll]_(.8){d_4}\\
+  & 0 & & \cdots & & p
+}\]
+We have that $H_p(B)=E^2_{p,0}\supseteq E_{p,0}^3 = \ker d_2\supseteq E^4_{p,q} = \ker d_3\supseteq\cdots \supseteq E^\infty_{p,0}$.
+\begin{lemma}
+ The induced map $\pi_*\colon H_p(E)\to H_p(B)$ is given by the composition $H_p(E)\to H_p(E)/F^{p-1}H_p E = E^\infty_{p,0}\subseteq E^2_{p,0}=H_p B$.
+\end{lemma}
+This will follow from the construction of the spectral sequence.
+\begin{corollary}
+ $\im \pi_* = E_{p,0}^\infty = \bigcap_{r\ge 2}\ker d_r$. In particular, $\pi_*$ is onto if and only if $d_r=0$ for all $r\ge 2$ (e.g.~if $\pi$ has a section).
+\end{corollary}
+In the problem on HW10, we had a section of $\pi$ because $D_{2n}$ is a semi-direct product.
+
+There is another edge of the spectral sequence
+\[\xymatrix @!0{
+ q\quad & H_q(F)_{\pi_1 B} \ar@{<-}[drr]\ar@{<-}[ddrrr]\ar@{<-}[dddrrrr]\\
+ &&&\\
+ &&&&\\
+ 0&&&&&\\ 
+ & 0 & \cdots
+}\]
+Here we have $H_q\twoheadrightarrow (H_q F)_{\pi_1 B}=E^2_{0,q} \twoheadrightarrow E^3_{0,q}=E^2_{0,q}/\im d_2\twoheadrightarrow \cdots \twoheadrightarrow E^\infty_{0,q}\subseteq H_q(E)$.
+\begin{lemma}
+ This is the induced map $i_*\colon H_q(F)\to H_q(E)$. In particular, $i_*(g_*(x)-x)=0$ for $g\in \pi_1B$ and $x\in H_q(F)$.
+\end{lemma}
+The last part of the lemma follows from $i\circ g\simeq i$:
+\[\xymatrix{
+ F\times \{0\} \ar@{^(->}[d] \ar@{^(->}[r]^-i & E\ar[d]^\pi \\
+ F\times I \ar@{-->}[ur]^{h} \ar[r]_-{g\circ p_2} & B
+}\]
+We get $h_t\colon F\to E$, a homotopy between $i=h_0$ and $i\circ g=h_1$ (this is how the action of $g$ was defined).
+\begin{corollary}
+ $\ker i_* = \<\im d_r, g(x)-x\>$ where $g$ varies over $\pi_1 B$ and $x$ varies over $H_q F$. In particular, $i_*$ is injective if and only if the $\pi_1 B$ action is trivial and the $d_r=0$ for $r\ge 2$ (e.g.~if $i$ has a section).
+\end{corollary}
+In the group extension situation, the only way there can be a section of $i$ is if the extension is trivial:
+\[\xymatrix@R-1pc{
+ 1 \ar[r] & N\ar@{=}[d]\ar[r] & N\times Q \ar[r] & Q\ar@{=}[d] \ar[r] & 1\\
+ 1\ar[r]& N\ar[r]^i & G \ar[u]^{s\times \pi}\ar[r]^\pi \ar@/^/[l]^s & Q\ar[r] & 1
+}\]
+
+\subsektion{5-term exact sequence}
+Considering our conclusions about edge homomorphisms near the lower left corner, what do we get? In the lower leftmost box, we already have no non-zero differentials. The conclusion is that $H_0(F)_{\pi_1 B}\cong H_0(B;H_0(F))=E^2_{0,0}=E^\infty_{0,0}=H_0(E)$. \anton{any time we said the action is obviously trivial, we were assuming connected fiber} In particular, if $E$ is connected, then the action of $\pi_1 B$ on the components of $F$ must be transitive. 
+\[\xymatrix @!0 @C+4pc @R+1pc{
+ 1& H_1(F)_{\pi_1 B}\\
+ 0& \surd & H_1(B;H_0 F) & H_2(B;H_0 F)\ar[ull]_{d_2}\\
+ & 0 & 1 & 2 
+}\]
+We get the exact sequence
+\[
+ H_2 E\xrightarrow{\pi_*} H_2(B;H_0 F) \xrightarrow{d_2} (H_1 F)_{\pi_1 B} \xrightarrow{i_*} H_1 E \xrightarrow{\pi_*} H_1(B;H_0 F)\to 0
+\]
+This works for any spectral sequence. For example, for any group extension, you get this nice 5-term sequence.
+
+Now assume that $\pi_i F=0$ for $1\le i\le q-1$. Then we get
+\[\xymatrix @!0 @R+1pc @C+3pc{
+ q & (H_q F)_{\pi_1 B}\\
+ \vdots & 0 & 0 & 0\\
+ 0 & \surd & & &  H_{q+1}(B;H_0F) \ar[uulll]\\
+ & 0 & \cdots & &  q+1
+}\]
+So $H_i E\cong H_i(B; H_0 F)$. If $q=1$, then there is no assumption.
+
+[[break]]
+
+\begin{lemma}
+ If $X$ is a CW complex, then there exists a fibration $\tilde X\xrightarrow i X\xrightarrow\pi K(G,1)$, where $G=\pi_1(X,x_0)$ and $\tilde X$ is the universal covering space of $X$.
+\end{lemma}
+General fact: any map $f\colon X\to K$ can be ``turned into'' a fibration. If $k_0\in K$ is base point (thought of as an object in the fundamental groupoid of $K$), then the \emph{homotopy fiber} of $f$ over $k_0$ is the under category $(k_0\downarrow f)=\{(x,\ga)|x\in X, \ga\colon I\to K, \ga(0)=k_0, \ga(1)=f(x)\}$. Take $X'= \{(x,\ga)|x\in X,\ga\colon I\to K, \ga(1)=f(x)\}\subseteq X\times P K$. There are nice maps $f'\colon X'\to K$ and $\pi_1\colon X'\to X$, given by $f'\colon (x,\ga)\mapsto \ga(0)$ and $\pi_1\colon (x,\ga)\mapsto x$, with $f\circ \pi_1\simeq f'$ (not equal, but good enough for any homotopy purposes).
+\[\xymatrix @C-1pc{
+ F\ar@{=}[r]\ar[d] & \text{ho-fiber}(f)\ar[d]\\
+ X'\ar@<.5ex>[r]^{\pi_1} \ar@/_/[dr]_{f'} & X\ar[d] \ar@<.5ex>[l]^{\text{const}}\\
+ & K
+}\]
+The claim is the $\pi_1$ is a homotopy equivalence, with homotopy inverse $x\mapsto (x,$const$_x)$.
+\begin{proof}
+ We have a map $X\xrightarrow f K= K(G,1):= X\cup 3$-cells$\,\cup\, 4$-cells$\,\cup \cdots$. This gives an associated fibration $F\to X'\xrightarrow{f'} K(G,1)$, whose fiber is the homotopy fiber of $f$. We have the usual covering map $i\colon \tilde X\to X$. I claim that this map lifts to a map to the fiber:
+ \[\xymatrix{
+  F \ar[r] & X' \ar[r]^-{f'} & K(G,1)\\
+  \tilde X\ar[u]^{\simeq} \ar[r]^i & X\ar[ru]_f \ar[u]^{\simeq}
+ }\]
+ You can see that $F\simeq \tilde X$ by looking at the long exact sequence in homotopy groups and using that the square commutes. This gives that it is a weak homotopy equivalence. It is not trivial to check that if $K$ is a CW complex, then $PK$ has the homotopy type of a CW complex \dots eventually $F$ is a CW complex, so weak equivalence implies homotopy equivalence by Whitehead's theorem.
+\end{proof}
+Now use the 5-term sequence where $B=K(G,1)$, $E=X$, and $F=\tilde X$. Here, we're using the general case with $q=2$ ($\pi_1 F=0$). The boring information from $E^2_{1,0}=E^\infty_{1,0}$ is $H_1 X\cong H_1 G$. We get
+\[
+ H_3 X\to H_3 G\to (H_2 \tilde X_G)\to H_2 X\to H_2 G\to 0
+\]
+
+
+
+
+
+

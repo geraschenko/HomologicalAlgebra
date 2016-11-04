@@ -1,0 +1,83 @@
+\sektion{7}{???}
+
+The statement $\ext^1(A,\ZZ)\cong \hom(Z,\QQ/\ZZ)$ for torsion groups $A$ is useful for thinking about Poincar\'e duality. If $M$ is a closed oriented manifold of dimension $n$, you might remember that there is a nice isomorphism $H_{n-p}(M)\xrightarrow\sim H^p(M)$. The is one of the main features of manifolds. How do you think of this map geometrically? Use the universal coefficient theorem, which says that the following bottom sequence is exact.
+\[\xymatrix@C-1pc{
+0\ar[r] & torsion\ H_{n-p}(M)\ar[r]\ar[d]_\psi & H_{n-p}(M)\ar[d]_\wr \ar[r] & H_{n-p}(M)/\mathit{torsion} \ar[r]\ar[d]_\phi & 0 \\
+ 0\ar[r]& \ext^1(H_{p-1}(M),\ZZ)\ar[d]^\sim_{HW}\ar[r]& H^p(M)\ar[r] & (\hom(H_p(M),\ZZ)\ar[r]& 0\\
+ & \hom(tor\ H_{p-1}(M),\QQ/\ZZ)
+}\]
+This is a special case of the universal coefficient spectral sequence. For $\ZZ$, it collapses right away. The $\phi$ gives a bilinear pairing $H_{n-p}(M)/tor \times H_p(M)/tor \to \ZZ$, called \emph{intersection pairing}. I think of homology of degree $n-p$ (for starters) as submanifolds of dimension $n-p$. So if I have submanifolds $X^{n-p}$ and $Y^p$ of dimension $n-p$ and $p$. Generically, they meet in a finite number of points transversely, which is the number given by the pairing. $\phi(X,Y)$ is exactly the number of intersections (this is an algebraic count, so you have to take signs into account).
+
+$\psi$ gives a bilinear pairing $tor\ H_{n-p}(M)\times tor\ (H_{p-1}(M)\to \QQ/\ZZ$, called the \emph{linking pairing}. How do we think of this geometrically? Take some $X^{n-p}$ and $Z^{p-1}$. You can't take intersections (because they don't intersect generically). We need to use that these things are torsion. There is a $k$ so that $k Z^{p-1}=\partial Y^p$. We define $\psi(X,Z)=\phi(X,Y)/k\in \QQ/\ZZ$. The quotient by $\ZZ$ is needed to make the number well defined.
+
+Ok, so that was motivation for the homework.
+
+\bigskip
+\begin{definition}
+ Let $M,N\in R\mod$, with $P_*\to M$ a projective resolution, then $\ext^p_R(M,N):= H^p\bigl(\hom(P_*,N)\bigr)$.
+\end{definition}
+As for $\tor$, we can resolve either $M$ (by projectives) or $N$ (by injectives). We'll formulate this precisely later. From the same lemma we used before, the result is independent of projective resolution.
+
+\begin{example}
+ Let $R=\ZZ[G]$ and let $M=N=\ZZ$, then we get the group cohomology $H^p(G):=\ext^p_{\ZZ G}(\ZZ,\ZZ)\cong H^p(C_*^B(G)^*)$.
+\end{example}
+
+Notice that $\ext$ is a functor in $M$ and $N$. If you had a map $M\to M'$, you'd get an induced map on projective resolutions, then once you apply $\hom(-,N)$, you get a chain map, which induces a map on homologies.
+
+If $\alpha\colon G\to G'$ is a group homomorphism, then we get an induced map $\alpha_*\colon H_n(G)\to H_n(G')$. Remember that $H_n(G)\cong \tor^{\ZZ G}_n(\ZZ,\ZZ)$ (the map is clear if you use the Bar complex). If $P_*\to \ZZ$ is a $\ZZ G$-projective resolution and $P'_*\to \ZZ$ is a $\ZZ G'$-projective resolution. Now we have resolutions by modules over different rings. $\alpha$ induces a ring homomorphism $\ZZ G\to \ZZ G'$, which makes any $\ZZ G'$-module into a $\ZZ G$-module, so $P_*'\to \ZZ$ is a resolution by $\ZZ G$-modules (it is not projective anymore, but it is still a resolution).
+\begin{lemma}[Projective to acyclic lemma]
+ If $P_*\twoheadrightarrow M$ is a projective complex and $A_*\twoheadrightarrow N$ is an acyclic complex, then any map $f\colon M\to N$ has a lift $f\colon P_*\to A_*$ which is unique up to homotopy.
+\end{lemma}
+We didn't formulate it this way before, but you'll see that the proof we gave before works. So now we know that $\id\colon \ZZ\to \ZZ$ induces a map $P_*\to P_*'$ which is unique up to homotopy. This induces the map $\tor^{\ZZ G}_n(\ZZ,\ZZ)\to \tor^{\ZZ G'}_n(\ZZ, \ZZ)$.
+
+\bigskip
+
+Where does ``chain homotopy'' come from? There are two ways of motivating it, and they both lead somewhere.
+
+(1) Recall that a homotopy in topology is a continuous map $X\times I\to Y$. I want to abstract this to get the concept of chian homotopy. Apply your favorite chain functor (mine is cellular chains). We assume some CW structures on $X$ and $Y$, and we use the CW structure $I=[0,1]=2e^0\cup e^1$. If $X$ and $X'$ are CW complexes, then $X\times_{cg} X'$ is also a chain complex, and we have that $C_n(X\times X')=\bigoplus_{p+q=n} C_p(X)\otimes C_q(X')$. The tensor comes from the fact that the tensor product of free abelian groups is a free abelian group on pairs of basis elements. What is the differential? $d^{X\times X'}(c\otimes c')=d^X c\otimes c' +(-1)^{|c|} c\otimes d^{X'}c'$ (you can remember the signs by drawing a picture of a rectangle). This leads us to the following definition.
+\begin{definition}
+ If $C_*$ and $C_*'$ are two chain complexes, $C_*\otimes C_*':= \tot^\oplus(C_p\otimes C'_q, d^h=d\otimes \id, d^v=(-1)^p\id\otimes d')$.
+\end{definition}
+Now we go back to our homotopy $X\times I\to Y$. Define $I_*=C_*(I)=(\ZZ\xrightarrow{(1,-1)} \ZZ^2)$.
+\begin{lemma}
+ A chain homotopy between maps $f,g\colon C_*\to D_*$ is the same thing as a chain map $C_*\otimes I_*\to D_*$ restricting to $f$ and $g$ and the two copies of $C_*$. $C_*\rightrightarrows C_*\otimes I_*\to D_*$.
+\end{lemma}
+I'll leave the proof as an exercise. Note that $(C_*\otimes I_*)_n = (C_n\oplus C_n)\oplus C_{n-1}$. The map $h$ to $D_*$ is exactly $f\oplus g\oplus h$. The condition $dh+hd=f-g$ is exactly the condition that this is a chain map.
+
+[[break]]
+
+\begin{corollary}[of HW2, prob.~2]
+ The two ways of computing $\tor^R_n(M,N)$ are isomorphic. In particular, $\tor^R_n(M,N)\cong \tor^R_n(N,M)$ when $R$ is commutative.
+\end{corollary}
+\begin{proof}
+ Let $M\leftarrow P_*$ and $N\leftarrow Q_*$ be projective resolutions. Then we get a double complex
+ \[\xymatrix{
+  0& M\otimes Q_1\ar[l]\ar[d] & P_0\otimes Q_1 \ar[l]\ar[d] & P_1\otimes Q_1\ar[l]\ar[d]\\
+  0& M\otimes Q_0\ar[l]\ar[d] & P_0\otimes Q_0 \ar[l]\ar[d] & P_1\otimes Q_0\ar[l]\ar[d]\\
+  0& M\otimes N\ar[l]\ar[d] & P_0\otimes N \ar[l]\ar[d] & P_1\otimes N\ar[l]\ar[d]\\
+  & 0 & 0 & 0
+ }\]
+ The claim is that there is a canonical isomorphism $\tor_n(M,N)\cong H_n(P_*\otimes Q_*)=H_n\bigl(\tot^\oplus(P_*\otimes Q_*)\bigr)$ (no matter which definition of $\tor$ you use). If we delete the bottom row of the bicomplex, the rows are exact because the $Q_i$ are projective and therefore flat. So by the homework, the total homology is zero. The homology of the bottom row is exactly the definition of $\tor$. But we have a short exact sequence of complexes, including the bottom row into the total complex, with quotient the total complex with the bottom row deleted. So we have $0\to A_*\to B_*\to C_*\to 0$, with $C_*$ acyclic. So we get a long exact sequence in homology, which shows that $A_*\to C_*$ is a quasi-isomorphism. Similarly, if you cut off the leftmost column, you get the other definition of $\tor$.
+ 
+ To show that $\tor(M,N)\cong \tor(N,M)$, just flip everything in the double complex.
+\end{proof}
+
+Now we can play the same game for $\ext$.
+\begin{corollary}[to the same HW prob]
+ The two ways of computing $\ext^n_R(M,N)$ are isomorphic.
+\end{corollary}
+\begin{proof}
+ Let $N\to I_{-*}$ be an injective resolution and $P_*\to M$ be a projective resolution. We get a bicomplex
+ \[\xymatrix{
+  0\ar[d] & 0\ar[d]\\
+  \hom(P_*,N) \ar[d] & \hom(M,N)\ar[l]\ar[d] & 0  \ar[l] \\
+  \hom(P_*,I_*) & \hom(M,I_*) \ar[l] & 0\ar[l]
+ }\]
+ Cutting off the top row, we get a bicomplex with exact rows (because the $I_*$ are injective, so $\hom(-,I_*)$ are exact). Make the same sort of short exact sequences. And do the same sort of thing for the rightmost column.
+\end{proof}
+If $C$ and $C'$ are two complexes, there is a chain complex $\uhom(C,C')$, defined to be $\tot^\prod(D_{*,*})$, where $D_{p,q}=\hom(C_{-p},C_q')$, and $d(f)(c)=d'(f(c))-(-1)^{|f|}f(dc)$, where $|f|= p+q$. So $d^v=d\circ -$, but $d^h=(-1)^? -\circ d$.
+
+A chain homotopy is a 1-chain in $\uhom(C,C')$. A chain map is the same as a 0-cycle.
+
+
+

@@ -1,0 +1,98 @@
+\sektion{6}{???}
+
+The first part of today's class, we'll calculate $H_n(G)$. We spent all this time identifying it with $H_n(X/G)$. You can actually compute $H_0$ and $H_1$ from the Bar resolution, but beyond that it gets messy.
+
+We know $H_0(G)=H_0(X/G)=\ZZ$ since $X/G$ is connected, and $H_1(G)=H_1(X/G)=\pi_1(X/G)^\mathit{ab}=G^\mathit{ab}=G/[G,G]$. These are the two obvious functors $\gp\to \ab$. The others are non-obvious.
+
+So far, we know that $\ttilde H_n(\{e\})=0$ for all $n$ since $X$ is contractible. We also saw that $\ttilde H_n(\ZZ/2)$ is $\ZZ/2$ for $n$ odd and $0$ for $n$ even.
+
+\begin{example}[$G=\ZZ/n$]
+ Consider the $n$-fold covering $S^1\xrightarrow n S^1/G$, with the decomposition $S^1/G=e^0\cup e^1$ downstairs and an $n$-gon upstairs. $\ZZ/n$ acts freely on $S^1$ by rotating. $S^1$ is not contractible, but we can still use it. The (cellular) chain complexes for $S^1$ and $S^1/G$ are 
+ \[\xymatrix{
+  \ZZ[G]\ar@{}[r]|=& C_1(S^1)\ar[r]^{(t-1)}\ar[d] & C_0(S^1)\ar[d]& \ZZ[G]\ar@{}[l]|=\\
+  \ZZ\ar@{}[r]|=& C_1(S^1/G)\ar[r]^0 & C_0(S^1/G) & \ZZ\ar@{}[l]|=&\\
+ }\]
+ where $t$ is the generator of $G=\ZZ/n$. Since we know the homology of $S^1$, the cokernel of $(t-1)$ is $\ZZ$ and the kernel is $\ZZ$. The generater of $H^1$ is the sum of all the 1-cells; the generator for $H^0$ is given by a single 0-cell. You could do this algebraically if you like, but we already know this from topology.
+ 
+ This chain complex doesn't compute the homology of $G$, it computes the homology of $S^1$. By definition, we have an exact sequence
+ \[
+  0\to \ZZ\to \ZZ[G]\xrightarrow{(t-1)} \ZZ[G]\to \ZZ\to 0
+ \]
+ This allows us to product an exact sequence
+ \[\xymatrix{
+  \cdots & \ZZ[G] \ar[r]^{t-1} & \ZZ[G] \ar[rr]^N & & \ZZ[G] \ar[r]^{t-1} & \ZZ[G]\ar[dr]^\e \\
+  \ZZ\ar[ur] & & & \ZZ \ar[ur] \ar@{<-}[ul] & & & \ZZ
+ }\]
+ The norm map $N$ is given by $\lambda\mapsto N\cdot \lambda$, where $N=\sum_G g$ (for finite groups). It happens that this norm map factors as $\ZZ[G]_G\to \ZZ[G]^G$. Repeating, we get a free resolution of $\ZZ$.
+ 
+ Tensoring over $\ZZ[G]$ with $\ZZ$, all the $\ZZ[G]$'s turn into $\ZZ$'s, so we get the complex
+ \[
+  \cdots \xrightarrow N \ZZ\xrightarrow 0 \ZZ\xrightarrow N \ZZ\xrightarrow 0 \ZZ
+ \]
+ where $N=|G|$. So we get
+ \[
+  \ttilde H_k(\ZZ/n) =
+  \begin{cases}
+   \ZZ/n & k \text{ odd}\\
+   0 & k \text{ even}
+  \end{cases}
+ \]
+ This complex (before tensoring) is the cellular complex of some contractible CW-complex on which $G$ acts freely, by the way. I invite you to try to find it.
+\end{example}
+More generally, if a finite group $G$ acts freely on $S^{2k-1}$, then
+\begin{enumerate}
+ \item[(a)] $\ttilde H_{2k+n}(G)\cong \ttilde H_n(G)$ for all $n$, and
+ \item[(b)] $\ttilde H_{2k-1}(G)\cong \ZZ/|G|$.
+\end{enumerate}
+We'll prove (b), but first I'll announce a theorem.
+\begin{theorem}[to be proven later]
+ (b) implies (a)! Moreover, (b) is equivalent to the statement ``every abelian subgroup of $G$ is cyclic.''
+\end{theorem}
+(b) is equivalent to $|G|$ having periodic homology, and this is how you usually define ``$G$ has periodic homology'' because otherwise the isomorphism isn't given.
+
+What about the converse? If $G$ has periodic homology, does it follow that it acts freely on a sphere? Let's first do some examples.
+\begin{example}
+ Which groups $G$ can act freely on $S^{2k}$? $\ZZ/2$ acts freely by the antipodal map and the trivial group acts trivially, and the claim is that is it. The Euler characteristic of $S^{2k}$ is 2. If $G$ acts freely, then the Euler characteristic of $S^{2k}/G$ must be $2/|G|$, so $|G|$ must be 1 or 2.
+\end{example}
+If $f\colon S^d\to S^d$ is a homeomorphism with no fixed points, then it must be orientation preserving if $d$ is odd and orientation reversing if $d$ is even. That is, orientation-wise, $f$ is like the antipodal map.
+\begin{proof}
+ Use Lefschetz' fixed point theorem. The number of fixed points can be computed from the traces of the maps on homology. So $0=L(f):= tr(f_0) +(-1)^d \tr(f_d)$, where $f_i$ is the induced map on $H_i(S^d)$. Well, $H_0=\ZZ$ and $tr(f_0)=1$, and $tr(f_d)=(-1)^d\deg(f)$, so $\deg(f)=(-1)^{d+1}$.
+\end{proof}
+So if we are on an odd sphere, and there is a free group action, every group element preserves the orientation.
+
+If $G$ (finite) acts freely on $S^1$, we'll see that $G$ must be a cyclic group. This is because $H_1(G)=G^\mathit{ab}=\ZZ/|G|$, \anton{and some size argument that says $G=G^\mathit{ab}$}.
+
+What if $G$ acts freely on $S^3$? By the way, the only spheres which are groups are $S^1$ and $S^3$. A Lie group always has a trivial tangent bundle, so only $S^1$, $S^3$, and $S^7$ are possible, but since the octonians are not associative, it turns out that $S^7$ cannot be a group. So $S^3=SU(2)\subseteq \HH^\times$. The quaternion group $Q_{4m}=\<e^{\pi i/m},j\>$ is an extension
+\[
+ 1\to \ZZ/2m\xrightarrow{\mathit{gen}\mapsto e^{\pi i/m}} Q_{4m}\xrightarrow{j\mapsto \mathit{gen}} \ZZ/2\to 1
+\]
+Note that $j^2=-1\in \ZZ/2m$, so this extension does not split. This is not a semi-direct product. The easiest quaternion group is $Q_8=\{\pm 1,\pm i,\pm j,\pm k\}$.
+
+[[break]]
+
+I got a couple of questions over the break. Why does a non-vanishing section of the tangent bundle $TM$ imply that $\chi(M)=0$? Integrating the non-vanishing vector field to flow for $\e$ time, so you get a fixed-point-free automorphism of $M$ (because the vector field is non-vanishing). Since the flow is homotopic to the identity and $L$ is homotopy invariant, so $0=L(F_\e)=L(F)=\chi(M)$.
+
+Ok, back to subgroups of $SU(2)$. There is a double covering $SU(2)\to \RR P^3=SO(3)$, and $SO(3)$ has some nice finite subgroups, the symmetries of your favorite platonic solids, the tetrahedral group, octahedral group, and dodecahedral group. So you get these binary extentions, which turn out to be $SL_2(\FF_3)$, \anton{something}, and $SL_2(\FF_5)$. We have that $|SL_2(\FF_p)|=|GL_2(\FF_p)|/(p-1)=(p^2-1)(p^2-p)/(p-1)=(p^2-1)p$, so the orders for $p=3,5$ are 24 and 120.
+
+It happens that in $SL_2(\FF_p)$, every abelian subgroup is cyclic (I invite you to check this), which implies that it has periodic homology (we'll prove this). Moreover, $SL_2(\FF_p)$ acts freely on the sphere, but no such \emph{linear} action exists
+
+If $G\subseteq O(2k)$ (in fact, $SO(2k)$ because it must be orientation preserving), then $G$ acts freely on $S^{2k-1}$. The claim is that there is no embedding $SL_2(\FF_p)\to SO(2k)$ for $p\ge 7$.
+
+It is a deep theorem of Wall and Madison that periodic homology implies a free action on a sphere (which may be non-linear).
+
+If you quotient $S^3$ by one of these binary groups, it is the same as $SO(3)$ modulo the corresponding platonic group.
+
+\smallskip
+
+Ok, let's go back and proof observation (b). We have the covering map $S^{2k-1}\to S^{2k-1}/G$, and $S^{2k-1}/G=M$ is a closed oriented manifold. Write down the chain complexes like before
+\[\xymatrix@C-.5pc{
+  C_0(S^{2k-1})\ar[dr]\ar[rr]^N & & C_{2k-1}(S^{2k-1})\ar[r] & \cdots \ar[r] & C_0(S^{2k-1})\ar[dr]\\
+ & \ZZ\ar[ur] \ar[d]_{\cdot |G|} & C_{2k-1}(M)\ar[r] & \cdots \ar[r] & C_0(M)\ar[dr]& \ZZ\\
+ & \ZZ \ar[ur] & & & & \ZZ
+}\]
+As before, $C_n(S^{2k-1})$ are free $\ZZ[G]$-module, and as before, we splice many copies together to get a free resolution of $\ZZ$. Tensoring down and computing homology, we get something periodic with period $2k$. Moreover, since tensoring is right exact, the homology $H_{2k}(G)=0$ (the homology at $C_0(S^{2k-1})$. We can also see that $H_{2k-1}(G)=\ZZ/|G|$. We know that the top complex is exact at $C_{2k-1}(S^{2k-1})$. Some diagram chase gives you the $H_{2k-1}=\ZZ/|G|$.
+
+
+
+
+

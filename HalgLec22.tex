@@ -1,0 +1,120 @@
+\sektion{22}{Leray-Serre spectral sequence}
+
+The lemma left over from last time was on HW1. \anton{}
+
+\begin{theorem}
+ If $F\to E\xrightarrow\pi B$ is a (Serre) fibration, then there exists a spectral sequence $E^2_{p,q}= H_p(B;H_q(F))\Rightarrow H_{p+q}(E)$.
+\end{theorem}
+Recall that a fibration $F\to E\xrightarrow \pi B$ is a map $\pi\colon E\to B$, where $B$ is a path connected space with a point $b_0$, and $F=\pi^{-1}(b_0)$ such that for any homotopy $D^n\times I\to B$ and any lift of $D\times\{0\}$ to $E$, there exists a lift of the homotopy:
+\[\xymatrix{
+ D^n \ar[r]\ar@{^(->}[d]_{i_0} & E\ar[d]^\pi\\
+ D^n\times I \ar[r] \ar@{-->}[ur]^{\exists} & B
+} \qquad\qquad
+\xymatrix{
+ |\Lambda^{n+1}_0| \ar@{^(->}[d] \ar[r] & E\ar[d]^\pi\\
+ |\Delta^{n+1}| \ar[r] \ar@{-->}[ur]^\exists & B
+}\]
+Since $(D^n\times I,D^n\times 0)\cong (|\Delta^{n+1}|,|\Lambda^{n+1}_0|)$, this is equivalent to the condition on the right. If $B$ is a point, then all spaces $E$ are ``Kan'' because there is a retraction $|\Delta^{n+1}|\to |\Lambda^{n+1}_0|$, but if $B$ is not a point, then this is a real condition. In $s\set$, a \emph{Kan fibration} is a map $E_\udot\to B_\udot$ satisfying
+\[\xymatrix{
+ \Lambda^{n+1}_{0,\udot} \ar@{^(->}[d] \ar[r] & E_\udot\ar[d]\\
+ \Delta^{n+1}_\udot \ar[r] \ar@{-->}[ur]^\exists & B_\udot
+}\]
+Such things realize to Serre fibrations.
+\begin{remark}
+ The lift is unique if and only if $F$ is discrete. In this case, you call $E\to B$ a covering map.
+\end{remark}
+
+Another way to say that $\pi\colon E\to B$ is a Serre fibration is that for all CW complexes $X$, homtopies of maps from $X$ to $B$ lift to $E$.\footnote{If you take $X$ to be any space, this is the definition of (non-Serre) fibrations.} This implies that $\pi_1(B,b_0)$ acts on $F$ (up to homtopy). For $[\alpha]\in \pi_1(B,b_0)$, I have
+\[\xymatrix{
+ F\times 0 \ar@{^(->}[r] \ar@{^(->}[d] & E\ar[d]^\pi\\
+ F\times I \ar@{-->}[ur]^h \ar[r]_-{\alpha\circ p_2} & B
+}\]
+I define $a(\alpha)\colon F\to F$ to be $a(\alpha):=h(-,1)$. $F$ may not be a CW complex, but since we're only trying to define an action up to homotopy (and $F$ is weakly equivalent to a CW complex), we don't run into trouble. We have to show that this is independent of $\alpha$ and independent of $h$. Suppose $\alpha'\in [\alpha]$, with $\alpha\simeq_\beta \alpha'$ and $h'$ a lift of $\alpha'$, then
+\[\xymatrix{
+ F\times \sqcup \ar[r] \ar@{^(->}[d] \ar[r] & E\ar[d]^\pi\\
+ F\times \square \ar@{-->}[ur]^H \ar[r]_-{\beta\times p_2} & B
+}\]
+($\sqcup = I\times 0\cup \partial I\times I\subseteq I\times I=\square$) Define the map $F\times \sqcup\to E$ to be $h$ and $h'$ on $F\times (I\times 0)$ and $F\times (I\times 1)$ respectively, and take the standard inclusion on $F\times(0\times I)$. Check that the outer square commutes, so we can fill in $H$. Then $H|_{I\times 1}$ gives me a homotopy from $a(\alpha)$ to $a(\alpha')$.
+
+In the theorem, the coefficients $H_q(F)$ are twisted by the action of $\pi_1(B,b_0)$. If I have a space $B$ and a $\pi_1(B)$-module $M$, then I can define $H_p(B;M)$ as $H_p\bigl(C_*(\tilde B)\otimes_{\ZZ[\pi_1 B]} M\bigr)$, where $\tilde B$ is the universal cover of $B$ (assuming it exists\footnote{Otherwise, you can use a flat bundle or a locally constant sheaf. \anton{how do you define sheaf \emph{homology}?}})
+
+\begin{claim}
+ The Hochschild-Serre spectral sequence is a special case of the Leray-Serre spectral sequence.
+\end{claim}
+\begin{proof}
+ If $1\to N\to G\to Q\to 1$ is an extension of groups, then there is a fibration $K(N,1)\to K(G,1)\to K(Q,1)$ inducing the correct action of $Q$ on $H_q(N)$. You can use this to show that inner automorphisms act trivially on $H_q(N)$ because conjugation in $\pi_1$ is change of basepoint, and the homology doesn't care about basepoint. You take $K(G,1)=|\C_G|$ to get the fibration; this makes surjectivity $K(G,1)\to K(Q,1)$ obvious, and it obvious it is a fibration (because $\C_G\to \C_Q$ is a Kan fibration), but it is not obvious that the fiber is $K(N,1)$. Suppose it is $F\to K(G,1)\to K(Q,1)$ and look at the long exact sequence in homotopy groups to see that $F$ must be a $K(N,1)$. Then you have to check that the action of $Q$ on $H_p(N)$ is the right action.
+\end{proof}
+
+Ok, what does the theorem mean? First of all, it means you have $E^r_{p,q}$ and differentials $d_r$. Second of all, you have convergence (convergence is automatic because this is first quadrant). This means that there is a filtration $F^pH_{p+q}(E)$ such that $F^pH_{p+q}(E)/F^{p-1}H_{p+q}(E) \cong E^\infty_{p,q}$.
+
+\begin{example}[Gysin sequence]
+ Let $S^n\to E\xrightarrow\pi B$ be a fibration. Then $H_q(S^n)$ is very easy to understand. We get a picture of $E^2$:
+ \[\xymatrix@!0 @+1pc{
+  \vdots & 0 & 0 & 0 & \cdots\\
+  n & H_{0,\rho} B & H_{1,\rho} B & H_{2,\rho}B & \cdots\\
+  \vdots& 0 & 0 & 0 & \cdots \\
+  0 & H_0B & H_1 B & H_2 B & \cdots\\
+  & 0 & 1 & 2 & \cdots
+ }\]
+ Let $\rho\colon \pi_1 B\to \Aut(H_nS^n)=\{pm 1\}$, then the $H_{i,\rho} B$ are the homologies of $B$ with twisted coefficients. We turn pages for a while, and nothing happens until we get to $E^{n+1}$, where we get $d_{n+1}\colon H_{n+j}B\to H_{j,\rho}B$. After that, all the differentials are zero. The conclusion is that $E^n=E^2$, and $E^\infty=E^{n+2}$.
+ 
+ It happens that if a spectral sequence is so sparse (if it has only two rows or only two columns), then it contains exactly the same information as some long exact sequence. So you can think of spectral sequences as generalizations of long exact sequeces.
+
+ [[break]]
+ 
+ The two-row spectral sequence tells us that we get an exact sequence
+ \[\xymatrix@R-1.5pc @C-.8pc{
+  & E^\infty_{p,0}\ar@{=}[d] & E^2_{p,0}\ar@{=}[d] & E^2_{p-n-1,n}\ar@{=}[d] & E^\infty_{p-n-1,n}\ar@{=}[d]\\
+  0 \ar[r] & E^{n+2}_{p,0}\ar[r] & E^{n+1}_{p,0}\ar[r]^-{d_{n+1}} & E^{n+1}_{p-n-1,n} \ar[r] & E^{n+2}_{p-n-1,q}\ar[r]& 0
+ }\]
+ and that there is a short exact sequence (at the bottom)
+ \[\xymatrix@-1pc{
+  & H_{p-n,\rho}(B) \ar@{=}[d] & & & & H_p(B)\ar@{=}[d]\\
+  \ar@{-->}[r]^-{d_{n+1}} & E^2_{p-n,n}\ar@{->>}[dr] \ar@{-->}[drr] & & & & E^2_{p,0} \ar@{-->}[r]^-{d_{n+1}} & \\
+  & 0\ar[r] & E^\infty_{p-n,n}\ar[r] & H_p(E)\ar[r] \ar@{-->}[urr] & E^\infty_{p,0}\ar[r] \ar@{^(->}[ur] & 0
+ }\]
+ Then the dashed sequence is exact, so we get a long exact sequence. Finally, we always have an \emph{edge homomorphism}, an isomorphism between $H_p(B)$ and $E^2_{p,0}$
+ 
+ All together, we get a long exact sequence
+ \[
+  H_{p+1}E\to H_{p+1} B\to H_{p-n,\rho}B\to H_pE\xrightarrow{\pi_*} H_p B \xrightarrow{d_{n+1}} H_{p-n-1,\rho} B
+ \]
+\end{example}
+\begin{remark}
+ Such a fibration $S^n\to E\to B$ has an Euler class $e(\pi)\in H^{n+1,\rho}(B)$, and $d_{n+1}$ is given by cap product with $e(\pi)$.
+\end{remark}
+\begin{example}[Wang sequence]
+ Let $F\to E\to S^n$ be a fibration. This works like the Gysin sequence, but you end up with only two non-zero columns. Playing around, you get a similar long exact sequence. The case $n=1$ is somehow special, so let $F\to E\to S^1$ be a fibration on the circle. This is usually an easy way to construct an interesting space. If you remove a point of $S^1$, you get a fibration over the interval, which must be trivial, so a fibration over the circle is given by monodromy (a self homotopy equivalence) $\alpha\colon F\to F$. Then the fibration is given by $F\times I/\sim$ where $(0,f)\sim (1,\alpha(f))$.
+ 
+ You can go back. Using that $S^1\simeq K(\ZZ,1)$, we know that a fibration is the same thing as an element of $\hom(\pi_1 E,\ZZ)$. The sequence $0\to \pi_1 F\to \pi_1 E\to \pi_1 S^1\cong \ZZ$ splits, so you know that $\pi_1 E\cong \pi_1 F\rtimes_{\alpha_*} \ZZ$
+ 
+ In this case, the spectral sequence is
+ \[\xymatrix @!0 @C+2pc @R+1pc{
+  2 & (H_2F)_\ZZ & (H_2F)^\ZZ & 0 & 0 \\
+  1 & (H_1F)_\ZZ & (H_1F)^\ZZ & 0 & 0 \\
+  0 & H_0F & H_0F & 0 & 0\\
+  & 0 & 1 & 2 & \cdots
+ }\]
+ Since the non-zero columns are adjacent, the differentials already have to be zero, so $E^\infty=E^2$! $H_p(S^1;M)=H_p(\ZZ;M)$ because $S^1=K(\ZZ,1)$, and we have
+ \[
+  H_p(\ZZ;M) =
+  \begin{cases}
+   M_\ZZ & p=0\\
+   M^\ZZ & p=1\\
+   0 & p>1
+  \end{cases}
+ \]
+ You can see that $H_1(S^1;M)\cong H^0(S^1;M) M^\ZZ$ using Poincar\'e duality. Later, we'll see another way to do this using a universal coefficients theorem.
+ 
+ So we get short exact sequences
+ \[
+  0\to (H_pF)_\ZZ \to H_p(E)\to (H_{p-1}F)^\ZZ\to 0
+ \]
+ This is equivalent to a long exact sequence (the Wang sequence)
+ \[\xymatrix @!0 @C+.6pc {
+  **[l] H_{p+1}E \ar[r] & H_pF \ar[rr]^-{\id-\alpha_*} && H_p F \ar@{->>}[dr] \ar[rr] & & H_pE \ar[dr]\ar[rr] & & H_{p-1}F \ar[rr]^-{\id-\alpha_*} & & H_{p-1}F\\
+  & & & & (H_p F)_\ZZ\ar@{^(->}[ur] & & (H_{p-1} F)^\ZZ \ar@{^(->}[ur]
+ }\]
+\end{example}
+
+

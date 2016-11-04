@@ -1,0 +1,82 @@
+\sektion{15}{???}
+
+Our goal is to understand all the functors in the following diagram. We've already understood all the functors in the bottom row.
+\[\xymatrix@R-.5pc{
+ \chain \ar@{=}[d] \ar@<-1ex>[r] \ar@{}[r]_R|-\simeq & s\ab \ar@<-.5ex>[d]_U\ar@{<-}@<.5ex>[d]^L \ar@<-1ex>[l]_{N_*} \ar@<-.5ex>[r]_-U & s\set \ar@<-.5ex>[d]_U \ar@{<-}@<.5ex>[d]^L \ar@<-.5ex>[l]_-{Free} \ar@<.5ex>[r]^-{|\cdot|} & \top \ar@{=}[d] \ar@<.5ex>[l]^-{\Delta_\udot}\\
+ \chain \ar@/_/[r]_R & ss\ab \ar[l]_-{Alt} \ar@<-.5ex>[r]_-U & ss\set \ar@<-.5ex>[l]_-{Free} \ar@<.5ex>[r]^-{Re} & \top \ar@<.5ex>[l]^-{\Delta_\udot}\\
+}\]
+\anton{note the distinction between the two realization functors. $U$ means forgetful functor}
+
+Remember that we're trying to relate chain complexes and topological spaces. It turns out that you can do everything in homological algebra in simplicial sets. It also turns out that simplicial sets will be equivalent to topological spaces as homotopy categories.
+
+Why are semi-simplicial sets not quite good enough? All limits and colimits exist in all these categories. Let's see how these functors behave with respect to limits and colimits. (compactly generated) topological spaces has products. Since $\Delta_\udot$ is right adjoint, it preserves products. Similarly, $|\cdot|$ respects coproducts (disjoint union). Does $\Delta_\udot$ respect coproducts? Yes! A map from $\Delta^n$ to a disjoint union is the same thing as a map to one of the things in disjoint union. However, it turns out that $Re(X_\udot\times Y_\udot)\not\cong Re(X_\udot)\times Re(Y_\udot)$.
+
+Consider the case where $X_\udot=Y_\udot=\Delta_\udot^1$, the standard 1-simplex, so $X_0=\{v_0,v_1\}$, $X_1=\{e\}$, $Y_0=\{w_0,w_1\}$, and $Y_1=\{f\}$. Then $X_\udot\times Y_\udot$ is the pointwise product, so $(X\times Y)_0=\{v_0w_0,v_0w_1,v_1w_0,v_1w_1\}$, $(X\times Y)_1=\{ef\}$. It turns out that single edge goes between $v_0w_0$ and $v_1w_1$, leaving two vertices hanging.
+
+I'm about to talk about homotopy, where you cross with the interval, which goes terribly wrong. So how can we fix it? We need four more edges and two new 2-simplices. So what if we throw in two more edges for $X$ and two more for $Y$, so $X_1=\{e,e_0,e_1\}$ and $Y=\{f,f_0,f_1\}$. You also have to throw in some faces.
+
+The upshot is that simplicial sets exactly fill in the picture the way we want it to be. We'll see that the realization functor from simplicial sets to topological spaces will respect products and coproducts.
+\begin{definition}
+ $s\set=\fun(\DDelta^\circ,\set)$, where $\DDelta$ is the category with objects $\{0,\dots, n\}=[n]$ and morphisms weakly order-preserving maps.
+\end{definition}
+We have $\C_\Delta\subseteq \DDelta$, so we can restrict a functor to $\C_\Delta$ to get a forgetful functor $U\colon s\set\to ss\set$.
+\begin{lemma}
+ Any morphism $\alpha$ in $\DDelta$ can be written uniquely as a composition $i\circ s$, where $i$ is injective and $s$ is surjective.
+\end{lemma}
+If $\alpha$ is injective, it is a morphism of $\C_\Delta$, so it is uniquely a composition of $\partial_{i_0}\cdots\partial_{i_s}$ where $0\le i_s< \cdots < i_0$. Here, $\partial_i$ is the ``skip $i$'' map. There are corresponding maps $\sigma_i\colon [n]\to [n-1]$ which is the surjective map so that $\sigma_i^{-1}(i)$ has two elements. Note that there are $n-1$ $\sigma_i$ and $n$ $\partial_i$. If $\alpha$ is sujective, then it is uniquely a composition $\sigma_{i_0}\cdots \sigma_{i_r}$ with $0\le i_0< \cdots < i_r$
+
+The picture of $X_\udot$ is the following
+\[\xymatrix{
+ \cdots & X_2 \ar@3{->}@/_/[l] \ar@3{->}[r] & X_1 \ar@2{->}[r] \ar@2{->}@/_/[l] & X_0 \ar@/_/[l]
+}\]
+There are some relations among the maps, but I won't write them all out. You can figure them out if you like. There are three sets of relations ($\partial/\partial$, $\sigma/\sigma$, and $\sigma/\partial$).
+\begin{example}[representable functors]
+ Let $\Delta_\udot^n=r[n]$. Then $(\Delta^n)_m$ is the set of maps in $\DDelta$ from $[m]$ to $[n]$. There are $\left(\!\binom mn \! \right)$ of these (this is multi-choose notation). 
+ 
+ In particular, we have $\Delta^0_m = \{*\}$ for all $m$. Similarly, $\Delta^1_m = \DDelta([m],[1])$, and such a thing is determined by the preimage of $0$. In particular, we get three 1-simplices $\Delta^1_1=\{e,e_0,e_1\}$ (here $e$ is injective, and $e_0$ and $e_1$ are not).
+\end{example}
+
+What will the geometric realization functor be? Recall the homework assignment: If $\C\to \fun(\C^\circ, \set)$ is the Yoneda embedding and $\ga\colon \C\to \D$, where $\D$ is a cocomplete category, then there is a unique realization functor $Re\colon \fun(\C^\circ,\set)\to \D$ making the triangle commute. Moreover, this $Re$ is left adjoint to some other functor $Sing$. Apply the homework to the case $\C=\DDelta$, $\D=\top$ and $\ga([n])=\Delta^n$. You have to check that the new (degeneracy) maps give you maps in $\top$; they are just given by extending the map on vertices linearly. Call the realization $|\cdot|$.
+
+Let's unravel this $|\cdot|$ functor a bit. We have that
+\[
+ |X_\udot| = \Bigl(\bigsqcup_{n\in \NN_0, x\in X_n} \Delta^n\Bigr)/\sim \quad =\quad \bigsqcup_{n\in \NN_0} X_n\times \Delta^n /\sim
+\]
+The equivalence relation is given by the maps, so for every $\alpha\colon [m]\to [n]$, you have $(X(\alpha)(x),t)\sim (x,\ga(\alpha)(t))$. This is equivalent to saying that $(d_i(x),t)\sim (x,\partial_{i*}(t))$ and $(s_j(x),t)\sim (x,\sigma_{j*}(t))$. If $\sigma_j$ is the surjection which repeats $j$, then $\sigma_{j*}\colon \Delta^n\twoheadrightarrow \Delta^{n-1}$. This is a linear collapsing of an $n$-simplex onto a $(n-1)$-simplex (given by linearly extending a map on vertices, where you repeat the $j$-th vertex).
+
+The punchline is that simplices of the form $s_j(x)$ don't actually appear as new cells; they get crushed.
+\begin{definition}
+ The simplices $\alpha(x)$ with $\alpha$ a non-identity surjection are called \emph{degenerate}.
+\end{definition}
+\begin{theorem}
+ $|X_\udot|$ is a CW complex with exactly one $n$-cell for each non-degenerate $n$-simplex. 
+\end{theorem}
+\begin{corollary}
+ $|\Delta^n_\udot\times \Delta_\udot^m|\cong \Delta^n\times \Delta^m$ (as CW complexes, for some canonical subdivision of $\Delta^n\times \Delta^m$ into simplices) and $|\cdot|$ preserves products.
+\end{corollary}
+
+[[break]]
+
+Let $\Delta_\udot[n]$ be the semi-simplicial $n$-simplex, let $\Delta^n_\udot$ be the simplicial $n$-simplex, and let $\Delta^n = |\Delta_\udot^n|=Re(\Delta_\udot[n])$ be the standard $n$-simplex. This is the notation we'll try to use throughout the class.
+
+The functor $\Delta_\udot\colon \top\to s\set$, given by $\Delta_n(X)=\{f\colon \Delta^n\to X\}$. We have the forgetful functor $U\colon s\set\to ss\set$. I claim this has a left adjoint $L$. This $L$ can be constructed by the same homework problem we used earlier, using $\ga\colon \C_\Delta\subseteq \DDelta\xrightarrow r s\set$.
+
+We can concretely construct this left adjoint by throwing in a bunch of degenerate simplices. If $X_\udot \in ss\set$, then $L(X_\udot)_m = \bigsqcup_{\sigma\colon [m]\twoheadrightarrow [n]} X_n^{\sigma}$. Given $\alpha\colon [m']\to [m]$, factor $\sigma\colon \alpha$ as a surjection followed by an injection $[m']\xrightarrow{\sigma'} [n']\xrightarrow{\alpha'} [n]$; then we get a map $X_n^\sigma\xrightarrow{X(\alpha')} X_{n'}^{\sigma'}$.
+\begin{remark}
+ This works if we replace $\set$ by any category $\C$ which has coproducts. For example, we could take $\C=\ab$. In particular, we get a pair of adjoint functors between $s\ab$ and $ss\ab$.
+\end{remark}
+
+You get $R$ using the same homework problem again. Note some commutativity relations in the diagram: $Re\circ U\not\cong |\cdot|$, but $|\cdot|\circ L=Re$ and $U\circ \Delta_\udot=\Delta_\udot$. One of the homework problems (3) is that $Alt_*\circ U=N_*$.
+
+Ok, now we know all the functors. How do the monoidal structures behave. $\Delta_\udot$ and $|\cdot|$ respect products and coproducts. Between $s\ab$ and $s\set$, the coproducts are preserved by $Free$, but the coproduct in $s\set$ is taken to $\otimes$ in $s\set$. The direct sum (coproduct) in $s\ab$ is taken to $\oplus$ in $\chain$, but the tensor product only goes to $\tilde \otimes$, which is tensor product \emph{up to chain homotopy}, but not exactly. This isomorphism $\otimes\cong \tilde\otimes$ is this Eilenberg-Zilber theorem.
+
+\begin{theorem}[Dold-Kan correspondence]
+ $\chain \rightleftarrows s\ab$ is an equivalence of abelian categories and of homotopy cateogries.
+\end{theorem}
+We'll talk about this more next time.
+\begin{theorem}[Quillen]
+ $\top\rightleftarrows s\set$ is an equivalence of homotopy categories.
+\end{theorem}
+
+
+

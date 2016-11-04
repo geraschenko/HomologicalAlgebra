@@ -1,0 +1,88 @@
+\sektion{16}{???}
+
+I owe you some definitions for the homework.
+\begin{definition}
+ The \emph{nerve} of small\footnote{A \emph{small} category is a category where the objects form a set. A \emph{large} category is a category where the Hom sets are allowed to be proper classes. In large categories, you have to worry about whether composition of morphisms works like you want. We will run into these large cateogries when we do derived categories.} category $\C$ is a simplicial set $N_\udot(\C)$, with $N_n(\C)=\{X_0\xrightarrow{f_1} X_1\xrightarrow{f_2}\cdots \xrightarrow{f_n} X_n\}$, with $d_i\colon N_n(\C)\to N_{n-1}(\C)$ is given by
+ \[
+  d_i(f_1,\dots, f_n) =
+  \begin{cases}
+   (f_2,\dots, f_n) & i=0\\
+   (f_1,\dots, f_i\circ f_{i+1},\dots, f_n) & 0<i<n \text{ (compose \emph{at} $X_i$)}\\
+   (f_1,\dots, f_n) & i=n
+  \end{cases}
+ \]
+ and the degeneracy maps are given by
+ \[
+  s_j(f_1,\dots, f_n) = (f_1,\dots, f_j, \id_{X_j},f_{j+1},\dots, f_n).\qedhere
+ \]
+\end{definition}
+Note that $N_0(\C)=Obj(\C)$ and $N_1(\C)=Mor(\C)$. $d_1,d_0\colon N_2(\C)\to N_1(\C)$ are the source and target maps (respectively). Pictorially, $(f_1,\dots, f_n)$ gives you an $n$-simplex of morphisms in $\C$ (all other edges are uniquely determined as compositions of the $f_i$, well-defined because composition is associative).
+
+Let $N_n=N_n(\C)$. Then we have $N_2\xrightarrow{d_0\times d_1} N_1\times_{N_0}N_1$, with $(f_1,f_2)\mapsto (f_2,f_1)$. This map is an isomorphism, and $d_1\colon N_1\times_{N_0}N_1\cong N_2\to N_1$ is the composition in the category!
+
+Now we can see that associativity is expressed by simplicial relations. Associativity means that the front face of the following diagram commutes.
+\[\xymatrix@!0 @R+1pc @C+3pc{
+ N_3 \ar[dd]_{d_1} \ar[dr]^@{~} \ar[rr]^{d_2} & & N_2\ar[dr]^@{~} \ar[dd]|\hole^(.7){d_1}\\
+ & N_1\times_{N_0}N_1\times_{N_0}N_1 \ar[rr]^(.65){\id\times \mu} \ar[dd]_(.3){\mu\times \id} & & N_1\times_{N_0}N_1 \ar[dd]^\mu\\
+ N_2\ar[dr]_@{~} \ar[rr]^(.7){d_1}|\hole & & N_1\ar@{=}[dr]\\
+ & N_1\times_{N_0}N_1\ar[rr]^-{\mu} & & N_1
+}\]
+Commutativity of the front face is equivalent to commutativity of the back face (you have to check that the ``side faces'' commute), which is the relation you get from the simplicial-ness of $N_\udot$. So we have that a simplicial set $X_\udot$ comes from a small category ($X_\udot\cong N_\udot(\C)$) if and only if for all $n\ge 1$, $X_n\cong \overbrace{X_1\times_{X_0}X_1\cdots \times_{X_0}X_1}^\text{$n$ times}$.
+
+Well, really, we're missing the simplicial-ness, we only have semi-simplicial-ness. This corresponds to the fact that we haven't included identities in our categories (you could define a category without identities, and this somehow corresponds to simplicial sets without degeneracy maps).
+
+We haven't really shown that $N_\udot(\C)$ is a simplicial set. To show this, note that $N_n(\C)=\fun([\![n]\!],\C)$, where $[\![n]\!]$ is the category whose objects are $0,\dots, n$ and $Mor(i,j)=*$ if $i\le j$ and $\varnothing$ otherwise. Observe that $\DDelta(m,n)=\fun([\![m]\!],[\![n]\!])$. If we wanted strictly order-preserving maps, we would have to define $[\![n]\!]$ to be a category without identities! You can check that the maps between the $N_i(\C)$ (the maps coming with the simplicial structure) come from composition with functors between the categories $[\![i]\!]$.
+
+\begin{remark}
+ The \emph{classifying space} of $\C$ is $|N_\udot(\C)|$. The is related to the classifying space of a group $G$ by thinking of a group as a category $\Sigma G$ with one object $*$, with $\Sigma G(*,*)\cong G$. It will be a homework exercise to show that $BG=B(\Sigma G)$.
+\end{remark}
+\begin{example}
+ $\Delta_\udot^m = N_\udot([\![m]\!])$.
+\end{example}
+
+[[break]]
+
+Let me show you a good motivation for this cocompletion homework problem we keep using. If you want the simplicization functor $L\colon ss\ab\to s\ab$, I said you can do it similar to $L\colon ss\set\to s\set$, but it's a bit trickier. If you have an additive category $\C$ (the Hom sets are abelian groups), then instead of the usual Yoneda embedding, you should take $\C\hookrightarrow \fun_{add}(\C,\ab)$. Let's look at an application.
+
+If $R$ is a ring, then we can make a category $\Sigma R$, with one object, with the composition given by multiplication and addition is addition. A functor $M\colon \Sigma R\to \ab$ is the same thing as a left $R$-module $M$ (it would be a left $R$-module if it were contravariant). What is the realization?
+\[\xymatrix{
+ \Sigma R \ar[dr]_M \ar[r]^-r & \fun_{add}(\Sigma R^\circ, \ab) \rlap{$\;\cong \rmod R$}\ar[d]^{N\mapsto N\otimes_R M}\\
+ & \ab
+}\]
+It is exactly tensoring with $M$! You can check for yourself what the right adjoint is.
+
+Next week, I'll (PT) be gone and Chris will talk about non-abelian extensions, crssed modules, and associators. Then we have spring break. Then we have four weeks and May left
+\begin{enumerate}
+ \item[1.] Dold-Kan correspondence ($\chain\cong s\ab$), spectral sequences and applications
+ \item[2.] spectral sequences and applications
+ \item[3,4.] derived categories, derived functors, and triangulated categories
+ \item[May.] I'm gone again and Chris will do something interesting.
+\end{enumerate}
+\[\xymatrix@R-1pc{
+ S_*(X) & & & X\ar@{|->}[lll] \\
+ \chain \ar@<.5ex>[r]\ar@{<-}@<-.5ex>[r] & s\ab \ar@<.5ex>[r]\ar@{<-}@<-.5ex>[r] & s\set \ar@{->>}[d]^{?} \ar@<.5ex>[r]^{|\cdot|} \ar@{<-}@<-.5ex>[r]_{\Delta_\udot} & \top \ar@{->>}[d]\\
+ h\chain^{proj}{\A} & & hs\set \ar[r]^{|\cdot|}& h\top \\
+ d\chain(\A) \ar@{=}[u]^\wr & & h\kan\ar@{=}[u]^\wr \ar[r]^{|\cdot|} & h\cw h\kan\ar@{=}[u]^\wr
+}\]
+We know what the homotopy categories of $\chain$ and $\top$ are. We'd like to relate the notion of chain homotopy and the notion of homotopy of topological spaces.
+\begin{definition}
+ Two morphisms of simplicial sets\footnote{These are just natural transformations of functors $\DDelta^\circ\to \set$.} $f_0,f_1\colon X_\udot\to Y_\udot$ are \emph{homotopic} if there is a homotopy $H\colon X_\udot\times \Delta^1_\udot\to Y_\udot$ such that $H\circ i_j= f_j$, where $i_0,i_1\colon X_\udot\to X_\udot \times \Delta^1_\udot$ are the maps you expect.
+\end{definition}
+Geometric realization preserves products, so a simplicial homotopy gives a topological homotopy, so we get a descended functor.
+\begin{warning}
+ Homotopy is not an equivalence relation in $s\set$. Moreover, $hs\set\xrightarrow{|\cdot|}h\top$ is not essentially surjective. Everything in the image is a CW complex (and not all topological spaces are CW complexes). Both of these problems can be resolved as follows.
+\end{warning}
+Remember that for any topological space, we have a canonical map $|\Delta_\udot X|\to X$. This map is a weak equivalence (it induces isomorphisms on all $\pi_i$ for all basepoints), but I won't prove it. I'm sure it goes back to Quillen.
+\begin{definition}
+ The \emph{derived category} $d\top$ is obtained from $\top$ by formally inverting all weak equivalences.
+\end{definition}
+The problem is that this might not be a category! This is the problem of small versus large. $Obj(d\top)=Obj(\top)$, and morphisms from $X$ to $Y$ are given by chains $X\xleftarrow{weq} X_1\xrightarrow{f} X_2\xleftarrow{weq} \cdots X_n\to Y$ modulo some relations.\footnote{The universal property is that for any category $\D$ and any map $\top\to \D$ taking weak equivalences to isomorphisms, it factors uniquely through $d\top$.} Even if we fix $X$ and $Y$, the $X_i$ can vary over all over the place, so it is not obvious $d\top$ is a (non-large) category.
+\begin{theorem}[Whitehead's Theorem $+$ CW approximation]
+ $d\top\cong h\cw$ as categories.
+\end{theorem}
+Note that homotopy \emph{is} an equivalence relation on a subcategory of simplicial sets $\kan\subseteq s\set$. The claim is that $\top\xrightarrow{\Delta_\udot} s\set$ factors through $\kan$, just like $s\set\xrightarrow{|\cdot|}\top$ factors trough $\cw$. Quillen's theorem is that $|\cdot|\colon h\kan\to h\cw$ is an equivalence of categories.
+
+
+
+
+

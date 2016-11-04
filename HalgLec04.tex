@@ -1,0 +1,82 @@
+\sektion{4}{???}
+
+Discussion section will be Friday 12-1 in 939.
+
+Today we'll make some definitions purely algebraically. Later, we'll show the definitions are motivated by geometry.
+
+\subsektion{The homotopy category of chain complexes}
+
+Note that $\chain_R$ is a category (of chain complexes of $R$-modules). A morphism between two chain complexes is what you think it is (morphisms in all degrees so that the squares commute). It should be clear that a chian map induces a morphism on homology. This is because a chain map sends cycles to cycles and boundaries to boundaries. Another way to say this is that $H_n\colon \chain_R\to R\mod$ is a functor.
+
+There is another category, $\hchain$, whose objects are chains, but the morphisms are different. The morphisms in $\hchain$ are homotopy classes of chain maps.
+\begin{definition}
+ Two chain maps, $f$ and $g$, are \emph{chain homotopic} (written $f\sim g$) if there exists a ``map of degree $-1$'' (which isn't a chain map), $h$, such that $f-g=hd+d'h$.
+\end{definition}
+\[\xymatrix{
+ \cdots \ar[r]^d & C_{n+1}\ar[r]^d\ar[dl]_h \ar[d]|{f-g} & C_n \ar[dl]_h \ar[r]^d\ar[d]|{f-g} & C_{n-1} \ar[dl]_h \ar[d]|{f-g}\ar[r]^d & \cdots \\
+ \cdots \ar[r]_{d'} & C'_{n+1}\ar[r]_{d'} & C'_n \ar[r]_{d'} & C'_{n-1}\ar[r]_{d'} & \cdots
+}\]
+Let's check that $hd+d'h$ is a chain map. We have to check that $d'(hd+d'h)=(hd+d'h)d$. Since $d^2=0$ and $d'^2=0$, so both sides are equal to $d'hd$.
+
+[[$\hom_R({}_RM,{}_R M')$ is not an $R$-module (unless $R$ is commutative)]]
+
+I claim that the homology functor $H_n\colon \chain_R\to R\mod$ factors through $\hchain$. To show this, it is enough to show that two homotopic maps induce the same map on homology. For this, we need to show that $hd+d'h$ induces the zero map on homology. Let $z$ be an $n$-cycle (so $dz=0$). Then $(hd+d'h)(z)=0+d'(h(z))$, which is a boundary, so cycles get taken to boundaries (which are zero in homology).
+
+Notation: A chain map $f\colon C_*\to C_*'$ is a \emph{homotopy equivalence} if it is an isomorphism in the homotopy category (i.e.~there is a chain map the other way so that the compositions are homotopic to the identity maps on $C_*$ and $C_*'$). This implies that $f$ is a \emph{quasi-isomorphism} (i.e.~that it induces isomorphisms on all homologies). We'll see that being a quasi-isomorphism is weaker than homotopy equivalence. If you invert quasi-isomorphisms, you get the derived category. In the homotopy category, the homotopy equivalences are already inverted.
+\begin{definition}
+ A chain complex $C_*$ is \emph{contractible} if it is homotopy equivalent to the zero complex.
+\end{definition}
+Since the zero complex is initial and terminal, we can explictly say what this means. It means that the identity on $C_*$ is homotopic to the zero map. That is, $C_*$ is contractible if and only if there is a map $h$ of degree $-1$ so that $dh+hd=\id_{C_*}$.
+\begin{lemma}
+ If $C_*$ is contractible, then it is \emph{acyclic} (i.e.~all homology groups are zero).
+\end{lemma}
+\begin{warning}
+ A topological space $X$ is contractible if $X\simeq *$, which implies $C_*(X)\simeq C_*(*)$, and $C_*(*)$ is not quite the zero complex (it is $\ZZ$ in degree zero; I'm using the cellular complex). There are a couple of ways to fix this. On way is to work with pointed spaces (so that the point is initial and terminal in your category). Another way is to work with the augmented chain complex of the topological space.
+ 
+ Whatever chain complex $C_*(X)=(\cdots \to C_1\to C_0)$ you use, and add an agumentation map $\e\colon C_0\to \ZZ$. Usually, $C_0$ is some free abelian group. Define $\e$ by taking all free generators to 1.
+\end{warning}
+\begin{example}[Simplex with vertex set $V$]
+ Let $V$ be any set. Define a chain complex $S_*(V)$ by taking $S_n(V)$ to be the free $R$-module (or abelian group) on $V^{n+1}$ (think of these as ordered vertices of a (possibly degenerate) $n$-simplex). Define $d\colon S_n(V)\to S_{n-1}(V)$ by $d=\sum_{i=0}^n (-1)^i d_i$, where $d_i(v_0,\dots, v_n)=(v_0,\dots, \hat v_i,\dots, v_n)$. As usual, $d^2=0$ (we'll actually do this calculation when we do simplicial sets).
+ 
+ To show that this is contractible, we need to produce a map $h\colon S_{n-1}(V)\to S_n(V)$ so that $hd+dh=\id$. Define $h(v_0,\dots, v_{n-1}):= (w,v_0,\dots, v_{n-1})$, where $w$ is some fixed element of $V$. Now we check that
+ \begin{align*}
+  (hd+dh)(v_0,\dots, v_n) &= h\Bigl(\sum (-1)^i (\dots,\hat v_i,\dots)  \Bigr) + d(w,v_0,\dots, v_n)\\
+  &= \sum (-1)^i (w,v_0,\dots, \hat v_i,\dots, v_n) + (v_0,\dots, v_n) \\
+  & \qquad \qquad\qquad - \sum (-1)^i (w,v_0,\dots, \hat v_i,\dots, v_n)\\
+  &= (v_0,\dots, v_n)
+ \end{align*}
+ So we've proven $S_*(V)\simeq 0$.
+\end{example}
+[[break]]
+
+If $V=G$ is a group, then $S_*(V)\in {}_{\ZZ G}\chain$ (left $\ZZ G$-modules) by defining $g\cdot (g_0,\dots, g_n)=(gg_0,\dots, gg_n)$. This makes $S_*(G)$ into a free $\ZZ G$-module with basis $\{(1,h_1,\dots, h_n)\}=\{(1,g_1,g_1g_2,\dots, g_1\cdots g_n)\}$. We'll define $(g_1|g_2|\cdots |g_n):=(1,g_1,g_1g_2,\dots, g_1\cdots g_n)$. Then it turns out that we get the Bar complex. So we have $G^n\cong \{(g_1|\cdots | g_n)\}\subseteq G^{n+1}$.
+
+We see that $d_0(g_1|\cdots | g_n)=g_1\cdot (g_2|\cdots g_n)$. This is a little different from the differential for the Bar complex (we didn't have the $g_1$). Now let's calculate $d_1(g_1|\cdots |g_n)=(g_1g_2|\cdots |g_n)$, and in general, $d_i(g_1|\cdots |g_n)=(g_1|\cdots | g_ig_{i+1}|\cdots |g_n)$ for $0<i<n$. Finally, $d_n(g_1|\cdots| g_n)= (g_1|\cdots| g_{n-1})$. So $d_i$ for $i\neq 0$ are all exactly like in the Bar complex. I claim that it is a good thing that the $d_0$ is different; it makes $S_*(G)$ into a complex of $\ZZ G$-modules.
+
+In fact, we have that $C^B_*(G)\cong \ZZ\otimes_{\ZZ G} S_*(G)$ (including the differentials!). This is an isomorphism in $\chain$.
+\begin{definition}
+ If $R$ is any ring, and $M$ is an $R$-module, then a \emph{resolution} of $M$ is an exact sequence $\cdot \to F_1\to F_0\to M\to 0$. It is called a free (resp.~projective) resolution if the $F_i$ are free (resp.~projective).
+\end{definition}
+\begin{lemma}
+ $\cdots S_2G\to S_1G\to S_0G\to \ZZ$ is a free $\ZZ G$ resolution of $\ZZ$.
+\end{lemma}
+We've already proved the lemma. We already showed that the $S_i G$ are free $\ZZ G$-modules (with free basis $\{(g_1|\cdots | g_n)\}$), and we showed that $S_*(G)$ is contractible (the $\ZZ$ is the free abelian group on $G^0$).
+
+Moreover, $H_n(G):= H_n(C_*^B(G))=H_n(\ZZ\otimes_{\ZZ G} S_*(G))$. \begin{theorem}
+ Given any two free resolutions $F_*\to M$ and $F_*'\to N$ and a module homomorphism $f_{-1}\colon M\to N$, there is a chain map $f\colon F_*\to F_*'$ extending $f_{-1}$. Moreover, $f$ is unique up to homotopy.
+\end{theorem}
+We'll prove the theorem next week, but we can get some results from it now.
+\begin{corollary}
+ The following definition makes sense.
+\end{corollary}
+\begin{definition}
+ $\tor_n^R(Q,M):= H_n(Q\otimes_R F_*)$ for any right $R$-module $Q$ and any free resolution of the left $R$-module $M$.
+\end{definition}
+In particular, $H_n(G)=\tor_n^{\ZZ G}(\ZZ_{\ZZ G},{}_{\ZZ G}\ZZ)$.
+
+
+
+
+
+
+
